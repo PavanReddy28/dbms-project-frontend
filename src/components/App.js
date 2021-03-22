@@ -1,10 +1,19 @@
-
+import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Login from "./Login"
 
 function App() {
   return (
-    <div>
-      <h1>Tournament manager app</h1>
-    </div>
+    <Router>
+      <div>
+        <Switch>
+          <Route exact path="/login">
+          <Login />
+
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
 }
 
