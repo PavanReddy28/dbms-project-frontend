@@ -1,8 +1,9 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import { axiosInstance } from '../axiosInstance'
 
 function Register() {
 
@@ -12,8 +13,14 @@ function Register() {
     const [validate, setValidate] = useState(true);
 
     function authenticate(event) {
-        if(confirmPassWord === passWord){
+        if (confirmPassWord === passWord) {
             setValidate(true);
+
+            axiosInstance.post("/register", {
+                "username": userName,
+                "password": passWord
+            }).then(response => alert("user registered"))
+                .catch((err) => console.log(err))
         } else {
             setValidate(false);
         }
@@ -23,8 +30,8 @@ function Register() {
 
     return (
         <Container maxWidth="xs">
-        <Typography component="h1" variant="h5">
-          Sign in
+            <Typography component="h1" variant="h5">
+                Sign Up!
         </Typography>
             <form>
                 <TextField
@@ -36,8 +43,8 @@ function Register() {
                     label="Username"
                     name="username"
                     autoFocus
-                    onChange = {event => setUserName(event.target.value)}
-                    value = {userName}
+                    onChange={event => setUserName(event.target.value)}
+                    value={userName}
                 />
                 <TextField
                     variant="outlined"
@@ -48,8 +55,8 @@ function Register() {
                     label="Password"
                     type="password"
                     id="password"
-                    onChange = {event => setPassWord(event.target.value)}
-                    value = {passWord}
+                    onChange={event => setPassWord(event.target.value)}
+                    value={passWord}
                 />
                 <TextField
                     variant="outlined"
@@ -63,15 +70,15 @@ function Register() {
                     onChange={event => setConfirmPassWord(event.target.value)}
                     value={confirmPassWord}
                     error={!validate}
-                    helperText = {!validate && "Passwords do not match"}
+                    helperText={!validate && "Passwords do not match"}
                 />
                 <Button
                     type="submit"
                     fullWidth
                     variant="contained"
                     color="primary"
-                    onClick = {authenticate}
-                >Sign in</Button>
+                    onClick={authenticate}
+                >Register Account</Button>
             </form>
         </Container>
     )
