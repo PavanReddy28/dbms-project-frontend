@@ -34,7 +34,10 @@ function Login() {
             // error is thrown whenever wrong credentials are put
             if(err.response.status === 400){
 
-                alert("wrong credentials");
+                setFlag(true);
+
+            } else {
+                console.log(err);
             }
         });
 
@@ -59,6 +62,7 @@ function Login() {
                     autoFocus
                     onChange = {event => setUserName(event.target.value)}
                     value = {userName}
+                    error = {flag}
                 />
                 <TextField
                     variant="outlined"
@@ -71,6 +75,8 @@ function Login() {
                     id="password"
                     onChange = {event => setPassWord(event.target.value)}
                     value = {passWord}
+                    error = {flag}
+                    helperText = {flag && "Invalid credentials"}
                 />
                 <Button
                     type="submit"
