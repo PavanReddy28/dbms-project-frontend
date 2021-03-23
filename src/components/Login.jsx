@@ -3,11 +3,43 @@ import Container from '@material-ui/core/Container';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import {axiosInstance} from '../axiosInstance';
+import {useHistory} from "react-router-dom";
 
 function Login() {
 
+    const history = useHistory();
+
     const [userName, setUserName] = useState("");
     const [passWord, setPassWord] = useState("");
+    const [flag, setFlag] = useState(false);
+
+    function authenticate(event) {
+
+        // send a post request to backend for a jwt token
+        axiosInstance.post("/login",{
+
+            "username":userName,
+            "password": passWord
+        })
+        .then(response => {
+
+            // store the token if it exists into the local storage
+            localStorage.setItem("accessToken", response.data.access_token);
+            // go to base url after login
+            history.replace("/")
+
+        }).catch((err) => {
+
+            // error is thrown whenever wrong credentials are put
+            if(err.response.status === 400){
+
+                alert("wrong credentials");
+            }
+        });
+
+        event.preventDefault();
+    }
 
 
     return (
@@ -45,6 +77,7 @@ function Login() {
                     fullWidth
                     variant="contained"
                     color="primary"
+                    onClick = {authenticate}
                 >Sign in</Button>
             </form>
         </Container>
