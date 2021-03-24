@@ -4,7 +4,8 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Login from "./Login"
 import Register from "./Register"
 import Header from "./Header"
-import Footer from "./Footer"
+import Footer from "./Footer";
+import Home from "./Home"
 
 function App() {
   return (
@@ -18,6 +19,9 @@ function App() {
           </Route>
           <Route exact path="/register">
             <Register />
+          </Route>
+          <Route exact path="/">
+            <Home />
           </Route>
         </Switch>
         <Footer />
