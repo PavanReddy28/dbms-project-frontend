@@ -1,6 +1,7 @@
-import React from "react";
-import { AppBar, Toolbar, Box, Button, makeStyles, Typography } from "@material-ui/core";
+import React, { useState } from "react";
+import { AppBar, Toolbar, Box, Hidden, Button, makeStyles, IconButton, List, ListItem, ListItemText, Drawer, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
+import { Menu } from "@material-ui/icons";
 
 const useStyles = makeStyles({
     nav: {
@@ -13,6 +14,13 @@ const useStyles = makeStyles({
     },
     link: {
         textDecoration: "none"
+    },
+    list: {
+        width: "250px"
+        
+    },
+    listItem: {
+        color: "black"
     }
 });
 
@@ -21,6 +29,7 @@ const useStyles = makeStyles({
 function Header() {
 
     const classes = useStyles();
+    const [isOpen, setIsOpen] = useState(false);
 
     const links = [
         {
@@ -38,11 +47,13 @@ function Header() {
     ]
 
     return (
-            <AppBar position="sticky">
-                <Toolbar>
-                    <Typography variant="h6">
+        <>
+        <AppBar position="sticky">
+            <Toolbar>
+                <Typography variant="h6">
                     App name
                     </Typography>
+                <Hidden only={["xs", "sm"]}>
                     <Box className={classes.nav}>
                         {links.map(link => {
                             return (
@@ -52,11 +63,34 @@ function Header() {
                             )
                         })}
                     </Box>
-                </Toolbar>
+                </Hidden>
+                <Hidden only={["md","lg","xl"]}>
+                    <IconButton
+                        onClick={() => setIsOpen(true)}
+                        color="inherit"
+                        className={classes.nav}
+                    >
+                    <Menu />
+                    </IconButton>
+                </Hidden>
 
-
-
-            </AppBar>
+            </Toolbar>
+        </AppBar>
+        <Drawer anchor="right" open={isOpen} onClose={() => setIsOpen(false)}>
+                <List className = {classes.list}>
+                    {links.map(link => {
+                        return (
+                            <Link to={link.path} className={classes.link}>
+                            <ListItem button >
+                                <ListItemText primary={link.name} className={classes.listItem}/>
+                            </ListItem>
+                            </Link>
+                            
+                        )
+                    })}
+                </List>
+        </Drawer>
+        </>
 
     )
 }

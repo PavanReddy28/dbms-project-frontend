@@ -54,7 +54,6 @@ function Register() {
                     name="password"
                     label="Password"
                     type="password"
-                    id="password"
                     onChange={event => setPassWord(event.target.value)}
                     value={passWord}
                 />
@@ -66,7 +65,6 @@ function Register() {
                     name="confirm-password"
                     label="Confirm Password"
                     type="password"
-                    id="password"
                     onChange={event => setConfirmPassWord(event.target.value)}
                     value={confirmPassWord}
                     error={!validate}
