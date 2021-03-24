@@ -38,8 +38,7 @@ function Header() {
     ]
 
     return (
-        <div>
-            <AppBar position="static">
+            <AppBar position="sticky">
                 <Toolbar>
                     <Typography variant="h6">
                     App name
@@ -58,7 +57,6 @@ function Header() {
 
 
             </AppBar>
-        </div>
 
     )
 }
