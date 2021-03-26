@@ -1,9 +1,8 @@
 import React from 'react'
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { Input, InputLabel, MenuItem, FormControl, FormControlLabel, Select, Typography, Grid, Checkbox, Chip } from '@material-ui/core'
+import { Input, InputLabel, MenuItem, FormControl, FormControlLabel, Select, Typography, Grid, Checkbox, Chip, Button } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
-    
     formControl: {
         margin: theme.spacing(1),
         minWidth: 120,
@@ -15,6 +14,14 @@ const useStyles = makeStyles((theme) => ({
       chip: {
         margin: 2,
       },
+      buttons: {
+        display: 'flex',
+        justifyContent: 'flex-end',
+    },
+    button: {
+        marginTop: theme.spacing(3),
+        marginLeft: theme.spacing(1),
+    },
 }));
   
 const ITEM_HEIGHT = 48;
@@ -51,12 +58,14 @@ function getStyles(name, sport, theme) {
     };
 }
 
-const SportData = () => {
+
+const SportData = ({ onAdd, handleNext, handleBack }) => {
 
     const classes = useStyles();
     const theme = useTheme();
     const [teamSport, setTeamSport] = React.useState([]);
     const [indivSport, setIndivSport] = React.useState([]);
+    const [saveSports, setSaveSports] = React.useState(false);
   
     const handleTeamChange = (event) => {
         setTeamSport(event.target.value);
@@ -65,6 +74,22 @@ const SportData = () => {
     const handleIndivChange = (event) => {
         setIndivSport(event.target.value);
     };
+
+    const onSubmit = (e) => {    
+        if(teamSport.length===0 && indivSport.length===0)
+        {
+            alert('Please add atleast one sport.');
+            return 
+        }
+        onAdd({teamSport, indivSport});
+        handleNext();
+      };
+
+      const onhSubmit = (e) => {
+        onAdd({teamSport, indivSport});
+        handleBack();
+      };
+    
     
     return (
         <React.Fragment>
@@ -81,7 +106,7 @@ const SportData = () => {
                             multiple
                             value={teamSport}
                             onChange={handleTeamChange}
-                            input={<Input id="select-multiple-chip" />}
+                            input={<Input id="select-team-multiple-chip" />}
                             renderValue={(selected) => (
                                     <div className={classes.chips}>
                                         {selected.map((value) => (
@@ -109,7 +134,7 @@ const SportData = () => {
                             multiple
                             value={indivSport}
                             onChange={handleIndivChange}
-                            input={<Input id="select-multiple-chip" />}
+                            input={<Input id="select-indiv-multiple-chip" />}
                             renderValue={(selected) => (
                                     <div className={classes.chips}>
                                         {selected.map((value) => (
@@ -130,10 +155,22 @@ const SportData = () => {
                 </Grid>
                 <Grid item xs={12}>
                     <FormControlLabel
-                        control={<Checkbox color="primary" name="saveSports" value="yes" />}
+                        control={<Checkbox color="primary" name="saveSports" value={saveSports} onChange={(e)=>setSaveSports(e.currentTarget.checked)} />}
                         label="Remember Sport details for next time"
                     />
                 </Grid>
+                <div className={classes.buttons}>
+                    <Button onClick={onhSubmit} className={classes.button}>
+                        Back
+                    </Button>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={onSubmit}
+                        className={classes.button}>
+                        Next
+                    </Button>
+                </div>
             </Grid>
         </React.Fragment>
     );
