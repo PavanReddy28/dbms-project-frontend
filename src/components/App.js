@@ -5,7 +5,9 @@ import Login from "./Login"
 import Register from "./Register"
 import Header from "./Header"
 import Footer from "./Footer";
-import Home from "./Home"
+import Home from "./Home";
+import Dashboard from "./Dashboard";
+import PrivateRoute from "../Private/PrivateRoute";
 
 function App() {
   return (
@@ -15,7 +17,7 @@ function App() {
         <Header />
         <Switch>
           <Route exact path="/login">
-            <Login />
+            <Login/>
           </Route>
           <Route exact path="/register">
             <Register />
@@ -23,6 +25,7 @@ function App() {
           <Route exact path="/">
             <Home />
           </Route>
+          <PrivateRoute exact path='/dashboard' component={Dashboard} />
         </Switch>
         <Footer />
       </div>
