@@ -1,48 +1,48 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import { CssBaseline, Paper, Stepper, Step, StepLabel, Button, Typography } from '@material-ui/core'
+import { CssBaseline, Paper, Stepper, Step, StepLabel, Typography } from '@material-ui/core'
 import TournForm from './TournForm'
 import SportData from './SportData'
 import Review from './Review'
 
-const Tournament = [
-    {
-        id: 1,
-        general : {
-            tournName: "Arena",
-            organizer: "BITS Pilani Hyderabad",
-            location: "Hyderabad, Telangana"
-        },
-        sports : {
-            teamSports: [
-                'Basketball',
-                'Cricket'
-            ],
-            indivSports: [
-                'Tennis',
-                'Badminton'
-            ]
-        }        
-    },
-    {
-        id: 2,
-        general : {
-            tournName: "Spree",
-            organizer: "BITS Pilani Goa",
-            location : "Goa"
-        },
-        sports : {
-            teamSports: [
-                'Basketball',
-                'Soccer',
-            ],
-            indivSports: [
-                'Tennis',
-                'Table Tennis',
-            ]
-        }
-    }
-]
+// const Tournament = [
+//     {
+//         id: 1,
+//         tournName: "Arena",
+//         organizer: "BITS Pilani Hyderabad",
+//         location: "Hyderabad, Telangana"              
+//     },
+//     {
+//         id: 2,
+//         tournName: "Spree",
+//         organizer: "BITS Pilani Goa",
+//         location : "Goa"
+//     }
+// ]
+
+// const sports = [{
+//     id:1,
+//     teamSports: [
+//         'Basketball',
+//         'Cricket'
+//     ],
+//     indivSports: [
+//         'Tennis',
+//         'Badminton'
+//     ]},
+//     {
+//         id:2,
+//         teamSports: [
+//             'Basketball',
+//             'Soccer',
+//         ],
+//         indivSports: [
+//             'Tennis',
+//             'Table Tennis',
+//         ]
+//     }
+
+// ]
 
 const useStyles = makeStyles((theme) => ({
     layout: {
@@ -78,25 +78,12 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
   
-const steps = ['General Details', 'Sports Details', 'Review'];
-
-function getStepContent(step)
-{
-        switch (step) {
-            case 0:
-                return <TournForm />;
-            case 1:
-                return <SportData />;
-            case 2:
-                return <Review />;
-            default:
-                throw new Error('Unknown step');
-        }
-}
 
 const CreateTourn = () => {
     
     const classes = useStyles();
+    const [Tournament, setTournament] = React.useState([]);
+    const [sports, setSports] = React.useState([]);
     const [activeStep, setActiveStep] = React.useState(0);
 
     const handleNext = () => {
@@ -107,13 +94,39 @@ const CreateTourn = () => {
         setActiveStep(activeStep - 1);
     };
 
+    const steps = ['General Details', 'Sports Details', 'Review'];
+
+
+
+    function getStepContent(step)
+    {
+            switch (step) {
+                case 0:
+                    return <TournForm onAdd={addTournament} handleNext={handleNext}/>;
+                case 1:
+                    return <SportData onAdd={addSports} handleNext={handleNext} handleBack={handleBack}/>;
+                case 2:
+                    return <Review Tournament={Tournament} sports={sports} handleNext={handleNext} handleBack={handleBack}/>;
+                default:
+                    throw new Error('Need to add Dashboard.');
+            }
+    };
+
+    const addTournament = (Tourn) => {
+        setTournament([Tourn]);
+    };
+
+    const addSports = (sport) => {
+        setSports([sport]);
+    };
+
     return (
         <React.Fragment>
         <CssBaseline />
         <main className={classes.layout}>
         <Paper className={classes.paper}>
             <Typography component="h1" variant="h4" align="center">
-                Tournament
+                Create Tournament
             </Typography>
             <Stepper activeStep={activeStep} className={classes.stepper}>
                 {steps.map((label) => (
@@ -123,35 +136,7 @@ const CreateTourn = () => {
                 ))}
             </Stepper>
             <React.Fragment>
-                {activeStep === steps.length ? (
-                <React.Fragment>
-                    <Typography variant="h5" gutterBottom>
-                    "{Tournament[0].general.tournName}" Tournament will be Created shortly.
-                    </Typography>
-                    {/* <Typography variant="subtitle1">
-                    
-                    </Typography> */}
-                </React.Fragment>
-                ) : (
-                <React.Fragment>
-                    {getStepContent(activeStep)}
-                    <div className={classes.buttons}>
-                    {activeStep !== 0 && (
-                        <Button onClick={handleBack} className={classes.button}>
-                        Back
-                        </Button>
-                    )}
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={handleNext}
-                        className={classes.button}
-                    >
-                        {activeStep === steps.length - 1 ? 'Create' : 'Next'}
-                    </Button>
-                    </div>
-                </React.Fragment>
-                )}
+                {getStepContent(activeStep)}
             </React.Fragment>
         </Paper>
         </main>
