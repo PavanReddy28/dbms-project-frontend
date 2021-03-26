@@ -5,45 +5,6 @@ import TournForm from './TournForm'
 import SportData from './SportData'
 import Review from './Review'
 
-// const Tournament = [
-//     {
-//         id: 1,
-//         tournName: "Arena",
-//         organizer: "BITS Pilani Hyderabad",
-//         location: "Hyderabad, Telangana"              
-//     },
-//     {
-//         id: 2,
-//         tournName: "Spree",
-//         organizer: "BITS Pilani Goa",
-//         location : "Goa"
-//     }
-// ]
-
-// const sports = [{
-//     id:1,
-//     teamSports: [
-//         'Basketball',
-//         'Cricket'
-//     ],
-//     indivSports: [
-//         'Tennis',
-//         'Badminton'
-//     ]},
-//     {
-//         id:2,
-//         teamSports: [
-//             'Basketball',
-//             'Soccer',
-//         ],
-//         indivSports: [
-//             'Tennis',
-//             'Table Tennis',
-//         ]
-//     }
-
-// ]
-
 const useStyles = makeStyles((theme) => ({
     layout: {
         width: 'auto',
