@@ -6,6 +6,7 @@ import Register from "./Register"
 import Header from "./Header"
 import Footer from "./Footer";
 import Home from "./Home"
+import CreateTourn from "./CreateTourn";
 
 function App() {
   return (
@@ -14,6 +15,9 @@ function App() {
       <div>
         <Header />
         <Switch>
+          <Route exact path="/createTourn">
+            <CreateTourn />
+          </Route>
           <Route exact path="/login">
             <Login />
           </Route>
