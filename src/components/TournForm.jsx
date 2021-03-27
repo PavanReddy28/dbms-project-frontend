@@ -13,17 +13,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const TournForm = ({onAdd, handleNext}) => {
+const TournForm = ({Tournament, onAdd, handleNext}) => {
 
     const classes = useStyles();
 
-    const [tournName, setTournName] = useState("")
-    const [college, setCollege] = useState('')
-    const [address, setAddress] = useState('')
-    const [city, setCity] = useState('')
-    const [state, setState] = useState('')
-    const [zip, setZip] = useState('')
-    const [country, setCountry] = useState('')
+    const [tournName, setTournName] = useState(Tournament.length!==0? Tournament[0].tournName : '')
+    const [college, setCollege] = useState(Tournament.length!==0? Tournament[0].college : '')
+    const [address, setAddress] = useState(Tournament.length!==0? Tournament[0].address : '')
+    const [city, setCity] = useState(Tournament.length!==0? Tournament[0].city : '')
+    const [state, setState] = useState(Tournament.length!==0? Tournament[0].state : '')
+    const [zip, setZip] = useState(Tournament.length!==0? Tournament[0].zip : '')
+    const [country, setCountry] = useState(Tournament.length!==0? Tournament[0].country : '')
     const [saveAddress, setSaveAddress] = useState(false)
 
     const onSubmit = (e) => {

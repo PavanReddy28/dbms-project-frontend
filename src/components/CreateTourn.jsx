@@ -63,9 +63,9 @@ const CreateTourn = () => {
     {
             switch (step) {
                 case 0:
-                    return <TournForm onAdd={addTournament} handleNext={handleNext}/>;
+                    return <TournForm Tournament={Tournament} onAdd={addTournament} handleNext={handleNext}/>;
                 case 1:
-                    return <SportData onAdd={addSports} handleNext={handleNext} handleBack={handleBack}/>;
+                    return <SportData sports={sports} onAdd={addSports} handleNext={handleNext} handleBack={handleBack}/>;
                 case 2:
                     return <Review Tournament={Tournament} sports={sports} handleNext={handleNext} handleBack={handleBack}/>;
                 default:

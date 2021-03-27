@@ -35,7 +35,7 @@ const MenuProps = {
     },
 };
 
-const sports = {
+const sportsList = {
     teamSports: [
         'Basketball',
         'Football',
@@ -59,12 +59,13 @@ function getStyles(name, sport, theme) {
 }
 
 
-const SportData = ({ onAdd, handleNext, handleBack }) => {
+const SportData = ({ sports, onAdd, handleNext, handleBack }) => {
 
     const classes = useStyles();
     const theme = useTheme();
-    const [teamSport, setTeamSport] = React.useState([]);
-    const [indivSport, setIndivSport] = React.useState([]);
+
+    const [teamSport, setTeamSport] = React.useState(sports.length>0 && sports[0].teamSport.length>0? sports[0].teamSport : []);
+    const [indivSport, setIndivSport] = React.useState(sports.length>0 && sports[0].indivSport.length>0? sports[0].indivSport : []);
     const [saveSports, setSaveSports] = React.useState(false);
   
     const handleTeamChange = (event) => {
@@ -116,7 +117,7 @@ const SportData = ({ onAdd, handleNext, handleBack }) => {
                                 )}
                             MenuProps={MenuProps}>
 
-                            {sports.teamSports.map((name) => (
+                            {sportsList.teamSports.map((name) => (
                                 <MenuItem key={name} value={name} style={getStyles(name, teamSport, theme)}>
                                     {name}
                                 </MenuItem>
@@ -144,7 +145,7 @@ const SportData = ({ onAdd, handleNext, handleBack }) => {
                                 )}
                             MenuProps={MenuProps}>
 
-                            {sports.indivSports.map((name) => (
+                            {sportsList.indivSports.map((name) => (
                                 <MenuItem key={name} value={name} style={getStyles(name, indivSport, theme)}>
                                     {name}
                                 </MenuItem>
