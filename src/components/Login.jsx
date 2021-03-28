@@ -8,6 +8,7 @@ import {useHistory} from "react-router-dom";
 
 function Login() {
 
+
     const history = useHistory();
 
     const [userName, setUserName] = useState("");
@@ -27,7 +28,7 @@ function Login() {
             // store the token if it exists into the local storage
             localStorage.setItem("accessToken", response.data.access_token);
             // go to base url after login
-            history.replace("/")
+            history.replace("/dashboard")
 
         }).catch((err) => {
 
