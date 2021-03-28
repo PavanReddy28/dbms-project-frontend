@@ -1,23 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { axiosInstance } from "../axiosInstance";
-import {useHistory} from "react-router-dom";
-import { 
+import { useHistory } from "react-router-dom";
+import {
     Grid,
-    Container, 
-    Typography, 
-    makeStyles, 
-    Paper, 
-    List, 
-    ListItem, 
-    ListItemText, 
-    Button, 
-    IconButton, 
+    Container,
+    Typography,
+    Box,
+    makeStyles,
+    Paper,
+    List,
+    ListItem,
+    ListItemText,
+    Button,
+    IconButton,
     Collapse,
     Dialog,
     DialogActions,
     DialogContentText,
     DialogTitle,
-    DialogContent 
+    DialogContent
 } from '@material-ui/core';
 // import { DeleteIcon } from "@material-ui/icons";
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -40,8 +41,8 @@ const useStyles = makeStyles((theme) => ({
         overflow: "auto"
     },
     addIcon: {
-        color: "green",
-        backgroundColor: "blue"
+        display: "block",
+        marginLeft: "auto"
     },
     nested: {
         paddingLeft: theme.spacing(4)
@@ -79,7 +80,7 @@ function Dashboard() {
     //         .catch(err => console.log(err))
 
     function handleClick(id) {
-        id !== open?setOpen(id) : setOpen(null);
+        id !== open ? setOpen(id) : setOpen(null);
     }
 
     function handleConfirm(tournament) {
@@ -94,15 +95,15 @@ function Dashboard() {
 
     function HandleDelete() {
         axiosInstance.delete("/tournament", {
-            data:{
-                "tournament_id":dialogTourn.tournament_id
+            data: {
+                "tournament_id": dialogTourn.tournament_id
             },
             headers: {
                 "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
             }
         })
         setTournaments(previous => {
-            return previous.filter( tournament => {
+            return previous.filter(tournament => {
                 return tournament.tournament_id !== dialogTourn.tournament_id
             })
         });
@@ -117,87 +118,92 @@ function Dashboard() {
 
     return (
         <>
-        <Grid container spacing={2} className={classes.container}>
+            <Grid container spacing={2} className={classes.container}>
 
-            <Grid item lg={6} sm={12}>
-                <Paper className={classes.paper} elevation={1}>
-                    <Typography variant="h5" color="primary">Current Tournaments</Typography>
-                    <IconButton onClick = {() => history.push("/createTourn")}>
-                    
-                        <AddIcon />
-                    
-                        
-                    </IconButton>
+                <Grid item lg={6} sm={12}>
+                    <Paper className={classes.paper} elevation={1}>
+                        <Grid container>
+                            <Grid item sm={6} lg={6}>
+                                <Typography variant="h5" color="primary">Current Tournaments</Typography>
+                            </Grid>
+                            <Grid item sm={6} lg={6}>
+                                <IconButton onClick={() => history.push("/createTourn")} className={classes.addIcon}>
+                                    <AddIcon />
+                                </IconButton>
+                            </Grid>
+                        </Grid>
 
-                    <List className={classes.list}>
 
 
-                        {tournaments.map(tournament => {
-                            return (
-                                <>
-                                <ListItem button key={tournament.tournament_id} onClick = {() => handleClick(tournament.tournament_id)}>
-                                    <ListItemText primary={tournament.t_name} />
-                                    <IconButton size="small">
-                                        <EditIcon /> 
-                                    </IconButton>
-                                    <IconButton size="small" color="secondary" onClick = {() => handleConfirm(tournament)}>
-                                        <DeleteIcon />
-                                    </IconButton>
-                                    {open === tournament.tournament_id ? <ExpandLess /> : <ExpandMore />}
-                                </ListItem>
-                                
-                                <Collapse in={open === tournament.tournament_id} timeout="auto">
-                                    <List component="div" disablePadding>
-                                        <ListItem>
-                                            <ListItemText primary={"Organizer: " + tournament.college} className={classes.nested}/>
+                        <List className={classes.list}>
+
+
+                            {tournaments.map(tournament => {
+                                return (
+                                    <>
+                                        <ListItem button key={tournament.tournament_id} onClick={() => handleClick(tournament.tournament_id)}>
+                                            <ListItemText primary={tournament.t_name} />
+                                            <IconButton size="small">
+                                                <EditIcon />
+                                            </IconButton>
+                                            <IconButton size="small" color="secondary" onClick={() => handleConfirm(tournament)}>
+                                                <DeleteIcon />
+                                            </IconButton>
+                                            {open === tournament.tournament_id ? <ExpandLess /> : <ExpandMore />}
                                         </ListItem>
-                                        <ListItem>
-                                            <ListItemText primary={"City: " + tournament.city} className={classes.nested}/>
-                                        </ListItem>
-                                    </List>
 
-                                </Collapse>
-                                </>
-                            )
-                        })}
-                    </List>
-                </Paper>
+                                        <Collapse in={open === tournament.tournament_id} timeout="auto">
+                                            <List component="div" disablePadding>
+                                                <ListItem>
+                                                    <ListItemText primary={"Organizer: " + tournament.college} className={classes.nested} />
+                                                </ListItem>
+                                                <ListItem>
+                                                    <ListItemText primary={"City: " + tournament.city} className={classes.nested} />
+                                                </ListItem>
+                                            </List>
+
+                                        </Collapse>
+                                    </>
+                                )
+                            })}
+                        </List>
+                    </Paper>
+                </Grid>
+
+                <Grid item lg={6} sm={12}>
+                    <Paper className={classes.paper} elevation={1}>
+                        <Typography variant="h5" color="primary">Current Matches</Typography>
+                        <List className={classes.list}>
+
+
+                            {matches.map(match => {
+                                return <ListItem><ListItemText primary={match} /></ListItem>
+                            })}
+                        </List>
+                    </Paper>
+                </Grid>
             </Grid>
-
-            <Grid item lg={6} sm={12}>
-                <Paper className={classes.paper} elevation={1}>
-                    <Typography variant="h5" color="primary">Current Matches</Typography>
-                    <List className={classes.list}>
-
-
-                        {matches.map(match => {
-                            return <ListItem><ListItemText primary={match} /></ListItem>
-                        })}
-                    </List>
-                </Paper>
-            </Grid>
-        </Grid>
-        <Dialog
-        open={dialogOpen}
-        onClose={() => setDialogOpen(false)}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">{dialogTourn !== null?"Delete tournament '" + dialogTourn.t_name + "' ?":""}</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            By pressing confirm this tournament will be permanently deleted
+            <Dialog
+                open={dialogOpen}
+                onClose={() => setDialogOpen(false)}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">{dialogTourn !== null ? "Delete tournament '" + dialogTourn.t_name + "' ?" : ""}</DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        By pressing confirm this tournament will be permanently deleted
           </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={HandleDelete} color="secondary" >
-            Confirm
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={HandleDelete} color="secondary" >
+                        Confirm
           </Button>
-          <Button onClick={handleCancel} color="primary" autoFocus>
-            Cancel
+                    <Button onClick={handleCancel} color="primary" autoFocus>
+                        Cancel
           </Button>
-        </DialogActions>
-      </Dialog>
+                </DialogActions>
+            </Dialog>
         </>
     )
 }
