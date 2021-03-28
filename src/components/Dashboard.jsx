@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { axiosInstance } from "../axiosInstance"
+import { axiosInstance } from "../axiosInstance";
+import {useHistory} from "react-router-dom";
 import { 
     Grid,
     Container, 
@@ -50,10 +51,14 @@ const useStyles = makeStyles((theme) => ({
 function Dashboard() {
 
     const classes = useStyles();
+    const history = useHistory();
+
     const [tournaments, setTournaments] = useState([]);
     const [open, setOpen] = useState(null)
     const [dialogOpen, setDialogOpen] = useState(false);
     const [dialogTourn, setDialogTourn] = useState(null);
+
+
     const matches = ["Goa vs Pilani", "Goa vs Hyd", "Goa vs Pilani", "Goa vs Hyd", "Goa vs Pilani", "Goa vs Hyd", "Goa vs Pilani", "Goa vs Hyd", "Goa vs Pilani", "Goa vs Hyd"];
 
     useEffect(() => {
@@ -118,7 +123,10 @@ function Dashboard() {
                 <Paper className={classes.paper} elevation={1}>
                     <Typography variant="h5" color="primary">Current Tournaments</Typography>
                     <IconButton>
-                        <AddIcon />
+                    
+                        <AddIcon onClick = {() => history.push("/createTourn")}/>
+                    
+                        
                     </IconButton>
 
                     <List className={classes.list}>
@@ -138,7 +146,7 @@ function Dashboard() {
                                     {open === tournament.tournament_id ? <ExpandLess /> : <ExpandMore />}
                                 </ListItem>
                                 
-                                <Collapse in={open === tournament.tournament_id} timeout="auto" unMountOnExit>
+                                <Collapse in={open === tournament.tournament_id} timeout="auto">
                                     <List component="div" disablePadding>
                                         <ListItem>
                                             <ListItemText primary={"Organizer: " + tournament.college} className={classes.nested}/>
