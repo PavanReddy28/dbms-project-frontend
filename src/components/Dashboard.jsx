@@ -122,9 +122,9 @@ function Dashboard() {
             <Grid item lg={6} sm={12}>
                 <Paper className={classes.paper} elevation={1}>
                     <Typography variant="h5" color="primary">Current Tournaments</Typography>
-                    <IconButton>
+                    <IconButton onClick = {() => history.push("/createTourn")}>
                     
-                        <AddIcon onClick = {() => history.push("/createTourn")}/>
+                        <AddIcon />
                     
                         
                     </IconButton>
@@ -140,8 +140,8 @@ function Dashboard() {
                                     <IconButton size="small">
                                         <EditIcon /> 
                                     </IconButton>
-                                    <IconButton size="small">
-                                        <DeleteIcon onClick = {() => handleConfirm(tournament)}/>
+                                    <IconButton size="small" color="secondary" onClick = {() => handleConfirm(tournament)}>
+                                        <DeleteIcon />
                                     </IconButton>
                                     {open === tournament.tournament_id ? <ExpandLess /> : <ExpandMore />}
                                 </ListItem>
