@@ -5,9 +5,11 @@ import Login from "./Login"
 import Register from "./Register"
 import Header from "./Header"
 import Footer from "./Footer";
+import CreateTourn from "./CreateTourn";
 import Home from "./Home";
 import Dashboard from "./Dashboard";
 import PrivateRoute from "../Private/PrivateRoute";
+
 
 function App() {
   return (
@@ -16,6 +18,9 @@ function App() {
       <div>
         <Header />
         <Switch>
+          <Route exact path="/createTourn">
+            <CreateTourn />
+          </Route>
           <Route exact path="/login">
             <Login/>
           </Route>
