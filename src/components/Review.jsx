@@ -41,25 +41,25 @@ const Review = ({ Tournament, sports, handleNext, handleBack }) => {
             </Typography>
             <Grid item xs={12}>
                     <Typography variant="h6" gutterBottom className={classes.title}>
-                    {Tournament[0].tournName}
+                    {Tournament.tournName}
                     </Typography>
-                    <Typography variant="body2">{Tournament[0].college}</Typography>
+                    <Typography variant="body2">{Tournament.college}</Typography>
                 </Grid>
             <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
                     <Typography variant="h6" gutterBottom className={classes.title}>
                         Location
                     </Typography>
-                    <Typography gutterBottom>{Tournament[0].college}</Typography>
-                    <Typography gutterBottom>{Tournament[0].address}</Typography>
-                    <Typography gutterBottom>{Tournament[0].city}</Typography>
+                    <Typography gutterBottom>{Tournament.college}</Typography>
+                    <Typography gutterBottom>{Tournament.address}</Typography>
+                    <Typography gutterBottom>{Tournament.city}</Typography>
                 </Grid>
                 <Grid item container direction="column" xs={12} sm={6}>
                     <Typography variant="h6" gutterBottom className={classes.title}>
                         Sports Being Organized
                     </Typography>
-                    <Typography gutterBottom>{sports[0].teamSport.join(', ')}</Typography>
-                    <Typography gutterBottom>{sports[0].indivSport.join(', ')}</Typography>                            
+                    <Typography gutterBottom>{sports.teamSport.join(', ')}</Typography>
+                    <Typography gutterBottom>{sports.indivSport.join(', ')}</Typography>                            
                 </Grid>
                 <div className={classes.buttons}>
                     <Button onClick={onhSubmit} className={classes.button}>

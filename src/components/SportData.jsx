@@ -39,7 +39,6 @@ const sportsList = {
     teamSports: [
         'Basketball',
         'Football',
-        'Soccer',
         'Cricket'
     ],
     indivSports: [

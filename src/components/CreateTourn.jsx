@@ -1,9 +1,11 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import { CssBaseline, Paper, Stepper, Step, StepLabel, Typography } from '@material-ui/core'
-import TournForm from './TournForm'
-import SportData from './SportData'
-import Review from './Review'
+import { CssBaseline, Paper, Stepper, Step, StepLabel, Typography, Button } from '@material-ui/core';
+import {axiosInstance} from "../axiosInstance";
+import {Link} from "react-router-dom";
+import TournForm from './TournForm';
+import SportData from './SportData';
+import Review from './Review';
 
 const useStyles = makeStyles((theme) => ({
     layout: {
@@ -43,13 +45,35 @@ const useStyles = makeStyles((theme) => ({
 const CreateTourn = () => {
     
     const classes = useStyles();
-    const [Tournament, setTournament] = React.useState([]);
-    const [sports, setSports] = React.useState([]);
+    const [Tournament, setTournament] = React.useState({});
+    const [sports, setSports] = React.useState({});
     const [activeStep, setActiveStep] = React.useState(0);
+
+    const handleSubmit = () => {
+        const reqSports = sports.teamSport.concat(sports.indivSport);
+        const data = {
+            "t_name":Tournament.t_name,
+            "college":Tournament.organizer,
+            "city": Tournament.city,
+            "region": Tournament.state,
+            "zip": Tournament.zip,
+            "country": Tournament.country,
+            "address": Tournament.address,
+            "sports":reqSports
+        };
+        console.log(data);
+        axiosInstance.post("/tournament",data,{
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
+            }
+        }).then( response => setActiveStep(activeStep + 1))
+        .catch(err => console.log(err));
+        
+    };
 
     const handleNext = () => {
         setActiveStep(activeStep + 1);
-    };
+    }
 
     const handleBack = () => {
         setActiveStep(activeStep - 1);
@@ -67,18 +91,23 @@ const CreateTourn = () => {
                 case 1:
                     return <SportData sports={sports} onAdd={addSports} handleNext={handleNext} handleBack={handleBack}/>;
                 case 2:
-                    return <Review Tournament={Tournament} sports={sports} handleNext={handleNext} handleBack={handleBack}/>;
+                    return <Review Tournament={Tournament} sports={sports} handleNext={handleSubmit} handleBack={handleBack}/>;
                 default:
-                    throw new Error('Need to add Dashboard.');
+                    // throw new Error('Need to add Dashboard.');
+                    return(
+                            <Link to ="/dashboard">
+                                <Button>return to dashboard</Button>
+                            </Link>   
+                    )
             }
     };
 
     const addTournament = (Tourn) => {
-        setTournament([Tourn]);
+        setTournament(Tourn);
     };
 
     const addSports = (sport) => {
-        setSports([sport]);
+        setSports(sport);
     };
 
     return (

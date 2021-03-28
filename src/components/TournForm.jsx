@@ -17,25 +17,27 @@ const TournForm = ({Tournament, onAdd, handleNext}) => {
 
     const classes = useStyles();
 
-    const [tournName, setTournName] = useState(Tournament.length!==0? Tournament[0].tournName : '')
-    const [college, setCollege] = useState(Tournament.length!==0? Tournament[0].college : '')
-    const [address, setAddress] = useState(Tournament.length!==0? Tournament[0].address : '')
-    const [city, setCity] = useState(Tournament.length!==0? Tournament[0].city : '')
-    const [state, setState] = useState(Tournament.length!==0? Tournament[0].state : '')
-    const [zip, setZip] = useState(Tournament.length!==0? Tournament[0].zip : '')
-    const [country, setCountry] = useState(Tournament.length!==0? Tournament[0].country : '')
-    const [saveAddress, setSaveAddress] = useState(false)
+    // const [tournName, setTournName] = useState(Tournament.length!==0? Tournament.tournName : '')
+    // const [college, setCollege] = useState(Tournament.length!==0? Tournament.college : '')
+    // const [address, setAddress] = useState(Tournament.length!==0? Tournament.address : '')
+    // const [city, setCity] = useState(Tournament.length!==0? Tournament.city : '')
+    // const [state, setState] = useState(Tournament.length!==0? Tournament.state : '')
+    // const [zip, setZip] = useState(Tournament.length!==0? Tournament.zip : '')
+    // const [country, setCountry] = useState(Tournament.length!==0? Tournament.country : '')
+    // const [saveAddress, setSaveAddress] = useState(false)
+    const [tourn, setTourn] = useState({});
 
     const onSubmit = (e) => {
-      //e.preventDefault()
-
-      if(!tournName || !college || !address || !city || !state ||
-        !zip || !country)
-        {
-          alert('Please fill all the fields.');
-          return 
-        }
-        onAdd({tournName, college , address, city, state, zip, country});
+      // e.preventDefault()
+      // Find cleaner implementation
+      // if(!tourn.tournName || !tourn.college || !tourn.address || !city || !state ||
+      //   !zip || !country)
+      //   {
+      //     alert('Please fill all the fields.');
+      //     return 
+      //   }
+        // onAdd({tournName, college , address, city, state, zip, country});
+        onAdd(tourn);
         handleNext();
     };
 
@@ -47,89 +49,117 @@ const TournForm = ({Tournament, onAdd, handleNext}) => {
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <TextField
-            required
-            id="TournName"
-            name="TournName"
+            required={true}
+            id="t_name"
+            name="t_name"
             label="Tournament name"
-            value={tournName}
-            onChange={(e)=>setTournName(e.target.value)}
+            value={tourn.t_name? tourn.t_name : ""}
+            onChange={(e)=>setTourn( previous => {
+              return {
+                ...previous,
+                [e.target.name]: e.target.value
+              }
+            })}
             fullWidth
           />
         </Grid>
         <Grid item xs={12}>
           <TextField
-            required
+            required={true}
             id="organizer"
             name="organizer"
             label="College/Organizer"
-            onChange={(e)=>setCollege(e.target.value)}
-            value={college}
+            onChange={(e)=>setTourn( previous => {
+              return {
+                ...previous,
+                [e.target.name]: e.target.value
+              }
+            })}
+            value={tourn.organizer?tourn.organizer:""}
             fullWidth
           />
         </Grid>
         <Grid item xs={12}>
           <TextField
-            required
+            required={true}
             id="address"
             name="address"
             label="Address"
-            onChange={(e)=>setAddress(e.target.value)}
-            value={address}
+            onChange={(e)=>setTourn( previous => {
+              return {
+                ...previous,
+                [e.target.name]: e.target.value
+              }
+            })}
+            value={tourn.address?tourn.address:""}
             fullWidth
             autoComplete="shipping address-line1"
           />
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
-            required
+            required={true}
             id="city"
             name="city"
             label="City"
-            value={city}
-            onChange={(e)=>setCity(e.target.value)}
+            onChange={(e)=>setTourn( previous => {
+              return {
+                ...previous,
+                [e.target.name]: e.target.value
+              }
+            })}
+            value={tourn.city?tourn.city:""}
             fullWidth
             autoComplete="shipping address-level2"
           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField id="state" 
+          <TextField 
+          required={true}
+          id="state" 
           name="state" 
           label="State/Province/Region" 
-          onChange={(e)=>setState(e.target.value)}
-          value={state}
+          onChange={(e)=>setTourn( previous => {
+              return {
+                ...previous,
+                [e.target.name]: e.target.value
+              }
+            })}
+            value={tourn.state?tourn.state:""}
           fullWidth 
           />
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
-            required
+            required={true}
             id="zip"
             name="zip"
             label="Zip / Postal code"
-            onChange={(e) => setZip(e.target.value)}
-            value={zip}
+            onChange={(e)=>setTourn( previous => {
+              return {
+                ...previous,
+                [e.target.name]: e.target.value
+              }
+            })}
+            value={tourn.zip?tourn.zip:""}
             fullWidth
           />
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
-            required
+            required={true}
             id="country"
             name="country"
             label="Country"
-            onChange={(e)=>setCountry(e.target.value)}
-            value={country}
+            onChange={(e)=>setTourn( previous => {
+              return {
+                ...previous,
+                [e.target.name]: e.target.value
+              }
+            })}
+            value={tourn.country?tourn.country:""}
             fullWidth
             autoComplete="shipping country"
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <FormControlLabel
-            control={<Checkbox color="primary" 
-            name="saveAddress" 
-            value={saveAddress}
-            onChange={(e)=>setSaveAddress(e.currentTarget.checked)}/>}
-            label="Use this address for future Tournments."
           />
         </Grid>
         <div className={classes.buttons}>
@@ -145,5 +175,4 @@ const TournForm = ({Tournament, onAdd, handleNext}) => {
     </React.Fragment>
   );
 }
-
 export default TournForm
