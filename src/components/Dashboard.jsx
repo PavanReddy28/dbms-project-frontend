@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { axiosInstance } from "../axiosInstance"
-import { Grid, Container, Typography, makeStyles, Paper, List, ListItem, ListItemText, Button, IconButton } from '@material-ui/core';
+import { Grid, Container, Typography, makeStyles, Paper, List, ListItem, ListItemText, Button, IconButton, Collapse } from '@material-ui/core';
 // import { DeleteIcon } from "@material-ui/icons";
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+import { SkipPrevious } from "@material-ui/icons";
 
-const useStyles = makeStyles(() => ({
+
+const useStyles = makeStyles((theme) => ({
     paper: {
         padding: "30px",
     },
@@ -20,6 +24,9 @@ const useStyles = makeStyles(() => ({
     addIcon: {
         color: "green",
         backgroundColor: "blue"
+    },
+    nested: {
+        paddingLeft: theme.spacing(4)
     }
 }))
 
@@ -27,6 +34,7 @@ function Dashboard() {
 
     const classes = useStyles();
     const [tournaments, setTournaments] = useState([]);
+    const [open, setOpen] = useState(null)
     const matches = ["Goa vs Pilani", "Goa vs Hyd", "Goa vs Pilani", "Goa vs Hyd", "Goa vs Pilani", "Goa vs Hyd", "Goa vs Pilani", "Goa vs Hyd", "Goa vs Pilani", "Goa vs Hyd"];
 
     useEffect(() => {
@@ -36,8 +44,7 @@ function Dashboard() {
             }
         }).then(response => {
             setTournaments(response.data.tournaments);
-            // console.log(response.data.tournaments)
-        });
+        }).catch(err => console.log(err));
     }, [])
 
     // axiosInstance.get("/tournament",{
@@ -47,11 +54,23 @@ function Dashboard() {
     //         }).then(response => setTournaments(response.data.tournaments))
     //         .catch(err => console.log(err))
 
+    function handleClick(id) {
+        id !== open?setOpen(id) : setOpen(null);
+    }
+
+    function handleDelete(id) {
+        setTournaments(previous => {
+            return previous.filter(item => {
+                return item.tournament_id !== id
+            })
+        })
+    }
+
     return (
         <Grid container spacing={2} className={classes.container}>
 
             <Grid item lg={6} sm={12}>
-                <Paper className={classes.paper}>
+                <Paper className={classes.paper} elevation={1}>
                     <Typography variant="h5" color="primary">Current Tournaments</Typography>
                     <IconButton>
                         <AddIcon />
@@ -62,15 +81,30 @@ function Dashboard() {
 
                         {tournaments.map(tournament => {
                             return (
-                                <ListItem key={tournament.tournament_id}>
+                                <>
+                                <ListItem button key={tournament.tournament_id} onClick = {() => handleClick(tournament.tournament_id)}>
                                     <ListItemText primary={tournament.t_name} />
                                     <IconButton size="small">
                                         <EditIcon /> 
                                     </IconButton>
                                     <IconButton size="small">
-                                        <DeleteIcon />
+                                        <DeleteIcon onClick = {() => handleDelete(tournament.tournament_id)}/>
                                     </IconButton>
+                                    {open === tournament.tournament_id ? <ExpandLess /> : <ExpandMore />}
                                 </ListItem>
+                                
+                                <Collapse in={open === tournament.tournament_id} timeout="auto" unMountOnExit>
+                                    <List component="div" disablePadding>
+                                        <ListItem>
+                                            <ListItemText primary={"Organizer: " + tournament.college} className={classes.nested}/>
+                                        </ListItem>
+                                        <ListItem>
+                                            <ListItemText primary={"City: " + tournament.city} className={classes.nested}/>
+                                        </ListItem>
+                                    </List>
+
+                                </Collapse>
+                                </>
                             )
                         })}
                     </List>
@@ -78,7 +112,7 @@ function Dashboard() {
             </Grid>
 
             <Grid item lg={6} sm={12}>
-                <Paper className={classes.paper}>
+                <Paper className={classes.paper} elevation={1}>
                     <Typography variant="h5" color="primary">Current Matches</Typography>
                     <List className={classes.list}>
 
