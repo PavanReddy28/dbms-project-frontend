@@ -1,6 +1,7 @@
 import React from 'react'
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { Input, InputLabel, MenuItem, FormControl, FormControlLabel, Select, Typography, Grid, Checkbox, Chip, Button } from '@material-ui/core'
+import { Input, InputLabel, MenuItem, FormControl, FormControlLabel, Select, Typography, Grid, Checkbox, Chip, Button } from '@material-ui/core';
+import {Alert} from "@material-ui/lab";
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -22,6 +23,10 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(3),
         marginLeft: theme.spacing(1),
     },
+    alert: {
+        width: "100%",
+        margin: "15px 0px"
+      }
 }));
   
 const ITEM_HEIGHT = 48;
@@ -63,9 +68,10 @@ const SportData = ({ sports, onAdd, handleNext, handleBack }) => {
     const classes = useStyles();
     const theme = useTheme();
 
-    const [teamSport, setTeamSport] = React.useState(sports.length>0 && sports[0].teamSport.length>0? sports[0].teamSport : []);
-    const [indivSport, setIndivSport] = React.useState(sports.length>0 && sports[0].indivSport.length>0? sports[0].indivSport : []);
-    const [saveSports, setSaveSports] = React.useState(false);
+    const [teamSport, setTeamSport] = React.useState(sports.teamSport? sports.teamSport : []);
+    const [indivSport, setIndivSport] = React.useState(sports.indivSport? sports.indivSport : []);
+
+    const [incomplete,setIncomplete] = React.useState(false);
   
     const handleTeamChange = (event) => {
         setTeamSport(event.target.value);
@@ -78,7 +84,7 @@ const SportData = ({ sports, onAdd, handleNext, handleBack }) => {
     const onSubmit = (e) => {    
         if(teamSport.length===0 && indivSport.length===0)
         {
-            alert('Please add atleast one sport.');
+            setIncomplete(true);
             return 
         }
         onAdd({teamSport, indivSport});
@@ -93,13 +99,16 @@ const SportData = ({ sports, onAdd, handleNext, handleBack }) => {
     
     return (
         <React.Fragment>
+        <Grid item xs={12} lg={12}>
+            {incomplete && <Alert className={classes.alert} severity="error">Please select at least one sport</Alert>}
+        </Grid>
             <Typography variant="h6" gutterBottom>
-                Sports Details
+                Select the sports to be played
             </Typography>
             <Grid container spacing={3}>
                 <Grid item xs={12}>
                     <FormControl className={classes.formControl}>
-                        <InputLabel id="teamSports">Team Sports</InputLabel>
+                        <InputLabel id="teamSports">Individual</InputLabel>
                         <Select
                             labelId="teamSports-mutiple-chip-label"
                             id="teamSports-mutiple-chip"
@@ -127,7 +136,7 @@ const SportData = ({ sports, onAdd, handleNext, handleBack }) => {
                 </Grid>
                 <Grid item xs={12}>
                     <FormControl className={classes.formControl}>
-                        <InputLabel id="indivSports">Team Sports</InputLabel>
+                        <InputLabel id="indivSports">Team</InputLabel>
                         <Select
                             labelId="indivSports-mutiple-chip-label"
                             id="indivSports-mutiple-chip"
@@ -153,12 +162,7 @@ const SportData = ({ sports, onAdd, handleNext, handleBack }) => {
                         </Select>
                     </FormControl>          
                 </Grid>
-                <Grid item xs={12}>
-                    <FormControlLabel
-                        control={<Checkbox color="primary" name="saveSports" value={saveSports} onChange={(e)=>setSaveSports(e.currentTarget.checked)} />}
-                        label="Remember Sport details for next time"
-                    />
-                </Grid>
+                
                 <div className={classes.buttons}>
                     <Button onClick={onhSubmit} className={classes.button}>
                         Back

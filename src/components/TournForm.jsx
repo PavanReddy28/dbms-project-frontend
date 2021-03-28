@@ -1,6 +1,7 @@
 import  React,{ useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Typography, TextField, FormControlLabel, Checkbox, Button } from '@material-ui/core';
+import {Alert} from "@material-ui/lab";
 
 const useStyles = makeStyles((theme) => ({
   buttons: {
@@ -11,6 +12,10 @@ const useStyles = makeStyles((theme) => ({
       marginTop: theme.spacing(3),
       marginLeft: theme.spacing(1),
   },
+  alert: {
+    width: "100%",
+    margin: "15px 0px"
+  }
 }));
 
 const TournForm = ({Tournament, onAdd, handleNext}) => {
@@ -25,24 +30,29 @@ const TournForm = ({Tournament, onAdd, handleNext}) => {
     // const [zip, setZip] = useState(Tournament.length!==0? Tournament.zip : '')
     // const [country, setCountry] = useState(Tournament.length!==0? Tournament.country : '')
     // const [saveAddress, setSaveAddress] = useState(false)
-    const [tourn, setTourn] = useState({});
+    const [tourn, setTourn] = useState(Tournament);
+    const [incomplete, setIncomplete] = useState(false);
 
     const onSubmit = (e) => {
       // e.preventDefault()
       // Find cleaner implementation
-      // if(!tourn.tournName || !tourn.college || !tourn.address || !city || !state ||
-      //   !zip || !country)
-      //   {
-      //     alert('Please fill all the fields.');
-      //     return 
-      //   }
+      if(!tourn.t_name || !tourn.organizer || !tourn.address || !tourn.city || !tourn.state ||
+        !tourn.zip || !tourn.country)
+        {
+          setIncomplete(true);
+          return 
+        }
         // onAdd({tournName, college , address, city, state, zip, country});
+        setIncomplete(false)
         onAdd(tourn);
         handleNext();
     };
 
   return(
     <React.Fragment>
+    <Grid item xs={12} lg={12}>
+            {incomplete && <Alert className={classes.alert} severity="error">Please fill all fields</Alert>}
+        </Grid>
       <Typography variant="h6" gutterBottom>
         Tournament Details
       </Typography>
@@ -163,6 +173,7 @@ const TournForm = ({Tournament, onAdd, handleNext}) => {
           />
         </Grid>
         <div className={classes.buttons}>
+        
           <Button
               variant="contained"
               color="primary"

@@ -1,6 +1,7 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import { CssBaseline, Paper, Stepper, Step, StepLabel, Typography, Button } from '@material-ui/core';
+import {Alert} from "@material-ui/lab";
 import {axiosInstance} from "../axiosInstance";
 import {Link} from "react-router-dom";
 import TournForm from './TournForm';
@@ -95,9 +96,13 @@ const CreateTourn = () => {
                 default:
                     // throw new Error('Need to add Dashboard.');
                     return(
+                        <>
+                            <Alert severity="success">Tournament successfully added</Alert>
                             <Link to ="/dashboard">
-                                <Button>return to dashboard</Button>
-                            </Link>   
+                                <Button variant="contained" color="primary" className={classes.button}>return to dashboard</Button>
+                            </Link>
+                        </>
+                           
                     )
             }
     };
