@@ -18,9 +18,6 @@ function App() {
       <div>
         <Header />
         <Switch>
-          <Route exact path="/createTourn">
-            <CreateTourn />
-          </Route>
           <Route exact path="/login">
             <Login/>
           </Route>
@@ -31,6 +28,7 @@ function App() {
             <Home />
           </Route>
           <PrivateRoute exact path='/dashboard' component={Dashboard} />
+          <PrivateRoute exact path="/createTourn" component={CreateTourn} />
         </Switch>
         <Footer />
       </div>
