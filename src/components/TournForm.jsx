@@ -1,6 +1,6 @@
 import  React,{ useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Typography, TextField, FormControlLabel, Checkbox, Button } from '@material-ui/core';
+import { Grid, Typography, TextField, Button } from '@material-ui/core';
 import {Alert} from "@material-ui/lab";
 
 const useStyles = makeStyles((theme) => ({
@@ -22,27 +22,18 @@ const TournForm = ({Tournament, onAdd, handleNext}) => {
 
     const classes = useStyles();
 
-    // const [tournName, setTournName] = useState(Tournament.length!==0? Tournament.tournName : '')
-    // const [college, setCollege] = useState(Tournament.length!==0? Tournament.college : '')
-    // const [address, setAddress] = useState(Tournament.length!==0? Tournament.address : '')
-    // const [city, setCity] = useState(Tournament.length!==0? Tournament.city : '')
-    // const [state, setState] = useState(Tournament.length!==0? Tournament.state : '')
-    // const [zip, setZip] = useState(Tournament.length!==0? Tournament.zip : '')
-    // const [country, setCountry] = useState(Tournament.length!==0? Tournament.country : '')
-    // const [saveAddress, setSaveAddress] = useState(false)
+    
     const [tourn, setTourn] = useState(Tournament);
     const [incomplete, setIncomplete] = useState(false);
 
     const onSubmit = (e) => {
-      // e.preventDefault()
-      // Find cleaner implementation
+     
       if(!tourn.t_name || !tourn.organizer || !tourn.address || !tourn.city || !tourn.state ||
         !tourn.zip || !tourn.country)
         {
           setIncomplete(true);
           return 
         }
-        // onAdd({tournName, college , address, city, state, zip, country});
         setIncomplete(false)
         onAdd(tourn);
         handleNext();

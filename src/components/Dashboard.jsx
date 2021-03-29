@@ -3,9 +3,7 @@ import { axiosInstance } from "../axiosInstance";
 import { useHistory } from "react-router-dom";
 import {
     Grid,
-    Container,
     Typography,
-    Box,
     makeStyles,
     Paper,
     List,
