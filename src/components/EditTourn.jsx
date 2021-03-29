@@ -7,15 +7,95 @@ import {
     DialogTitle,
     DialogContent,
     TextField,
-    useStyles
+    makeStyles,
+    Select,
+    Chip,
+    Input,
+    MenuItem,
+    useTheme
 } from '@material-ui/core';
 
+const useStyles = makeStyles((theme) => ({
+    formControl: {
+        margin: theme.spacing(1),
+        minWidth: 120,
+      },
+      chips: {
+        display: 'flex',
+        flexWrap: 'wrap',
+      },
+      chip: {
+        margin: 2,
+      },
+      buttons: {
+        display: 'flex',
+        justifyContent: 'flex-end',
+    },
+    button: {
+        marginTop: theme.spacing(3),
+        marginLeft: theme.spacing(1),
+    },
+    alert: {
+        width: "100%",
+        margin: "15px 0px"
+      }
+}));
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+    PaperProps: {
+        style: {
+        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+        width: 250,
+        },
+    },
+};
+
+function getStyles(name, sport, theme) {
+    return {
+        fontWeight: theme.typography.fontWeightRegular
+        // sport.indexOf(name) === -1
+        //     ? theme.typography.fontWeightRegular
+        //     : theme.typography.fontWeightMedium,
+    };
+}
+
 function EditTourn(props) {
+
+    const classes = useStyles();
+    const theme = useTheme();
+
     const [tourn, setTourn] = useState(null);
 
+    const sports = [
+        'Basketball',
+        'Football',
+        'Cricket',
+        'Tennis',
+        'Table Tennis',
+        'Badminton'
+    ]
+
     useEffect(() => {
-        setTourn(props.tournament)
+        setTourn(props.tournament);
     }, [props.tournament])
+
+    function handleSports(event) {
+        // setTourn(previous => {
+        //     return {
+        //         ...previous,
+        //         [e.target.name]: e.target.value
+        //     }
+        // }
+        setTourn(previous => {
+            return {
+                ...previous,
+                [event.target.name]: event.target.value
+            }
+        })
+    }
+
 
     return (
         <Dialog
@@ -127,6 +207,37 @@ function EditTourn(props) {
                     fullWidth
                     autoComplete="shipping country"
                 />
+                <Select
+                            labelId="indivSports-mutiple-chip-label"
+                            id="indivSports-mutiple-chip"
+                            name="sports"
+                            multiple
+                            value={tourn !== null?tourn.sports:[]}
+                            onChange={handleSports}
+                            input={<Input id="select-indiv-multiple-chip" />}
+                            renderValue={(selected) => (
+                                    <div className={classes.chips}>
+                                        {selected.map((value) => (
+                                            <Chip key={value} label={value} className={classes.chip} />
+                                        ))}
+                                    </div>
+                                )}
+                            MenuProps={MenuProps}>
+
+                            {/* {(tourn !== null) && tourn.sports.map((name) => {
+                                return (<MenuItem key={name} value={name} style={getStyles(name, tourn.sport, theme)}>
+                                    {name}
+                                </MenuItem>)
+                            ))} */}
+                            {sports.map(sport => {
+                                return (
+                                    <MenuItem key={sport} value={sport}>
+                                        {sport}
+                                    </MenuItem> 
+                                )
+                            })}
+
+                        </Select>
             </DialogContent>
 
             <DialogActions>

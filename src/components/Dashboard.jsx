@@ -145,6 +145,18 @@ function Dashboard() {
     }
 
     function handleEdit(tourn) {
+        console.log(tourn);
+        // axiosInstance.put("/tournament",{
+        //     data: JSON.stringify(tourn),
+        //     headers: {
+        //         "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
+        //     }
+        // }).catch(err => console.log(err));
+        axiosInstance.put("/tournament",tourn,{
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
+            }
+        })
         let tempTourn = tournaments.slice();
         tempTourn.forEach((tournament,index) => {
             if(tournament.tournament_id === tourn.tournament_id){
@@ -209,7 +221,7 @@ function Dashboard() {
                                             <Collapse in={open.sportList === tournament.tournament_id} timeout="auto">
                                                 <List component="div" disablePadding>
                                                   {tournament.sports.map(sport => {
-                                                      return <ListItem>
+                                                      return <ListItem key={sport}>
                                                           <ListItemText primary={sport} className={classes.sportNested}/>
                                                       </ListItem>
                                                   })}  
