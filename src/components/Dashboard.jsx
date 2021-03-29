@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { axiosInstance } from "../axiosInstance";
 import { useHistory } from "react-router-dom";
 import {
@@ -26,7 +26,7 @@ import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import { SkipPrevious } from "@material-ui/icons";
+import EditTourn from "./EditTourn";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -56,12 +56,15 @@ function Dashboard() {
 
     const [tournaments, setTournaments] = useState([]);
     const [open, setOpen] = useState(null)
-    const [dialogOpen, setDialogOpen] = useState(false);
+    const [deleteOpen, setDeleteOpen] = useState(false);
+    const [editOpen, setEditOpen] = useState(false);
     const [dialogTourn, setDialogTourn] = useState(null);
+    
 
 
     const matches = ["Goa vs Pilani", "Goa vs Hyd", "Goa vs Pilani", "Goa vs Hyd", "Goa vs Pilani", "Goa vs Hyd", "Goa vs Pilani", "Goa vs Hyd", "Goa vs Pilani", "Goa vs Hyd"];
 
+    //GET request to get all tournaments from backend
     useEffect(() => {
         axiosInstance.get("/tournament", {
             headers: {
@@ -72,28 +75,27 @@ function Dashboard() {
         }).catch(err => console.log(err));
     }, [])
 
-    // axiosInstance.get("/tournament",{
-    //             headers: {
-    //                 "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
-    //             }
-    //         }).then(response => setTournaments(response.data.tournaments))
-    //         .catch(err => console.log(err))
-
-    function handleClick(id) {
+    //collapsible tournament list
+    function handleCollapse(id) {
         id !== open ? setOpen(id) : setOpen(null);
     }
 
-    function handleConfirm(tournament) {
-        // setTournaments(previous => {
-        //     return previous.filter(item => {
-        //         return item.tournament_id !== id
-        //     })
-        // })
+    //edit and delete dialogues
+    function activateDialog(tournament,type) {
+
         setDialogTourn(tournament);
-        setDialogOpen(true);
+        // setDialogOpen(true);
+        type==="delete"?setDeleteOpen(true):setEditOpen(true);
     }
 
-    function HandleDelete() {
+    // closing of dialogues
+    function handleCancel(type) {
+        setDialogTourn(null);
+        type==="delete"?setDeleteOpen(false):setEditOpen(false);
+    }
+
+    // DELETE request to /tournament
+    function handleDelete() {
         axiosInstance.delete("/tournament", {
             data: {
                 "tournament_id": dialogTourn.tournament_id
@@ -107,14 +109,22 @@ function Dashboard() {
                 return tournament.tournament_id !== dialogTourn.tournament_id
             })
         });
-        setDialogOpen(false);
+        setDeleteOpen(false);
         setDialogTourn(null);
     }
 
-    function handleCancel() {
-        setDialogTourn(null);
-        setDialogOpen(false);
+    function handleEdit(tourn) {
+        let tempTourn = tournaments.slice();
+        tempTourn.forEach((tournament,index) => {
+            if(tournament.tournament_id === tourn.tournament_id){
+                tempTourn[index] = tourn
+            }
+        });
+        setTournaments(tempTourn);
+        setEditOpen(false);
     }
+
+    
 
     return (
         <>
@@ -141,12 +151,12 @@ function Dashboard() {
                             {tournaments.map(tournament => {
                                 return (
                                     <>
-                                        <ListItem button key={tournament.tournament_id} onClick={() => handleClick(tournament.tournament_id)}>
+                                        <ListItem button key={tournament.tournament_id} onClick={() => handleCollapse(tournament.tournament_id)}>
                                             <ListItemText primary={tournament.t_name} />
-                                            <IconButton size="small">
+                                            <IconButton size="small" onClick={() => activateDialog(tournament,"edit")}>
                                                 <EditIcon />
                                             </IconButton>
-                                            <IconButton size="small" color="secondary" onClick={() => handleConfirm(tournament)}>
+                                            <IconButton size="small" color="secondary" onClick={() => activateDialog(tournament,"delete")}>
                                                 <DeleteIcon />
                                             </IconButton>
                                             {open === tournament.tournament_id ? <ExpandLess /> : <ExpandMore />}
@@ -184,8 +194,8 @@ function Dashboard() {
                 </Grid>
             </Grid>
             <Dialog
-                open={dialogOpen}
-                onClose={() => setDialogOpen(false)}
+                open={deleteOpen}
+                onClose={() => setDeleteOpen(false)}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
             >
@@ -196,14 +206,15 @@ function Dashboard() {
           </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={HandleDelete} color="secondary" >
+                    <Button onClick={handleDelete} color="secondary" >
                         Confirm
           </Button>
-                    <Button onClick={handleCancel} color="primary" autoFocus>
+                    <Button onClick={() => handleCancel("delete")} color="primary" autoFocus>
                         Cancel
           </Button>
                 </DialogActions>
             </Dialog>
+            <EditTourn tournament = {dialogTourn} editOpen={editOpen} onClose={() => handleCancel("edit")} onEdit={handleEdit}/>
         </>
     )
 }
