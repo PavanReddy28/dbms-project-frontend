@@ -9,6 +9,7 @@ import CreateTourn from "./CreateTourn";
 import Home from "./Home";
 import Dashboard from "./Dashboard";
 import PrivateRoute from "../Private/PrivateRoute";
+import PlayerReg from "./PlayerReg";
 
 
 function App() {
@@ -18,6 +19,9 @@ function App() {
       <div>
         <Header />
         <Switch>
+          <Route exact path="/playerReg">
+            <PlayerReg/>
+          </Route>
           <Route exact path="/login">
             <Login/>
           </Route>
