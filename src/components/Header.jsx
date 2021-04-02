@@ -5,8 +5,29 @@ import { Menu } from "@material-ui/icons";
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
 
-const useStyles = makeStyles({
-    nav: {
+// const useStyles = makeStyles(theme => ({
+//     nav: {
+//         marginLeft: "auto"
+//     },
+//     navLink: {
+//         color: theme.text.primary,
+//         textDecoration: "none",
+//         textTransform: "uppercase"
+//     },
+//     link: {
+//         textDecoration: "none"
+//     },
+//     list: {
+//         width: "250px"
+        
+//     },
+//     listItem: {
+        
+//     }
+// }));
+
+const useStyles = makeStyles((theme) => ({
+        nav: {
         marginLeft: "auto"
     },
     navLink: {
@@ -22,10 +43,10 @@ const useStyles = makeStyles({
         
     },
     listItem: {
-        color: "black"
+        textDecoration: "none",
+        color: theme.palette.text.primary
     }
-});
-
+}))
 
 
 function Header(props) {
