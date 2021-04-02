@@ -37,8 +37,7 @@ const TeamCapDetails = ({Team, onAdd, handleNext}) => {
     const onSubmit = () => {
 
       // Find cleaner implementation
-      if(!team.team_name || !team.college || !team.cFirstName || !team.cLastName || !team.cAge ||
-        !team.sport || !team.num_players)
+      if(!team.team_name || !team.college || !team.cFirstName || !team.cLastName || !team.cAge || !team.num_players)
         {
           setIncomplete(true);
           return 
