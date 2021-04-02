@@ -47,9 +47,9 @@ const useStyles = makeStyles((theme) => ({
         paddingLeft: theme.spacing(4)
     },
     sportNested: {
-        paddingLeft: 2*theme.spacing(4)
+        paddingLeft: 2 * theme.spacing(4)
     },
-    deleteButton : {
+    deleteButton: {
         color: "#ff3d00"
     }
 }))
@@ -67,7 +67,7 @@ function Dashboard() {
     const [deleteOpen, setDeleteOpen] = useState(false);
     const [editOpen, setEditOpen] = useState(false);
     const [dialogTourn, setDialogTourn] = useState(null);
-    
+
 
 
     const matches = ["Goa vs Pilani", "Goa vs Hyd", "Goa vs Pilani", "Goa vs Hyd", "Goa vs Pilani", "Goa vs Hyd", "Goa vs Pilani", "Goa vs Hyd", "Goa vs Pilani", "Goa vs Hyd"];
@@ -114,17 +114,17 @@ function Dashboard() {
 
 
     //edit and delete dialogues
-    function activateDialog(tournament,type) {
+    function activateDialog(tournament, type) {
 
         setDialogTourn(tournament);
         // setDialogOpen(true);
-        type==="delete"?setDeleteOpen(true):setEditOpen(true);
+        type === "delete" ? setDeleteOpen(true) : setEditOpen(true);
     }
 
     // closing of dialogues
     function handleCancel(type) {
         setDialogTourn(null);
-        type==="delete"?setDeleteOpen(false):setEditOpen(false);
+        type === "delete" ? setDeleteOpen(false) : setEditOpen(false);
     }
 
     // DELETE request to /tournament
@@ -154,14 +154,14 @@ function Dashboard() {
         //         "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
         //     }
         // }).catch(err => console.log(err));
-        axiosInstance.put("/tournament",tourn,{
+        axiosInstance.put("/tournament", tourn, {
             headers: {
                 "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
             }
         })
         let tempTourn = tournaments.slice();
-        tempTourn.forEach((tournament,index) => {
-            if(tournament.tournament_id === tourn.tournament_id){
+        tempTourn.forEach((tournament, index) => {
+            if (tournament.tournament_id === tourn.tournament_id) {
                 tempTourn[index] = tourn
             }
         });
@@ -169,7 +169,7 @@ function Dashboard() {
         setEditOpen(false);
     }
 
-    
+
 
     return (
         <>
@@ -196,13 +196,13 @@ function Dashboard() {
                             {tournaments.map(tournament => {
                                 return (
                                     <>
-                                        
+
                                         <ListItem button key={tournament.tournament_id} onClick={() => handleCollapse(tournament.tournament_id)}>
                                             <ListItemText primary={tournament.t_name} />
-                                            <IconButton size="small" onClick={() => activateDialog(tournament,"edit")}>
+                                            <IconButton size="small" onClick={() => activateDialog(tournament, "edit")}>
                                                 <EditIcon />
                                             </IconButton>
-                                            <IconButton size="small" className={classes.deleteButton} onClick={() => activateDialog(tournament,"delete")}>
+                                            <IconButton size="small" color="secondary" onClick={() => activateDialog(tournament, "delete")}>
                                                 <DeleteIcon />
                                             </IconButton>
                                             {open.main === tournament.tournament_id ? <ExpandLess /> : <ExpandMore />}
@@ -214,28 +214,28 @@ function Dashboard() {
                                                 <ListItem>
                                                     <ListItemText primary={"Organizer: " + tournament.college} className={classes.nested} />
                                                 </ListItem>
-                                                
+
                                                 <ListItem>
                                                     <ListItemText primary={"City: " + tournament.city} className={classes.nested} />
                                                 </ListItem>
-                                                
-                                                <ListItem button onClick = {() => handleSportsCollapse(tournament.tournament_id,"sportList")}>
+
+                                                <ListItem button onClick={() => handleSportsCollapse(tournament.tournament_id, "sportList")}>
                                                     <ListItemText primary={"Sports"} className={classes.nested} />
                                                     {open.sportList === tournament.tournament_id ? <ExpandLess /> : <ExpandMore />}
                                                 </ListItem>
                                             </List>
                                             <Collapse in={open.sportList === tournament.tournament_id} timeout="auto">
                                                 <List component="div" disablePadding>
-                                                  {tournament.sports.map(sport => {
-                                                      return (
-                                                          <>
-                                                      <ListItem key={sport}>
-                                                          <ListItemText primary={sport} className={classes.sportNested}/>
-                                                      </ListItem>
-                                                      
-                                                      </>
-                                                      )
-                                                  })}  
+                                                    {tournament.sports.map(sport => {
+                                                        return (
+                                                            <>
+                                                                <ListItem key={sport}>
+                                                                    <ListItemText primary={sport} className={classes.sportNested} />
+                                                                </ListItem>
+
+                                                            </>
+                                                        )
+                                                    })}
                                                 </List>
                                             </Collapse>
 
@@ -267,13 +267,14 @@ function Dashboard() {
                 aria-describedby="alert-dialog-description"
             >
                 <DialogTitle id="alert-dialog-title">{dialogTourn !== null ? "Delete tournament '" + dialogTourn.t_name + "' ?" : ""}</DialogTitle>
+                <Divider />
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
                         By pressing confirm this tournament will be permanently deleted
           </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleDelete} color="secondary" >
+                    <Button onClick={handleDelete} color="primary" >
                         Confirm
           </Button>
                     <Button onClick={() => handleCancel("delete")} color="primary" autoFocus>
@@ -281,7 +282,7 @@ function Dashboard() {
           </Button>
                 </DialogActions>
             </Dialog>
-            <EditTourn tournament = {dialogTourn} editOpen={editOpen} onClose={() => handleCancel("edit")} onEdit={handleEdit}/>
+            <EditTourn tournament={dialogTourn} editOpen={editOpen} onClose={() => handleCancel("edit")} onEdit={handleEdit} />
         </>
     )
 }
