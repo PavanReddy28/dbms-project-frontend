@@ -17,12 +17,13 @@ import { ThemeProvider } from "@material-ui/core/styles";
 
 function App() {
 
-  const [mode, setMode] = useState("light");
+  const [mode, setMode] = useState(localStorage.getItem("theme") !== null?localStorage.getItem("theme"):"dark");
 
   let theme = provideTheme(mode);
 
   useEffect(() => {
     theme = provideTheme(mode);
+    localStorage.setItem("theme",mode)
   },[mode])
 
   function toggleMode() {
