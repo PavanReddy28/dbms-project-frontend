@@ -10,6 +10,9 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: 700,
     },
     title: {
+        marginTop: theme.spacing(0),
+    },
+    title1: {
         marginTop: theme.spacing(2),
     },
     buttons: {
@@ -34,39 +37,40 @@ const PlayerRegReview = ({ Team, playerData, handleNext, handleBack }) => {
         handleBack();
     };
 
-    const playerDataRender = (i) => {
-        return (
-            <Grid item xs={12}>
-                <Typography variant="h6" gutterBottom className={classes.title}>
-                Team Members : {Team.num_players}
-                </Typography>
-                <Typography gutterBottom>
-                    {playerData.players[i].firstName} {playerData.players[i].firstName} : {playerData.players[i]}
-                </Typography>
-            </Grid>
-        )
-    }
-
     return (
         <React.Fragment>
             <Typography variant="h5" gutterBottom>
                 Review
             </Typography>
-            <Grid item xs={12}>
+            <Grid container spacing={2}>
+                <Grid item xs={12} sm={6}>
                     <Typography variant="h6" gutterBottom className={classes.title}>
                     {Team.team_name}
                     </Typography>
-                    <Typography variant="body2">{Team.college}</Typography>
+                    <Typography gutterBottom>{Team.college}</Typography>
+                    <Typography gutterBottom>No. of Players : {Team.num_players}</Typography>
                 </Grid>
-            <Grid container spacing={2}>
-                {() => {
-                    const ind=parseInt(Team.num_players);
-                    while(ind>0)
-                    {
-                        playerDataRender(ind);
-                    }
-                }}
-                
+                <Grid item container direction="column" xs={12} sm={6}>
+                    <Typography gutterBottom>Captain : {Team.cFirstName} {Team.cLastName}</Typography>
+                    <Typography gutterBottom>Contact Info : {Team.contact}</Typography>
+                    <Typography gutterBottom>Sport : {Team.sport}</Typography>                            
+                </Grid>    
+            </Grid>        
+            <Typography variant="h6" gutterBottom className={classes.title1}>
+                Team Members
+            </Typography>
+            <Grid container spacing={0}>
+                {
+                    playerData.map((player, index) => {
+                        return (
+                            <Grid item xs={12}>
+                                <Typography gutterBottom>
+                                    {player.firstName} {player.lastName} : {player.age}
+                                </Typography>
+                            </Grid>
+                        )
+                    })
+                }
                 <div className={classes.buttons}>
                     <Button onClick={onhSubmit} className={classes.button}>
                         Back
