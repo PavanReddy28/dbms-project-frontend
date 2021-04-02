@@ -7,7 +7,7 @@ function provideTheme(mode) {
     const theme = createMuiTheme({
         palette: {
             primary: {
-                main: mode==="light"?"#1976d2":"#004ba0"
+                main: mode==="light"?"#38006b":"#d05ce3"
             },
             type: mode
         }

@@ -16,7 +16,8 @@ import {
     DialogActions,
     DialogContentText,
     DialogTitle,
-    DialogContent
+    DialogContent,
+    Divider
 } from '@material-ui/core';
 // import { DeleteIcon } from "@material-ui/icons";
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -47,6 +48,9 @@ const useStyles = makeStyles((theme) => ({
     },
     sportNested: {
         paddingLeft: 2*theme.spacing(4)
+    },
+    deleteButton : {
+        color: "#ff3d00"
     }
 }))
 
@@ -192,25 +196,29 @@ function Dashboard() {
                             {tournaments.map(tournament => {
                                 return (
                                     <>
+                                        
                                         <ListItem button key={tournament.tournament_id} onClick={() => handleCollapse(tournament.tournament_id)}>
                                             <ListItemText primary={tournament.t_name} />
                                             <IconButton size="small" onClick={() => activateDialog(tournament,"edit")}>
                                                 <EditIcon />
                                             </IconButton>
-                                            <IconButton size="small" color="secondary" onClick={() => activateDialog(tournament,"delete")}>
+                                            <IconButton size="small" className={classes.deleteButton} onClick={() => activateDialog(tournament,"delete")}>
                                                 <DeleteIcon />
                                             </IconButton>
                                             {open.main === tournament.tournament_id ? <ExpandLess /> : <ExpandMore />}
                                         </ListItem>
+                                        <Divider />
 
                                         <Collapse in={open.main === tournament.tournament_id} timeout="auto">
                                             <List component="div" disablePadding>
                                                 <ListItem>
                                                     <ListItemText primary={"Organizer: " + tournament.college} className={classes.nested} />
                                                 </ListItem>
+                                                
                                                 <ListItem>
                                                     <ListItemText primary={"City: " + tournament.city} className={classes.nested} />
                                                 </ListItem>
+                                                
                                                 <ListItem button onClick = {() => handleSportsCollapse(tournament.tournament_id,"sportList")}>
                                                     <ListItemText primary={"Sports"} className={classes.nested} />
                                                     {open.sportList === tournament.tournament_id ? <ExpandLess /> : <ExpandMore />}
@@ -219,9 +227,14 @@ function Dashboard() {
                                             <Collapse in={open.sportList === tournament.tournament_id} timeout="auto">
                                                 <List component="div" disablePadding>
                                                   {tournament.sports.map(sport => {
-                                                      return <ListItem key={sport}>
+                                                      return (
+                                                          <>
+                                                      <ListItem key={sport}>
                                                           <ListItemText primary={sport} className={classes.sportNested}/>
                                                       </ListItem>
+                                                      
+                                                      </>
+                                                      )
                                                   })}  
                                                 </List>
                                             </Collapse>
