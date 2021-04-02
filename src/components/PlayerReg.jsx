@@ -47,14 +47,14 @@ const PlayerReg = () => {
     
     const classes = useStyles();
     const [Team, setTeam] = React.useState({});
-    const [playerData, setplayerData] = React.useState({});
+    const [playerData, setplayerData] = React.useState([]);
     const [activeStep, setActiveStep] = React.useState(0);
 
     const handleSubmit = () => {
 
         //Team Data 
         const dataTeam = {
-            "team_name": Team.teamName,
+            "team_name": Team.team_name,
             "college": Team.college,
             "num_players": Team.num_players,
             "captain": {
@@ -75,9 +75,8 @@ const PlayerReg = () => {
 
         axiosInstance.post("/team",dataTeam).catch(err => console.log(err));
 
-        axiosInstance.post("/player",dataPlayer).then( response => setActiveStep(activeStep + 1))
+        axiosInstance.post("/player",dataPlayer).then(response => setActiveStep(activeStep + 1))
         .catch(err => console.log(err));
-        
     };
 
     const handleNext = () => {
@@ -98,7 +97,7 @@ const PlayerReg = () => {
                 case 0:
                     return <TeamCapDetails Team={Team} onAdd={addTeam} handleNext={handleNext}/>;
                 case 1:
-                    return <TeamDetails playerData={playerData} TeamNum={Team.num_players} onAdd={addplayerData} handleNext={handleNext} handleBack={handleBack}/>;
+                    return <TeamDetails playerData={playerData} TeamNum={Team} onAdd={addplayerData} handleNext={handleNext} handleBack={handleBack}/>;
                 case 2:
                     return <PlayerRegReview Team={Team} playerData={playerData} handleNext={handleSubmit} handleBack={handleBack}/>;
                 default:
@@ -106,8 +105,8 @@ const PlayerReg = () => {
                     return(
                         <>
                             <Alert severity="success">Team successfully added</Alert>
-                            <Link to ="/dashboard">
-                                <Button variant="contained" color="primary" className={classes.button}>return to dashboard</Button>
+                            <Link to ="/Home">
+                                <Button variant="contained" color="primary" className={classes.button}>Return to Home</Button>
                             </Link>
                         </>
                            
@@ -116,10 +115,12 @@ const PlayerReg = () => {
     };
 
     const addTeam = (Team) => {
+        console.log(Team);
         setTeam(Team);
     };
 
     const addplayerData = (playerData) => {
+        console.log(playerData);
         setplayerData(playerData);
     };
 
