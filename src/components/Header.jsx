@@ -27,7 +27,8 @@ import Brightness7Icon from '@material-ui/icons/Brightness7';
 // }));
 
 const useStyles = makeStyles((theme) => ({
-        nav: {
+    
+    nav: {
         marginLeft: "auto"
     },
     navLink: {
@@ -70,7 +71,7 @@ function Header(props) {
     ]
 
     return (
-        <>
+        <div className={classes.root}>
         <AppBar position="sticky">
             <Toolbar>
                 <Typography variant="h6">
@@ -119,7 +120,7 @@ function Header(props) {
                     })}
                 </List>
         </Drawer>
-        </>
+        </div>
 
     )
 }
