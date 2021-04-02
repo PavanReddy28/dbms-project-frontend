@@ -1,6 +1,6 @@
 import  React,{ useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { FormControl, InputLabel, Grid, Typography, TextField, FormControlLabel, Checkbox, Button } from '@material-ui/core';
+import { Grid, Typography, TextField, Button, FormControl, Select, MenuItem, InputLabel } from '@material-ui/core';
 import {Alert} from "@material-ui/lab";
 
 const useStyles = makeStyles((theme) => ({
@@ -28,6 +28,12 @@ const TeamCapDetails = ({Team, onAdd, handleNext}) => {
     const [team, setTeam] = useState(Team);
     const [incomplete, setIncomplete] = useState(false);
 
+    const sportsList = ['Basketball',
+      'Football',
+      'Cricket', 'Tennis',
+      'Table Tennis',
+      'Badminton'];
+
     const onSubmit = () => {
 
       // Find cleaner implementation
@@ -37,7 +43,7 @@ const TeamCapDetails = ({Team, onAdd, handleNext}) => {
           setIncomplete(true);
           return 
         }
-
+        
         setIncomplete(false)
         onAdd(team);
         handleNext();
@@ -45,61 +51,45 @@ const TeamCapDetails = ({Team, onAdd, handleNext}) => {
 
   return(
     <React.Fragment>
-    <Grid item xs={12} lg={12}>
-            {incomplete && <Alert className={classes.alert} severity="error">Please fill all fields</Alert>}
-        </Grid>
+      <Grid item xs={12} lg={12}>
+              {incomplete && <Alert className={classes.alert} severity="error">Please fill all fields</Alert>}
+      </Grid>
       <Typography variant="h6" gutterBottom>
-        Tournament Details
+        Team Details
       </Typography>
       <Grid container spacing={3}>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required={true}
-            id="team_name"
-            name="team_name"
-            label="Team name"
-            value={team.team_name? team.team_name : ""}
-            onChange={(e)=>setTeam( previous => {
-              return {
-                ...previous,
-                [e.target.name]: e.target.value
-              }
-            })}
-            fullWidth
-          />
+      <Grid item xs={12}>
+        <TextField
+          required={true}
+          id="team_name"
+          name="team_name"
+          label="Team name"
+          value={team.team_name? team.team_name : ""}
+          onChange={(e)=>setTeam( previous => {
+            return {
+              ...previous,
+              [e.target.name]: e.target.value
+            }
+          })}
+          fullWidth
+        />
+      </Grid>
+      <Grid item xs={12} sm={6}>
+        <TextField
+          required={true}
+          id="num_players"
+          name="num_players"
+          label="Number of Players"
+          onChange={(e)=>setTeam( previous => {
+            return {
+              ...previous,
+              [e.target.name]: e.target.value
+            }
+          })}
+          value={team.num_players?team.num_players:""}
+          fullWidth
+        />
         </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            required={true}
-            id="sport"
-            name="sport"
-            label="Team Sport"
-            onChange={(e)=>setTeam( previous => {
-              return {
-                ...previous,
-                [e.target.name]: e.target.value
-              }
-            })}
-            value={team.sport?team.sport:""}
-            fullWidth
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            required={true}
-            id="num_players"
-            name="num_players"
-            label="Player Numbers"
-            onChange={(e)=>setTeam( previous => {
-              return {
-                ...previous,
-                [e.target.name]: e.target.value
-              }
-            })}
-            value={team.num_players?team.num_players:""}
-            fullWidth
-          />
-
         <Grid item xs={12} sm={6}>
           <TextField
             required={true}
@@ -116,62 +106,60 @@ const TeamCapDetails = ({Team, onAdd, handleNext}) => {
             fullWidth
           />
         </Grid>
-      
-          <FormControl className={classes.formControl}>
-            <Typography variant="h6" gutterBottom className={classes.title}>
-                    Captain Details
-            </Typography>
-            <Grid item xs={12}>
-              <TextField
-                required={true}
-                id="cFirstName"
-                name="cFirstName"
-                label="First Name"
-                onChange={(e)=>setTeam( previous => {
-                  return {
-                    ...previous,
-                    [e.target.name]: e.target.value
-                  }
-                })}
-                value={team.cFirstName?team.cFirstName:""}
-                
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                required={true}
-                id="cLastName"
-                name="cLastName"
-                label="Last Name"
-                onChange={(e)=>setTeam( previous => {
-                  return {
-                    ...previous,
-                    [e.target.name]: e.target.value
-                  }
-                })}
-                value={team.cLastName?team.cLastName:""}
-                
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField 
+        </Grid>
+          <Typography variant="h6" gutterBottom className={classes.title}>
+                  Captain Details
+          </Typography>
+          <Grid container spacing={3}>
+          <Grid item xs={12}  sm={6}>
+            <TextField
               required={true}
-              id="cAge" 
-              name="cAge" 
-              label="Age" 
+              id="cFirstName"
+              name="cFirstName"
+              label="First Name"
               onChange={(e)=>setTeam( previous => {
-                  return {
-                    ...previous,
-                    [e.target.name]: e.target.value
-                  }
-                })}
-                value={team.cAge?team.cAge:""}
-         
-              />
-            </Grid>
-          </FormControl>
-
-        <Grid item xs={12}>
+                return {
+                  ...previous,
+                  [e.target.name]: e.target.value
+                }
+              })}
+              value={team.cFirstName?team.cFirstName:""}
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              required={true}
+              id="cLastName"
+              name="cLastName"
+              label="Last Name"
+              onChange={(e)=>setTeam( previous => {
+                return {
+                  ...previous,
+                  [e.target.name]: e.target.value
+                }
+              })}
+              value={team.cLastName?team.cLastName:""}
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField 
+            required={true}
+            id="cAge" 
+            name="cAge" 
+            label="Age" 
+            onChange={(e)=>setTeam( previous => {
+                return {
+                  ...previous,
+                  [e.target.name]: e.target.value
+                }
+              })}
+              value={team.cAge?team.cAge:""}
+              fullWidth
+            />
+          </Grid>
+        <Grid item xs={12} sm={6}>
           <TextField
             required={true}
             id="contact"
@@ -184,13 +172,11 @@ const TeamCapDetails = ({Team, onAdd, handleNext}) => {
               }
             })}
             value={team.contact?team.contact:""}
-            
+            fullWidth
           />
         </Grid>
-    
-        </Grid>
-        <div className={classes.buttons}>
         
+        <div className={classes.buttons}>
           <Button
               variant="contained"
               color="primary"
