@@ -22,6 +22,7 @@ function App() {
   let theme = provideTheme(mode);
 
   useEffect(() => {
+    //eslint-disable-next-line
     theme = provideTheme(mode);
     localStorage.setItem("theme",mode)
   },[mode])
