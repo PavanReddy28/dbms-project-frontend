@@ -1,5 +1,6 @@
 import React from "react";
-import { Typography, Grid, Card, CardHeader, CardContent } from "@material-ui/core";
+import { Typography, Grid, Card, CardHeader, CardContent, Button } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
 
 function Home() {
 
@@ -17,6 +18,14 @@ function Home() {
             content: "The application offers features for various sports like football, tennis, basketball etc."
         }
     ]
+
+    const history = useHistory();
+
+    const routeChange = () =>{ 
+        let path = `./TournSportReg`; 
+        history.push(path);
+      }
+
     return (
         // <Grid container justify="center">
         //     <Grid item>
@@ -64,6 +73,11 @@ function Home() {
                                     <CardHeader title={item.heading} titleTypographyProps={{ align: 'center' }} />
                                     <CardContent>
                                         <Typography>{item.content}</Typography>
+                                        <Button 
+                                            color='primary'
+                                            onClick={routeChange}>
+                                            {item.heading}
+                                        </Button>
                                     </CardContent>
                                 </Card>
                             </Grid>
