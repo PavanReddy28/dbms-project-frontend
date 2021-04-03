@@ -69,7 +69,8 @@ const IndPlayerReg = ({ info, data, onAdd, goBack }) => {
 
         axiosInstance.post("/team", dataTeam).then(
             response=>{
-                console.log(response.data)
+                // console.log(response.data)
+                setActiveStep(activeStep + 1)
             }
         ).catch(err => console.log(err));       
     };
@@ -104,7 +105,7 @@ const IndPlayerReg = ({ info, data, onAdd, goBack }) => {
                     return(
                         <>
                             <Alert severity="success">Successfully Registered.</Alert>
-                            <Link to ="/Home">
+                            <Link to ="/">
                                 <Button variant="contained" color="primary" className={classes.button}>Return to Home</Button>
                             </Link>
                         </>
