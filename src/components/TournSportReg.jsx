@@ -98,9 +98,9 @@ export const TournSportReg = () => {
         setTourn(tourn)         
     }
 
-    const addSport = (sport) => {
-        console.log(sport)
-        setSport(sport)
+    const addSport = (sport1) => {
+        console.log(sport1)
+        setSport(sport1)
     }
 
     const onAdd = (data1) => {

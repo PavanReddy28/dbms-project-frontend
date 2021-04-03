@@ -28,8 +28,8 @@ export const TourSportSelectComp = ({ Tourn, sportData, onAdd , handleNext, hand
 
     const [sportsList, setSportsList] = useState([])
     const [incomplete, setIncomplete] = useState(false);
-    console.log(sportData)
-    const [sport, setSport] = useState(sportData? sportData : 'Sport')
+    const [sport1, setSport1] = useState(sportData? sportData : '')
+    //console.log(sportData, sport1)
 
     useEffect(() => {
         axiosInstance.get('/tournament/getSports', {
@@ -45,17 +45,17 @@ export const TourSportSelectComp = ({ Tourn, sportData, onAdd , handleNext, hand
     }, [])
 
     const goNext = () => {    
-        if(!sport || sport==='Sport')
+        if(!sport1)
         {
           setIncomplete(true);
           return 
         }
-        onAdd(sport)
-        handleNext()
+        onAdd(sport1)
+        handleNext()        
     };
 
     const goBack = () => {
-        onAdd(sport)
+        onAdd(sport1)
         handleBack()
     }
 
@@ -71,12 +71,19 @@ export const TourSportSelectComp = ({ Tourn, sportData, onAdd , handleNext, hand
                 <Grid item xs={12}>
                     <Select
                     required={true}
-                    id="sport"
-                    name="sport"
+                    id="sport1"
+                    name="sport1"
                     label="Team Sport"
-                    onChange={(e)=>setSport(e.target.value)}
-                    value={sport? sport:""}
-                    
+                    value={sport1? sport1:""}
+                    onChange={(e)=>{
+                        console.log(e.target.value)
+                        //console.log(sport1, 'done 0')
+                        setSport1(e.target.value)
+                        // console.log(e.target.value)
+                        console.log(sport1, 'done 1')
+                        
+                        // console.log('done 2')
+                    }}
                     >
                     {sportsList.map((name) => (
                     <MenuItem key={name} value={name}>
