@@ -66,7 +66,7 @@ const PlayerRegReview = ({ Team, info, playerData, handleNext, handleBack }) => 
                         return (
                             <Grid item xs={12}>
                                 <Typography gutterBottom>
-                                    {player.firstName} {player.lastName} : {player.age}
+                                    {player.fname} {player.lname} : {player.age}
                                 </Typography>
                             </Grid>
                         )
