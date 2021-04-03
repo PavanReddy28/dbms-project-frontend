@@ -45,7 +45,7 @@ const TeamDetails = ({ playerData, TeamNum, onAdd, handleNext, handleBack }) => 
 
     const classes = useStyles();
 
-    const [players, setPlayers] = React.useState(playerData.length!==0? playerData: [{firstName:'', lastName:'', age:''}]);
+    const [players, setPlayers] = React.useState(playerData.length!==0? playerData: [{fname:'', lname:'', age:''}]);
     const [incomplete,setIncomplete] = React.useState(false);
 
     const onSubmit = (e) => {  
@@ -71,7 +71,7 @@ const TeamDetails = ({ playerData, TeamNum, onAdd, handleNext, handleBack }) => 
     }
 
     const onHandleAdd = () => {
-        setPlayers([...players, {firstName:'', lastName:'', age:''}]);
+        setPlayers([...players, {fname:'', lname:'', age:''}]);
     }
 
     const onHandleRemove = (index) => {
@@ -79,7 +79,7 @@ const TeamDetails = ({ playerData, TeamNum, onAdd, handleNext, handleBack }) => 
         values.splice(index, 1);
         if(values.length===0)
         {
-            setPlayers([{firstName:'', lastName:'', age:''}]);
+            setPlayers([{fname:'', lname:'', age:''}]);
         }
         else
         {
@@ -109,20 +109,20 @@ const TeamDetails = ({ playerData, TeamNum, onAdd, handleNext, handleBack }) => 
                             
                             <TextField
                                 required={true}
-                                id="firstName"
-                                name="firstName"
+                                id="fname"
+                                name="fname"
                                 label="First Name"
                                 onChange={e => handleChange(index, e)}
-                                value={player.firstName}
+                                value={player.fname}
                                 className={classes.text}
                             />
                             <TextField
                                 required={true}
-                                id="lastName"
-                                name="lastName"
+                                id="lname"
+                                name="lname"
                                 label="Last Name"
                                 onChange={(e) => handleChange(index, e)}
-                                value={player.lastName}
+                                value={player.lname}
                                 
                             />
                             <TextField 
