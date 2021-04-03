@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const PlayerRegReview = ({ Team, playerData, handleNext, handleBack }) => {
+const PlayerRegReview = ({ Team, info, playerData, handleNext, handleBack }) => {
 
     const classes = useStyles();
 
@@ -34,7 +34,7 @@ const PlayerRegReview = ({ Team, playerData, handleNext, handleBack }) => {
     };
 
     const onhSubmit = (e) => {
-        handleBack();
+        handleBack(0);
     };
 
     return (
@@ -48,12 +48,13 @@ const PlayerRegReview = ({ Team, playerData, handleNext, handleBack }) => {
                     {Team.team_name}
                     </Typography>
                     <Typography gutterBottom>{Team.college}</Typography>
+                    <Typography gutterBottom>Tournament : {info.tourn.tournName}</Typography>
                     <Typography gutterBottom>No. of Players : {Team.num_players}</Typography>
                 </Grid>
                 <Grid item container direction="column" xs={12} sm={6}>
                     <Typography gutterBottom>Captain : {Team.cFirstName} {Team.cLastName}</Typography>
                     <Typography gutterBottom>Contact Info : {Team.contact}</Typography>
-                    <Typography gutterBottom>Sport : {Team.sport}</Typography>                            
+                    <Typography gutterBottom>Sport : {info.sport}</Typography>                            
                 </Grid>    
             </Grid>        
             <Typography variant="h6" gutterBottom className={classes.title1}>

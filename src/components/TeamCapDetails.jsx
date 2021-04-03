@@ -21,18 +21,12 @@ const useStyles = makeStyles((theme) => ({
 },
 }));
 
-const TeamCapDetails = ({Team, onAdd, handleNext}) => {
+const TeamCapDetails = ({Team, onAdd, handleNext, handleBack}) => {
 
     const classes = useStyles();
 
     const [team, setTeam] = useState(Team);
     const [incomplete, setIncomplete] = useState(false);
-
-    const sportsList = ['Basketball',
-      'Football',
-      'Cricket', 'Tennis',
-      'Table Tennis',
-      'Badminton'];
 
     const onSubmit = () => {
 
@@ -46,6 +40,11 @@ const TeamCapDetails = ({Team, onAdd, handleNext}) => {
         setIncomplete(false)
         onAdd(team);
         handleNext();
+    };
+
+    const onhSubmit = (e) => {
+        onAdd(team);
+        handleBack(1);
     };
 
   return(
@@ -176,13 +175,16 @@ const TeamCapDetails = ({Team, onAdd, handleNext}) => {
         </Grid>
         
         <div className={classes.buttons}>
-          <Button
-              variant="contained"
-              color="primary"
-              onClick={onSubmit}
-              className={classes.button}>
-              Next
-          </Button>
+            <Button onClick={onhSubmit} className={classes.button}>
+                Back
+            </Button>
+            <Button
+                variant="contained"
+                color="primary"
+                onClick={onSubmit}
+                className={classes.button}>
+                Next
+            </Button>
         </div>
       </Grid>
     </React.Fragment>

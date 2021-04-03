@@ -50,7 +50,7 @@ const TeamDetails = ({ playerData, TeamNum, onAdd, handleNext, handleBack }) => 
 
     const onSubmit = (e) => {  
         //console.log(players.length, parseInt(TeamNum.num_players), players.length===parseInt(TeamNum.num_players))
-        if(players.length!==parseInt(TeamNum.num_players))
+        if(players.length!==parseInt(TeamNum.num_players)-1)
         {
             setIncomplete(true);
             return 
@@ -61,7 +61,7 @@ const TeamDetails = ({ playerData, TeamNum, onAdd, handleNext, handleBack }) => 
 
       const onhSubmit = (e) => {
         onAdd(players);
-        handleBack();
+        handleBack(0);
       };    
 
     const handleChange = (index, e) => {
