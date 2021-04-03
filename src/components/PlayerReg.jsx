@@ -48,7 +48,7 @@ const PlayerReg = ({ info, data, onAdd, goBack }) => {
     
     const classes = useStyles();
     const [Team, setTeam] = React.useState(data.team? data.team : {});
-    const [TeamData, setTeamData] = React.useState({})
+    // const [TeamData, setTeamData] = React.useState({})
     const [playerData, setplayerData] = React.useState(data.player? data.player : []);
     const [activeStep, setActiveStep] = React.useState(0);
 
@@ -73,19 +73,20 @@ const PlayerReg = ({ info, data, onAdd, goBack }) => {
         axiosInstance.post("/team", dataTeam).then(
             response=>{
                 console.log(response.data)
-                setTeamData({team_id : response.data.tID})
+                // setTeamData({team_id : response.data.tID})
+                const dataPlayer = {
+                    "tournament_id": info.tourn.tournId[0],
+                    "team_id": response.data.team_id,
+                    "players":playerData
+                }; 
+                console.log(dataPlayer);
+               
+                axiosInstance.post("/player",dataPlayer).then(response => setActiveStep(activeStep + 1))
+                .catch(err => console.log(err));
             }
         ).catch(err => console.log(err));
 
-        const dataPlayer = {
-            "tournament_id": info.tourn.tournId[0],
-            "team_id": TeamData.team_id,
-            "playerData":playerData
-        }; 
-        console.log(dataPlayer);
-       
-        axiosInstance.post("/player",dataPlayer).then(response => setActiveStep(activeStep + 1))
-        .catch(err => console.log(err));
+        
         
     };
 
@@ -121,7 +122,7 @@ const PlayerReg = ({ info, data, onAdd, goBack }) => {
                     return(
                         <>
                             <Alert severity="success">Successfully Registered.</Alert>
-                            <Link to ="/Home">
+                            <Link to ="/">
                                 <Button variant="contained" color="primary" className={classes.button}>Return to Home</Button>
                             </Link>
                         </>
