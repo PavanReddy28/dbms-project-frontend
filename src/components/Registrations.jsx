@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Typography, Paper, makeStyles, List, ListItem, ListItemText, Divider, Button, Grid, IconButton, Collapse, Dialog, DialogContent, DialogContentText, DialogActions } from "@material-ui/core";
+import { Typography, Paper, makeStyles, List, ListItem, ListItemText, Divider, Button, Grid, IconButton, Collapse, Dialog, DialogContent, DialogContentText, DialogActions, DialogTitle } from "@material-ui/core";
 import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
 import ExpandLess from '@material-ui/icons/ExpandLess';
@@ -23,7 +23,7 @@ const RegistrationStyles = makeStyles((theme) => ({
     }
 }))
 
-function RegistrationList({ data, title }) {
+function RegistrationList({ data, title, type }) {
 
     const classes = RegistrationStyles()
 
@@ -46,17 +46,21 @@ function RegistrationList({ data, title }) {
         }, {
             headers: {
                 "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
-            } 
+            }
         }).then(response => {
-            setDialogReg(null);
-            window.location.reload(false);
+            window.location.reload();
         });
     }
 
     return (
         <>
             <Dialog open={registerDialog} onClose={() => setRegisterDialog(false)}>
-                <DialogContentText>Register the team?</DialogContentText>
+                <DialogTitle>Register the team?</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        By pressing confirm, '{dialogReg && dialogReg.team_name}' will be marked as 'registered'
+                    </DialogContentText>
+                </DialogContent>
                 <DialogActions>
                     <Button onClick={() => setStatus("REGISTERED")} color="primary" >
                         Confirm
@@ -67,7 +71,12 @@ function RegistrationList({ data, title }) {
                 </DialogActions>
             </Dialog>
             <Dialog open={rejectDialog} onClose={() => setRejectDialog(false)}>
-            <DialogContentText>Reject the team?</DialogContentText>
+                <DialogTitle>Reject the team?</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        By pressing confirm, '{dialogReg && dialogReg.team_name}' will be marked as 'rejected'
+                    </DialogContentText>
+                </DialogContent>
                 <DialogActions>
                     <Button onClick={() => setStatus("REJECTED")} color="primary" >
                         Confirm
@@ -96,20 +105,24 @@ function RegistrationList({ data, title }) {
                                                 <>
                                                     <ListItem key={reg.team_id}>
                                                         <ListItemText primary={reg.team_name} secondary={tournament} className={classes.nested} />
-                                                        <IconButton size="small" className={classes.checkIcon} onClick={() => {
-                                                            setDialogReg(reg);
-                                                            setRegisterDialog(true);
-                                                            
+                                                        {(type === "pending" || type === "rejected") && (
+                                                            <IconButton size="small" className={classes.checkIcon} onClick={() => {
+                                                                setDialogReg(reg);
+                                                                setRegisterDialog(true);
+
                                                             }}>
-                                                            <CheckIcon />
-                                                        </IconButton>
-                                                        <IconButton size="small" color="secondary" onClick={() => {
-                                                            setDialogReg(reg);
-                                                            setRejectDialog(true);
-                                                            
+                                                                <CheckIcon />
+                                                            </IconButton>)}
+                                                        {(type !== "rejected") && (
+                                                            <IconButton size="small" color="secondary" onClick={() => {
+                                                                setDialogReg(reg);
+                                                                setRejectDialog(true);
+
                                                             }}>
-                                                            <ClearIcon />
-                                                        </IconButton>
+                                                                <ClearIcon />
+                                                            </IconButton>
+                                                        )}
+
                                                     </ListItem>
                                                     <Divider />
                                                 </>
@@ -167,15 +180,15 @@ function Registrations() {
         <Grid container spacing={1} className={classes.container}>
 
             <Grid item sm={12}>
-                <RegistrationList data={pending} title="Pending Registrations" />
+                <RegistrationList data={pending} title="Pending Registrations" type="pending" />
             </Grid>
 
             <Grid item sm={12}>
-                <RegistrationList data={registered} title="Registered Teams" />
+                <RegistrationList data={registered} title="Registered Teams" type="registered" />
             </Grid>
 
             <Grid item sm={12}>
-                <RegistrationList data={rejected} title="Rejected Teams" />
+                <RegistrationList data={rejected} title="Rejected Teams" type="rejected" />
             </Grid>
 
 
