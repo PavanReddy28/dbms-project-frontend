@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { axiosInstance } from "../axiosInstance";
-import { useHistory } from "react-router-dom";
+import { useHistory, Redirect } from "react-router-dom";
 import {
     Grid,
     Typography,
@@ -25,8 +25,9 @@ import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 import EditTourn from "./EditTourn";
-import {DashboardRegistrations} from "./Registrations"
+import { DashboardRegistrations } from "./Registrations"
 
 
 const useStyles = makeStyles((theme) => ({
@@ -91,7 +92,7 @@ function Dashboard() {
         axiosInstance.get("/team/PENDING", {
             headers: {
                 "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
-            }  
+            }
         }).then(response => {
             setRegistrations(response.data);
             console.log(Object.keys(response.data))
@@ -215,6 +216,11 @@ function Dashboard() {
 
                                         <ListItem button key={tournament.tournament_id} onClick={() => handleCollapse(tournament.tournament_id)}>
                                             <ListItemText primary={tournament.t_name} />
+                                            <IconButton size="small" onClick={() => {
+                                                return history.push(`/ViewTourn/${tournament.tournament_id}`)
+                                            }}>
+                                                <VisibilityIcon />
+                                            </IconButton>
                                             <IconButton size="small" onClick={() => activateDialog(tournament, "edit")}>
                                                 <EditIcon />
                                             </IconButton>
@@ -264,7 +270,7 @@ function Dashboard() {
                 </Grid>
 
                 <Grid item lg={6} sm={12}>
-                            <DashboardRegistrations classes = {classes.paper} registrations={registrations}/>
+                    <DashboardRegistrations classes={classes.paper} registrations={registrations} />
                 </Grid>
 
                 <Grid item lg={6} sm={12}>

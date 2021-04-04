@@ -12,6 +12,7 @@ import PrivateRoute from "../Private/PrivateRoute";
 import PlayerReg from "./PlayerReg";
 import provideTheme from "./Theme";
 import Registrations from "./Registrations";
+import ViewTourn from "./Tournament/ViewTourn";
 import { ThemeProvider } from "@material-ui/core/styles";
 
 
@@ -61,6 +62,7 @@ function App() {
           <PrivateRoute exact path='/dashboard' component={Dashboard} />
           <PrivateRoute exact path="/createTourn" component={CreateTourn} />
           <PrivateRoute exact path="/registrations" component = {Registrations} />
+          <PrivateRoute exact path="/viewTourn/:tourn_id" component={ViewTourn} />
         </Switch>
 
       </Router>
