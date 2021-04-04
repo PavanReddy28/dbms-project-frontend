@@ -27,14 +27,27 @@ function RegistrationList({ data, title, type }) {
 
     const classes = RegistrationStyles()
 
-    const [open, setOpen] = useState(null);
+    const [open, setOpen] = useState({
+        tourn: null,
+        reg: null
+    });
 
     const [dialogReg, setDialogReg] = useState(null);
     const [registerDialog, setRegisterDialog] = useState(false);
     const [rejectDialog, setRejectDialog] = useState(false);
 
     function handleCollapse(id, type) {
-        id !== open ? setOpen(id) : setOpen(null)
+        id !== open[type] ? setOpen(prev => {
+            return {
+                ...prev,
+                [type]: id
+            }
+        }) : setOpen(prev => {
+            return {
+                ...prev,
+                [type]: null
+            }
+        })
     }
 
     function setStatus(status) {
@@ -89,21 +102,21 @@ function RegistrationList({ data, title, type }) {
             <Paper elevation={1} className={classes.paper}>
                 <Typography variant="h5" color="primary">{title}</Typography>
                 <List>
-                    {Object.keys(data).length !== 0 ? Object.keys(data).map(tournament => {
+                    {Object.keys(data).length !== 0 ? Object.keys(data).map((tournament,idx) => {
 
 
                         return (
                             <>
-                                <ListItem button key={tournament} onClick={() => handleCollapse(tournament, "pending")}>
+                                <ListItem button key={tournament + type} onClick={() => handleCollapse(tournament, "tourn")}>
                                     <ListItemText primary={tournament} />
-                                    {open === tournament ? <ExpandLess /> : <ExpandMore />}
+                                    {open.tourn === tournament ? <ExpandLess /> : <ExpandMore />}
                                 </ListItem>
-                                <Collapse in={open === tournament} timeout="auto">
+                                <Collapse in={open.tourn === tournament} timeout="auto">
                                     <List component="div" disablePadding>
                                         {data[tournament].map(reg => {
                                             return (
                                                 <>
-                                                    <ListItem key={reg.team_id}>
+                                                    <ListItem key={reg.team_id} button onClick={() => handleCollapse(reg.team_id,"reg")}>
                                                         <ListItemText primary={reg.team_name} secondary={tournament} className={classes.nested} />
                                                         {(type === "pending" || type === "rejected") && (
                                                             <IconButton size="small" className={classes.checkIcon} onClick={() => {
@@ -125,6 +138,25 @@ function RegistrationList({ data, title, type }) {
 
                                                     </ListItem>
                                                     <Divider />
+                                                    <Collapse in={open.reg === reg.team_id}>
+                                                        <List component="div" disablePadding>
+                                                        <ListItem key = {`${reg.team_id}-${reg.college}`}>
+                                                                    <ListItemText primary={reg.college} secondary={"College/Organizer"} className={classes.nested} />              
+                                                        </ListItem>
+                                                        <ListItem key = {`${reg.team_id}-${reg.num_players}`}>
+                                                                    <ListItemText primary={reg.num_players} secondary={"Players"} className={classes.nested} />
+                                                        </ListItem>
+                                                        <ListItem key = {`${reg.team_id}-${reg.captain_f_name}`}>
+                                                                    <ListItemText primary={`${reg.captain_f_name} ${reg.captain_l_name}`} secondary={"Captain"} className={classes.nested} />
+                                                        </ListItem>
+                                                        <ListItem key = {`${reg.team_id}-${reg.sport}`}>
+                                                                    <ListItemText primary={reg.sport} secondary={"Sport"} className={classes.nested} />
+                                                        </ListItem>
+                                                        <ListItem key = {`${reg.team_id}-${reg.contact}`}>
+                                                                    <ListItemText primary={reg.contact} secondary={"Contact Number"} className={classes.nested} />
+                                                        </ListItem>
+                                                        </List>
+                                                    </Collapse>
                                                 </>
                                             )
                                         })}
