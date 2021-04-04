@@ -26,6 +26,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import EditTourn from "./EditTourn";
+import {DashboardRegistrations} from "./Registrations"
 
 
 const useStyles = makeStyles((theme) => ({
@@ -64,6 +65,10 @@ function Dashboard() {
         main: null,
         sportList: null
     })
+
+    const [registrations, setRegistrations] = useState({});
+
+
     const [deleteOpen, setDeleteOpen] = useState(false);
     const [editOpen, setEditOpen] = useState(false);
     const [dialogTourn, setDialogTourn] = useState(null);
@@ -73,6 +78,7 @@ function Dashboard() {
     const matches = ["Goa vs Pilani", "Goa vs Hyd", "Goa vs Pilani", "Goa vs Hyd", "Goa vs Pilani", "Goa vs Hyd", "Goa vs Pilani", "Goa vs Hyd", "Goa vs Pilani", "Goa vs Hyd"];
 
     //GET request to get all tournaments from backend
+    //GET request to get all PENDING registrations
     useEffect(() => {
         axiosInstance.get("/tournament", {
             headers: {
@@ -81,6 +87,16 @@ function Dashboard() {
         }).then(response => {
             setTournaments(response.data.tournaments);
         }).catch(err => console.log(err));
+
+        axiosInstance.get("/team/PENDING", {
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
+            }  
+        }).then(response => {
+            setRegistrations(response.data);
+            console.log(Object.keys(response.data))
+        });
+
     }, [])
 
     //collapsible tournament list
@@ -245,6 +261,10 @@ function Dashboard() {
                             })}
                         </List>
                     </Paper>
+                </Grid>
+
+                <Grid item lg={6} sm={12}>
+                            <DashboardRegistrations classes = {classes.paper} registrations={registrations}/>
                 </Grid>
 
                 <Grid item lg={6} sm={12}>
