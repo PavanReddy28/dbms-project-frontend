@@ -20,6 +20,9 @@ const RegistrationStyles = makeStyles((theme) => ({
     },
     nested: {
         paddingLeft: theme.spacing(4)
+    },
+    innerNested: {
+        paddingLeft: theme.spacing(8)
     }
 }))
 
@@ -118,6 +121,7 @@ function RegistrationList({ data, title, type }) {
                                                 <>
                                                     <ListItem key={reg.team_id} button onClick={() => handleCollapse(reg.team_id,"reg")}>
                                                         <ListItemText primary={reg.team_name} secondary={tournament} className={classes.nested} />
+                                                        {open.reg === reg.team_id ? <ExpandLess /> : <ExpandMore />}
                                                         {(type === "pending" || type === "rejected") && (
                                                             <IconButton size="small" className={classes.checkIcon} onClick={() => {
                                                                 setDialogReg(reg);
@@ -141,19 +145,19 @@ function RegistrationList({ data, title, type }) {
                                                     <Collapse in={open.reg === reg.team_id}>
                                                         <List component="div" disablePadding>
                                                         <ListItem key = {`${reg.team_id}-${reg.college}`}>
-                                                                    <ListItemText primary={reg.college} secondary={"College/Organizer"} className={classes.nested} />              
+                                                                    <ListItemText primary={reg.college} secondary={"College/Organizer"} className={classes.innerNested} />              
                                                         </ListItem>
                                                         <ListItem key = {`${reg.team_id}-${reg.num_players}`}>
-                                                                    <ListItemText primary={reg.num_players} secondary={"Players"} className={classes.nested} />
+                                                                    <ListItemText primary={reg.num_players} secondary={"Players"} className={classes.innerNested} />
                                                         </ListItem>
                                                         <ListItem key = {`${reg.team_id}-${reg.captain_f_name}`}>
-                                                                    <ListItemText primary={`${reg.captain_f_name} ${reg.captain_l_name}`} secondary={"Captain"} className={classes.nested} />
+                                                                    <ListItemText primary={`${reg.captain_f_name} ${reg.captain_l_name}`} secondary={"Captain"} className={classes.innerNested} />
                                                         </ListItem>
                                                         <ListItem key = {`${reg.team_id}-${reg.sport}`}>
-                                                                    <ListItemText primary={reg.sport} secondary={"Sport"} className={classes.nested} />
+                                                                    <ListItemText primary={reg.sport} secondary={"Sport"} className={classes.innerNested} />
                                                         </ListItem>
                                                         <ListItem key = {`${reg.team_id}-${reg.contact}`}>
-                                                                    <ListItemText primary={reg.contact} secondary={"Contact Number"} className={classes.nested} />
+                                                                    <ListItemText primary={reg.contact} secondary={"Contact Number"} className={classes.innerNested} />
                                                         </ListItem>
                                                         </List>
                                                     </Collapse>
