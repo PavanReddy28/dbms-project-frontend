@@ -65,7 +65,7 @@ export const TournSportRegComp = ({ TournData, tList, onAdd , handleNext }) => {
                     id="tournName"
                     name="tournName"
                     label="Tournament"
-                    
+                    //defaultValue={Tourn.length>0 && Tourn? Tourn.tournName:""}
                     onChange={(e)=>setTourn({[e.target.name]: e.target.value, 
                         tournId: tList.filter(tourn => tourn.t_name===e.target.value).map(item => item.tournament_id)})}
                     value={Tourn? Tourn.tournName:""}                       
