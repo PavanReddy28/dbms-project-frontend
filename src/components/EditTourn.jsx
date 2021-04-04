@@ -12,12 +12,13 @@ import {
     Input,
     MenuItem,
     useTheme,
-    Grid
+    Grid,
+    Divider
 } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
-        margin: 0.5*theme.spacing(1),
+        margin: 0.5 * theme.spacing(1),
     },
     chips: {
         display: 'flex',
@@ -103,6 +104,7 @@ function EditTourn(props) {
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description">
             <DialogTitle id="alert-dialog-title">{"Editing Tournament "}</DialogTitle>
+            <Divider />
             <DialogContent>
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
@@ -256,9 +258,10 @@ function EditTourn(props) {
                 </Grid>
 
             </DialogContent>
+            <Divider />
 
             <DialogActions>
-                <Button onClick={() => props.onEdit(tourn)} color="secondary" >
+                <Button onClick={() => props.onEdit(tourn)} color="primary" >
                     Confirm
           </Button>
                 <Button onClick={props.onClose} color="primary" autoFocus>
