@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const PlayerRegReview = ({ Team, info, playerData, handleNext, handleBack }) => {
+const IndReview = ({ Team, info, playerData, handleNext, handleBack }) => {
 
     const classes = useStyles();
 
@@ -49,7 +49,6 @@ const PlayerRegReview = ({ Team, info, playerData, handleNext, handleBack }) => 
                     </Typography>
                     <Typography gutterBottom>{Team.college}</Typography>
                     <Typography gutterBottom>Tournament : {info.tourn.tournName}</Typography>
-                    <Typography gutterBottom>No. of Players : {Team.num_players}</Typography>
                 </Grid>
                 <Grid item container direction="column" xs={12} sm={6}>
                     <Typography gutterBottom>Captain : {Team.cFirstName} {Team.cLastName}</Typography>
@@ -57,21 +56,7 @@ const PlayerRegReview = ({ Team, info, playerData, handleNext, handleBack }) => 
                     <Typography gutterBottom>Sport : {info.sport}</Typography>                            
                 </Grid>    
             </Grid>        
-            <Typography variant="h6" gutterBottom className={classes.title1}>
-                Team Members
-            </Typography>
             <Grid container spacing={0}>
-                {
-                    playerData.map((player, index) => {
-                        return (
-                            <Grid item xs={12}>
-                                <Typography gutterBottom>
-                                    {player.fname} {player.lname} : {player.age}
-                                </Typography>
-                            </Grid>
-                        )
-                    })
-                }
                 <div className={classes.buttons}>
                     <Button onClick={onhSubmit} className={classes.button}>
                         Back
@@ -89,4 +74,4 @@ const PlayerRegReview = ({ Team, info, playerData, handleNext, handleBack }) => 
     )
 }
 
-export default PlayerRegReview
+export default IndReview

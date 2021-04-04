@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 },
 }));
 
-const TeamCapDetails = ({Team, onAdd, handleNext, handleBack}) => {
+const IndGenDetails = ({Team, onAdd, handleNext, handleBack}) => {
 
     const classes = useStyles();
 
@@ -31,7 +31,7 @@ const TeamCapDetails = ({Team, onAdd, handleNext, handleBack}) => {
     const onSubmit = () => {
 
       // Find cleaner implementation
-      if(!team.team_name || !team.college || !team.cFirstName || !team.cLastName || !team.cAge || !team.num_players)
+      if(!team.team_name || !team.college || !team.cFirstName || !team.cLastName || !team.cAge)
         {
           setIncomplete(true);
           return 
@@ -49,64 +49,49 @@ const TeamCapDetails = ({Team, onAdd, handleNext, handleBack}) => {
 
   return(
     <React.Fragment>
-      <Grid item xs={12} lg={12}>
-              {incomplete && <Alert className={classes.alert} severity="error">Please fill all fields</Alert>}
-      </Grid>
-      <Typography variant="h6" gutterBottom>
-        Team Details
-      </Typography>
-      <Grid container spacing={3}>
-      <Grid item xs={12}>
-        <TextField
-          required={true}
-          id="team_name"
-          name="team_name"
-          label="Team name"
-          value={team.team_name? team.team_name : ""}
-          onChange={(e)=>setTeam( previous => {
-            return {
-              ...previous,
-              [e.target.name]: e.target.value
-            }
-          })}
-          fullWidth
-        />
-      </Grid>
-      <Grid item xs={12} sm={6}>
-        <TextField
-          required={true}
-          id="num_players"
-          name="num_players"
-          label="Number of Players"
-          onChange={(e)=>setTeam( previous => {
-            return {
-              ...previous,
-              [e.target.name]: e.target.value
-            }
-          })}
-          value={team.num_players?team.num_players:""}
-          fullWidth
-        />
+        <Grid item xs={12} lg={12}>
+                {incomplete && <Alert className={classes.alert} severity="error">Please fill all fields</Alert>}
         </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
+        <Typography variant="h6" gutterBottom>
+            General Details
+        </Typography>
+        <Grid container spacing={3}>
+        <Grid item xs={12}>
+            <TextField
+            required={true}
+            id="team_name"
+            name="team_name"
+            label="Nick Name"
+            value={team.team_name? team.team_name : ""}
+            onChange={(e)=>setTeam( previous => {
+                return {
+                ...previous,
+                [e.target.name]: e.target.value
+                }
+            })}
+            fullWidth
+            />
+        </Grid>
+      
+        <Grid item xs={12}>
+            <TextField
             required={true}
             id="college"
             name="college"
             label="College/Organization"
             onChange={(e)=>setTeam( previous => {
-              return {
+                return {
                 ...previous,
                 [e.target.name]: e.target.value
-              }
+                }
             })}
             value={team.college?team.college:""}
             fullWidth
-          />
+            />
         </Grid>
         </Grid>
           <Typography variant="h6" gutterBottom className={classes.title}>
-                  Captain Details
+                  Player Details
           </Typography>
           <Grid container spacing={3}>
           <Grid item xs={12}  sm={6}>
@@ -190,4 +175,4 @@ const TeamCapDetails = ({Team, onAdd, handleNext, handleBack}) => {
     </React.Fragment>
   );
 }
-export default TeamCapDetails
+export default IndGenDetails

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { axiosInstance } from "../axiosInstance";
 import { useHistory } from "react-router-dom";
 import {
@@ -72,8 +72,6 @@ function Dashboard() {
     const [deleteOpen, setDeleteOpen] = useState(false);
     const [editOpen, setEditOpen] = useState(false);
     const [dialogTourn, setDialogTourn] = useState(null);
-
-
 
     const matches = ["Goa vs Pilani", "Goa vs Hyd", "Goa vs Pilani", "Goa vs Hyd", "Goa vs Pilani", "Goa vs Hyd", "Goa vs Pilani", "Goa vs Hyd", "Goa vs Pilani", "Goa vs Hyd"];
 
@@ -185,12 +183,9 @@ function Dashboard() {
         setEditOpen(false);
     }
 
-
-
     return (
         <>
             <Grid container spacing={2} className={classes.container}>
-
                 <Grid item lg={6} sm={12}>
                     <Paper className={classes.paper} elevation={1}>
                         <Grid container>
@@ -205,10 +200,7 @@ function Dashboard() {
                         </Grid>
 
 
-
                         <List className={classes.list}>
-
-
                             {tournaments.map(tournament => {
                                 return (
                                     <>
@@ -224,13 +216,11 @@ function Dashboard() {
                                             {open.main === tournament.tournament_id ? <ExpandLess /> : <ExpandMore />}
                                         </ListItem>
                                         <Divider />
-
                                         <Collapse in={open.main === tournament.tournament_id} timeout="auto">
                                             <List component="div" disablePadding>
                                                 <ListItem>
                                                     <ListItemText primary={"Organizer: " + tournament.college} className={classes.nested} />
                                                 </ListItem>
-
                                                 <ListItem>
                                                     <ListItemText primary={"City: " + tournament.city} className={classes.nested} />
                                                 </ListItem>

@@ -9,11 +9,10 @@ import CreateTourn from "./CreateTourn";
 import Home from "./Home";
 import Dashboard from "./Dashboard";
 import PrivateRoute from "../Private/PrivateRoute";
-import PlayerReg from "./PlayerReg";
+import TournSportReg from "./TournSportReg";
 import provideTheme from "./Theme";
 import Registrations from "./Registrations";
 import { ThemeProvider } from "@material-ui/core/styles";
-
 
 
 function App() {
@@ -46,8 +45,8 @@ function App() {
         <Header mode = {mode} toggle = {toggleMode}/>
 
         <Switch>
-          <Route exact path="/playerReg">
-            <PlayerReg />
+          <Route exact path="/tournSportReg">
+            <TournSportReg/>
           </Route>
           <Route exact path="/login">
             <Login />
