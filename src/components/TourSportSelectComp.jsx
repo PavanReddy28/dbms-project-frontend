@@ -50,8 +50,7 @@ export const TourSportSelectComp = ({ Tourn, sportData, onAdd , handleNext, hand
           setIncomplete(true);
           return 
         }
-        onAdd(sport1)
-        handleNext()        
+        handleNext()   
     };
 
     const goBack = () => {
@@ -74,15 +73,11 @@ export const TourSportSelectComp = ({ Tourn, sportData, onAdd , handleNext, hand
                     id="sport1"
                     name="sport1"
                     label="Team Sport"
-                    value={sport1? sport1:""}
+                    defaultValue=''
+                    value={sport1}
                     onChange={(e)=>{
-                        console.log(e.target.value)
-                        //console.log(sport1, 'done 0')
                         setSport1(e.target.value)
-                        // console.log(e.target.value)
-                        console.log(sport1, 'done 1')
-                        
-                        // console.log('done 2')
+                        onAdd(e.target.value)
                     }}
                     >
                     {sportsList.map((name) => (

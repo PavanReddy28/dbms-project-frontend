@@ -23,21 +23,21 @@ const useStyles = makeStyles((theme) => ({
   }));
   
 
-export const TournSportRegComp = ({ TournData, onAdd , handleNext }) => {
+export const TournSportRegComp = ({ TournData, tList, onAdd , handleNext }) => {
     const classes = useStyles()
 
-    const [TournList, setTournList] = useState([])
+    //const [TournList, setTournList] = useState([])
     const [Tourn, setTourn] = useState(TournData? TournData : {})
     const [incomplete, setIncomplete] = useState(false);
 
-    useEffect(() => {
-        axiosInstance.get('/tournamentList').then(
-            response => {
-                //console.log(response.data.tournaments)
-                setTournList(response.data.tournaments)
-            }
-        ).catch(err => console.log(err))
-    }, [])
+    // useEffect(() => {
+    //     axiosInstance.get('/tournamentList').then(
+    //         response => {
+    //             //console.log(response.data.tournaments)
+    //             setTournList(response.data.tournaments)
+    //         }
+    //     ).catch(err => console.log(err))
+    // }, [])
 
     const goNext = () => {    
         if(Object.keys(Tourn).length === 0)
@@ -65,11 +65,12 @@ export const TournSportRegComp = ({ TournData, onAdd , handleNext }) => {
                     id="tournName"
                     name="tournName"
                     label="Tournament"
+                    
                     onChange={(e)=>setTourn({[e.target.name]: e.target.value, 
-                        tournId: TournList.filter(tourn => tourn.t_name===e.target.value).map(item => item.tournament_id)})}
+                        tournId: tList.filter(tourn => tourn.t_name===e.target.value).map(item => item.tournament_id)})}
                     value={Tourn? Tourn.tournName:""}                       
                     >
-                    {TournList.map((tourn, index) => (
+                    {tList.map((tourn, index) => (
                         <MenuItem key={index} value={tourn.t_name}>
                             {tourn.t_name}
                         </MenuItem>

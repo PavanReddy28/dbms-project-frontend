@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { axiosInstance } from '../axiosInstance';
 import { CssBaseline, Paper, Typography, Button, Grid } from '@material-ui/core';
 import TournSportRegComp from './TournSportRegComp';
 import TourSportSelectComp from './TourSportSelectComp';
@@ -44,10 +45,21 @@ export const TournSportReg = () => {
 
     const classes = useStyles();
 
+    const [TournList, setTournList] = useState([])
     const [Tourn, setTourn] = useState({})
     const [sport, setSport] = useState('')
     const [data, setData] = useState({})
-    const [activeStep, setActiveStep] = React.useState(0);
+    const [activeStep, setActiveStep] = useState(0);
+    // const [sportsList, setSportsList] = useState([])
+
+    useEffect(() => {
+        axiosInstance.get('/tournamentList').then(
+            response => {
+                //console.log(response.data.tournaments)
+                setTournList(response.data.tournaments)
+            }
+        ).catch(err => console.log(err))
+    }, [])
 
     const genSportsList = {
         teamSports: [
@@ -95,7 +107,7 @@ export const TournSportReg = () => {
 
     const addTourn = (tourn) => {
         console.log(tourn)
-        setTourn(tourn)         
+        setTourn(tourn)       
     }
 
     const addSport = (sport1) => {
@@ -111,7 +123,7 @@ export const TournSportReg = () => {
     {
         switch (step) {
         case 0:
-            return <TournSportRegComp TournData={Tourn} onAdd={addTourn} handleNext={handleNext}/>;
+            return <TournSportRegComp TournData={Tourn} tList={TournList} onAdd={addTourn} handleNext={handleNext}/>;
         case 1:
             return <TourSportSelectComp Tourn={Tourn} sportData={sport} onAdd={addSport} handleNext={handleNext} handleBack={handleBack}/>;
         case 2:
