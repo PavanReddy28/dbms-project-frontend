@@ -23,6 +23,58 @@ const RegistrationStyles = makeStyles((theme) => ({
     }
 }))
 
+function RegistrationList({data, title}) {
+
+    const classes = RegistrationStyles()
+
+    const [open,setOpen] = useState(null);
+
+    function handleCollapse(id, type) {
+        id !== open ? setOpen(id) : setOpen(null)
+    }
+
+    return (
+        <Paper elevation={1} className={classes.paper}>
+                    <Typography variant="h5" color="primary">{title}</Typography>
+                    <List>
+                        {Object.keys(data).length !== 0 ? Object.keys(data).map(tournament => {
+
+
+                            return (
+                                <>
+                                    <ListItem button key={tournament} onClick={() => handleCollapse(tournament, "pending")}>
+                                        <ListItemText primary={tournament} />
+                                        {open === tournament ? <ExpandLess /> : <ExpandMore />}
+                                    </ListItem>
+                                    <Collapse in={open === tournament} timeout="auto">
+                                        <List component="div" disablePadding>
+                                            {data[tournament].map(reg => {
+                                                return (
+                                                    <>
+                                                        <ListItem key={reg.team_id}>
+                                                            <ListItemText primary={reg.team_name} secondary={tournament} className={classes.nested} />
+                                                            <IconButton size="small" className={classes.checkIcon}>
+                                                                <CheckIcon />
+                                                            </IconButton>
+                                                            <IconButton size="small" color="secondary">
+                                                                <ClearIcon />
+                                                            </IconButton>
+                                                        </ListItem>
+                                                        <Divider />
+                                                    </>
+                                                )
+                                            })}
+                                        </List>
+                                    </Collapse>
+                                </>
+                            )
+
+                        }) : <Typography>No registrations</Typography>}
+                    </List>
+                </Paper>
+    )
+}
+
 function Registrations() {
 
     const classes = RegistrationStyles();
@@ -30,11 +82,6 @@ function Registrations() {
     const [pending, setPending] = useState({});
     const [rejected, setRejected] = useState({});
     const [registered, setRegistered] = useState({});
-
-    const [open, setOpen] = useState({
-        pending: null,
-        sportList: null
-    })
 
     useEffect(() => {
         axiosInstance.get("/team/PENDING", {
@@ -62,90 +109,21 @@ function Registrations() {
         })
     }, [])
 
-    function handleCollapse(id, type) {
-        id !== open[type] ? setOpen(prev => {
-            return {
-                ...prev,
-                [type]:id
-            }
-        }) : setOpen(prev => {
-            return {
-                ...prev,
-                [type]: null
-            }
-        })
-    }
+    
 
     return (
         <Grid container spacing={1} className={classes.container}>
 
             <Grid item sm={12}>
-                <Paper elevation={1} className={classes.paper}>
-                    <Typography variant="h5" color="primary">Pending Registrations</Typography>
-                    <List>
-                        {Object.keys(pending).map(tournament => {
-
-                            {/* return (
-                                pending[tournament].map(reg => {
-                                    return (
-                                        <>
-                                            <ListItem key={reg.team_id}>
-                                                <ListItemText primary={reg.team_name} secondary={tournament} />
-                                                <IconButton size="small" className = {classes.checkIcon}>
-                                                    <CheckIcon />
-                                                </IconButton>
-                                                <IconButton size="small" color="secondary">
-                                                    <ClearIcon />
-                                                </IconButton>
-                                            </ListItem>
-                                            <Divider />
-                                        </>
-
-                                    )
-                                })
-                            ) */}
-
-                            return (
-                                <>
-                                    <ListItem button key={tournament} onClick={() => handleCollapse(tournament,"pending")}>
-                                        <ListItemText primary={tournament} />
-                                        {open.pending === tournament ? <ExpandLess /> : <ExpandMore />}
-                                    </ListItem>
-                                    <Collapse in={open.pending === tournament} timeout="auto">
-                                        <List component="div" disablePadding>
-                                            {pending[tournament].map(reg => {
-                                                return (
-                                                    <>
-                                                        <ListItem key={reg.team_id}>
-                                                            <ListItemText primary={reg.team_name} secondary={tournament} className={classes.nested}/>
-                                                            <IconButton size="small" className={classes.checkIcon}>
-                                                                <CheckIcon />
-                                                            </IconButton>
-                                                            <IconButton size="small" color="secondary">
-                                                                <ClearIcon />
-                                                            </IconButton>
-                                                        </ListItem>
-                                                        <Divider />
-                                                    </>
-                                                )
-                                            })}
-                                        </List>
-                                    </Collapse>
-                                </>
-                            )
-
-                        })}
-                    </List>
-                </Paper>
-
+                <RegistrationList data={pending} title="Pending Registrations"/>
             </Grid>
 
             <Grid item sm={12}>
-
+                <RegistrationList data={registered} title="Registered Teams"/>
             </Grid>
 
             <Grid item sm={12}>
-
+                <RegistrationList data={rejected} title = "Rejected Teams"/>
             </Grid>
 
 
