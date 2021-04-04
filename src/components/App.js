@@ -46,7 +46,7 @@ function App() {
         <Switch>
           <Route exact path="/tournSportReg">
             <TournSportReg/>
-
+          </Route>
           <Route exact path="/login">
             <Login />
           </Route>
