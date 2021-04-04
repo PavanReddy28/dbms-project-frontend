@@ -108,7 +108,7 @@ const SportData = ({ sports, onAdd, handleNext, handleBack }) => {
             <Grid container spacing={3}>
                 <Grid item xs={12}>
                     <FormControl className={classes.formControl}>
-                        <InputLabel id="teamSports">Individual</InputLabel>
+                        <InputLabel id="teamSports">Team</InputLabel>
                         <Select
                             labelId="teamSports-mutiple-chip-label"
                             id="teamSports-mutiple-chip"
@@ -136,7 +136,7 @@ const SportData = ({ sports, onAdd, handleNext, handleBack }) => {
                 </Grid>
                 <Grid item xs={12}>
                     <FormControl className={classes.formControl}>
-                        <InputLabel id="indivSports">Team</InputLabel>
+                        <InputLabel id="indivSports">Individual</InputLabel>
                         <Select
                             labelId="indivSports-mutiple-chip-label"
                             id="indivSports-mutiple-chip"
