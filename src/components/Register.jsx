@@ -1,11 +1,18 @@
 import React, { useState } from "react";
-import Container from '@material-ui/core/Container';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import { axiosInstance } from '../axiosInstance'
+import {Container, TextField, Button, Typography, makeStyles} from '@material-ui/core'
+import { axiosInstance } from '../axiosInstance';
+
+
+const useStyles = makeStyles((theme) => ({
+    form: {
+        marginTop: "10%"
+    }
+}));
+
 
 function Register() {
+
+    const classes = useStyles();
 
     const [userName, setUserName] = useState("");
     const [passWord, setPassWord] = useState("");
@@ -29,7 +36,7 @@ function Register() {
 
 
     return (
-        <Container maxWidth="xs">
+        <Container maxWidth="xs" className = {classes.form}>
             <Typography component="h1" variant="h5">
                 Sign Up!
         </Typography>

@@ -2,8 +2,32 @@ import React, { useState } from "react";
 import { AppBar, Toolbar, Box, Hidden, Button, makeStyles, IconButton, List, ListItem, ListItemText, Drawer, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { Menu } from "@material-ui/icons";
+import Brightness4Icon from '@material-ui/icons/Brightness4';
+import Brightness7Icon from '@material-ui/icons/Brightness7';
 
-const useStyles = makeStyles({
+// const useStyles = makeStyles(theme => ({
+//     nav: {
+//         marginLeft: "auto"
+//     },
+//     navLink: {
+//         color: theme.text.primary,
+//         textDecoration: "none",
+//         textTransform: "uppercase"
+//     },
+//     link: {
+//         textDecoration: "none"
+//     },
+//     list: {
+//         width: "250px"
+        
+//     },
+//     listItem: {
+        
+//     }
+// }));
+
+const useStyles = makeStyles((theme) => ({
+    
     nav: {
         marginLeft: "auto"
     },
@@ -20,13 +44,13 @@ const useStyles = makeStyles({
         
     },
     listItem: {
-        color: "black"
+        textDecoration: "none",
+        color: theme.palette.text.primary
     }
-});
+}))
 
 
-
-function Header() {
+function Header(props) {
 
     const classes = useStyles();
     const [isOpen, setIsOpen] = useState(false);
@@ -47,7 +71,7 @@ function Header() {
     ]
 
     return (
-        <>
+        <div className={classes.root}>
         <AppBar position="sticky">
             <Toolbar>
                 <Typography variant="h6">
@@ -55,6 +79,12 @@ function Header() {
                     </Typography>
                 <Hidden only={["xs", "sm"]}>
                     <Box className={classes.nav}>
+
+                    <IconButton onClick={props.toggle} style={{color: "white"}}>
+                        {props.mode === "dark"?<Brightness7Icon />:<Brightness4Icon />}
+                        
+                    </IconButton>
+                        
                         {links.map(link => {
                             return (
                                 <Link to={link.path} className={classes.link}>
@@ -90,7 +120,7 @@ function Header() {
                     })}
                 </List>
         </Drawer>
-        </>
+        </div>
 
     )
 }

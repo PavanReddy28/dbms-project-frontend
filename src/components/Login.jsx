@@ -1,15 +1,21 @@
 import React, {useState} from "react";
-import Container from '@material-ui/core/Container';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import {Container, TextField, Button, Typography, makeStyles} from '@material-ui/core'
 import {axiosInstance} from '../axiosInstance';
 import {useHistory} from "react-router-dom";
+
+const useStyles = makeStyles((theme) => ({
+    form: {
+        marginTop: "10%"
+    }
+}))
+
 
 function Login() {
 
 
     const history = useHistory();
+
+    const classes = useStyles();
 
     const [userName, setUserName] = useState("");
     const [passWord, setPassWord] = useState("");
@@ -47,7 +53,7 @@ function Login() {
 
 
     return (
-        <Container maxWidth="xs">
+        <Container maxWidth="xs" className={classes.form}>
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
