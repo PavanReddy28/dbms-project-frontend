@@ -42,7 +42,7 @@ export const TourSportSelectComp = ({ Tourn, sportData, onAdd , handleNext, hand
                 setSportsList(response.data.sports)
             }
         ).catch(err => console.log(err))
-    }, [])
+    }, [Tourn])
 
     const goNext = () => {    
         if(!sport1)
