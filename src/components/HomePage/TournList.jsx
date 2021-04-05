@@ -1,9 +1,52 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { axiosInstance } from "../../axiosInstance";
+import { useHistory } from "react-router-dom";
+import {
+    Grid,
+    Typography,
+    makeStyles,
+    Paper,
+    List,
+    ListItem,
+    ListItemText,
+    Button,
+    IconButton,
+    Collapse,
+    Dialog,
+    DialogActions,
+    DialogContentText,
+    DialogTitle,
+    DialogContent,
+    Divider
+} from '@material-ui/core';
 
 function TournList() {
 
+    const [tournaments, setTournaments] = useState(null);
+
+    const history = useHistory();
+
+    useEffect(() => {
+        axiosInstance.get("/tournamentList").then(response => {
+            setTournaments(response.data.tournaments)
+        })
+    })
+
     return (
-        <h1>TournList</h1>
+        <Paper elevation ={1}>
+            <Typography variant ="h5" color="primary">Current Tournaments</Typography>
+            <List>
+                {tournaments && tournaments.map(tournament => {
+                    return (
+                        <ListItem key={tournament.tournament_id} button onClick={() => history.push(`/viewTourn/${tournament.tournament_id}`)}>
+                            <ListItemText primary={tournament.t_name} secondary={tournament.college} />
+                        </ListItem>
+                    )
+                })}
+            </List>
+            
+        </Paper>
+
     )
 }
 

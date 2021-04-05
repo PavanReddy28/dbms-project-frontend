@@ -1,6 +1,7 @@
 import React from "react";
 import { Typography, Grid, Card, CardHeader, CardContent, Button } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
+import TournList from "./TournList"
 
 function Home() {
 
@@ -83,6 +84,10 @@ function Home() {
                             </Grid>
                         )
                     })}
+
+                    <Grid item sm={12}>
+                        <TournList />
+                    </Grid>
 
                 </Grid>
             </div>
