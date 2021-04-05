@@ -59,10 +59,12 @@ function App() {
           <Route exact path="/">
             <Home />
           </Route>
+          <Route exact path="/viewTourn/:tourn_id">
+            <ViewTourn />
+          </Route>
           <PrivateRoute exact path='/dashboard' component={Dashboard} />
           <PrivateRoute exact path="/createTourn" component={CreateTourn} />
           <PrivateRoute exact path="/registrations" component = {Registrations} />
-          <PrivateRoute exact path="/viewTourn/:tourn_id" component={ViewTourn} />
         </Switch>
 
       </Router>
