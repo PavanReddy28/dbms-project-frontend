@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { axiosInstance } from "../../axiosInstance";
 import { useParams, useHistory } from "react-router-dom";
 import { Paper, List, ListItem, ListItemText, Grid, Collapse, makeStyles, Typography } from "@material-ui/core";
+import Alert from '@material-ui/lab/Alert';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 
@@ -126,7 +127,11 @@ function ViewTourn() {
   return (
     <Grid container className={classes.container} spacing={4}>
       <Grid item sm={12} lg={12}>
-        {tournament && <TournDetails tournament={tournament} />}
+        {tournament ? <TournDetails tournament={tournament} />: (
+          <Grid item sm={6}>
+                <Alert severity="error">Tournament does not exist</Alert>
+          </Grid>
+        )}
       </Grid>
       <Grid item sm={12}>
         <Paper className={classes.wrapPaper}>
@@ -134,7 +139,7 @@ function ViewTourn() {
             Teams
           </Typography>
           <Grid container spacing={6}>
-            {sortedTeams && Object.keys(sortedTeams).map(sport => {
+            {(sortedTeams && Object.keys(sortedTeams).length > 0) ? Object.keys(sortedTeams).map(sport => {
               return (
                 <Grid item sm={6}>
 
@@ -142,7 +147,12 @@ function ViewTourn() {
 
                 </Grid>
               )
-            })}
+            }): (
+              <Grid item sm={6}>
+                <Alert severity="warning">No teams registered</Alert>
+              </Grid>
+              
+              )}
           </Grid>
 
         </Paper>
@@ -156,7 +166,7 @@ function ViewTourn() {
             Matches
         </Typography>
           <Grid container spacing={6}>
-            {sortedMatches && Object.keys(sortedMatches).map(sport => {
+            {(sortedMatches && Object.keys(sortedMatches).length >0) ? Object.keys(sortedMatches).map(sport => {
               return (
                 <Grid item sm={6}>
                   <SportMatches matches={sortedMatches[sport]} sport={sport} />
@@ -164,7 +174,12 @@ function ViewTourn() {
 
               )
 
-            })}
+            }): (
+              <Grid item sm={6}>
+                <Alert severity="warning">No matches scheduled</Alert>
+              </Grid>
+              
+              )}
           </Grid>
         </Paper>
 
