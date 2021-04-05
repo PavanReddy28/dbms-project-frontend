@@ -28,6 +28,8 @@ function ViewTourn() {
 
   const [sortedTeams, setSortedTeams] = useState(null);
 
+  const [sortedMatches, setSortedMatches] = useState(null);
+
   useEffect(() => {
 
     axiosInstance.get("/tournament", {
@@ -92,6 +94,66 @@ function ViewTourn() {
 
       }
     )
+
+    const matches = [
+      {
+          "match_id": 1,
+          "date": "2021-04-06",
+          "startTime": "10:30:00+05:30",
+          "sportName": "Tennis",
+          "round": "Start",
+          "team1": {
+              "team_id": 1,
+              "teamName": "TT2"
+          },
+          "team2": {
+              "team_id": 2,
+              "teamName": "TT1"
+          }
+      },
+      {
+          "match_id": 2,
+          "date": "2021-04-06",
+          "startTime": "10:30:00+05:30",
+          "sportName": "Cricket",
+          "round": "Start",
+          "team1": {
+              "team_id": 3,
+              "teamName": "C1"
+          },
+          "team2": {
+              "team_id": 4,
+              "teamName": "C2"
+          }
+      },
+      {
+          "match_id": 4,
+          "date": "2021-04-06",
+          "startTime": "10:30:00+05:30",
+          "sportName": "Basketball",
+          "round": "Start",
+          "team1": {
+              "team_id": 5,
+              "teamName": "B1"
+          },
+          "team2": {
+              "team_id": 6,
+              "teamName": "B2"
+          }
+      }
+  ]
+
+  const orgMatches = {}
+
+  matches.forEach(match => {
+    if(match.sportName in orgMatches){
+      orgMatches[match.sportName].push(match)
+    } else {
+      orgMatches[match.sportName] = [match]
+    }
+  })
+
+  setSortedMatches(orgMatches)
 
   }, [tourn_id, history])
 
