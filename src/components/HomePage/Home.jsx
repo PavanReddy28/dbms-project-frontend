@@ -1,9 +1,23 @@
 import React from "react";
-import { Typography, Grid, Card, CardHeader, CardContent, Button } from "@material-ui/core";
+import { Typography, Grid, Card, CardHeader, CardContent, Button, Divider, makeStyles, Container } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
-import TournList from "./TournList"
+import TournList from "./TournList";
+
+const useStyles = makeStyles((theme) => ({
+    card: {
+        minHeight: "300px"
+    },
+    heroContent: {
+        padding: theme.spacing(8, 0, 6)
+    },
+    container: {
+        marginTop: "10px"
+    }
+}))
 
 function Home() {
+
+    const classes = useStyles()
 
     const featureCards = [
         {
@@ -22,59 +36,34 @@ function Home() {
 
     const history = useHistory();
 
-    const routeChange = () =>{ 
-        let path = `./TournSportReg`; 
+    const routeChange = () => {
+        let path = `./TournSportReg`;
         history.push(path);
-      }
+    }
 
     return (
-        // <Grid container justify="center">
-        //     <Grid item>
-        //         <Typography variant="h4">Welcome to the tournament management app!</Typography>
-        //     </Grid>
 
-        // </Grid>
         <>
-            <Typography variant="h3" align="center">Welcome to the Tournament Management App!</Typography>
-            <Typography variant="subtitle1" align="center">An app to help with your tournament hassle</Typography>
-            <Typography variant="body1" align="center">We offer an app to help you manage tournaments</Typography>
-            <hr></hr>
-            <div>
-                <Typography variant="h3" align="center">Features Offered</Typography>
-                <Grid container alignItems="flex-end">
-                    {/* <Grid item>
-                    <Card>
-                        <CardHeader title="Register Players" titleTypographyProps={{ align: 'center' }} />
-                        <CardContent>
-                            <Typography>Add new players which play in different sports</Typography>
-                        </CardContent>
-                    </Card>
-                </Grid>
-                <Grid item>
-                    <Card>
-                        <CardHeader title="Register Players" titleTypographyProps={{ align: 'center' }} />
-                        <CardContent>
-                            <Typography>Add new players which play in different sports</Typography>
-                        </CardContent>
-                    </Card>
-                </Grid>
-                <Grid item>
-                    <Card>
-                        <CardHeader title="Register Players" titleTypographyProps={{ align: 'center' }} />
-                        <CardContent>
-                            <Typography>Add new players which play in different sports</Typography>
-                        </CardContent>
-                    </Card>
-                </Grid> */}
+            <Container maxWidth="sm" component="main" className={classes.heroContent}>
+                <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
+                    Welcome to the Tournament Management App!
+                </Typography>
+                <Typography variant="h5" align="center" color="textSecondary" component="p">
+                    An app to help with your tournament hassle
+                </Typography>
+            </Container>
+            <Divider />
+                <Grid container alignItems="flex-end" spacing={2} className={classes.container}>
 
-                    {featureCards.map((item,index) => {
+
+                    {featureCards.map((item, index) => {
                         return (
                             <Grid item key={index} sm={12} md={4} lg={4}>
-                                <Card>
+                                <Card className={classes.card}>
                                     <CardHeader title={item.heading} titleTypographyProps={{ align: 'center' }} />
                                     <CardContent>
                                         <Typography>{item.content}</Typography>
-                                        <Button 
+                                        <Button
                                             color='primary'
                                             onClick={routeChange}>
                                             {item.heading}
@@ -90,7 +79,6 @@ function Home() {
                     </Grid>
 
                 </Grid>
-            </div>
         </>
 
     )

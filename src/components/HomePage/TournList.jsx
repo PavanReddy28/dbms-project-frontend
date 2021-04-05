@@ -20,11 +20,18 @@ import {
     Divider
 } from '@material-ui/core';
 
+const useStyles = makeStyles((theme) => ({
+    paper: {
+        padding: "30px"
+    }
+}))
+
 function TournList() {
 
     const [tournaments, setTournaments] = useState(null);
 
     const history = useHistory();
+    const classes = useStyles();
 
     useEffect(() => {
         axiosInstance.get("/tournamentList").then(response => {
@@ -33,7 +40,7 @@ function TournList() {
     })
 
     return (
-        <Paper elevation ={1}>
+        <Paper elevation ={1} className={classes.paper}>
             <Typography variant ="h5" color="primary">Current Tournaments</Typography>
             <List>
                 {tournaments && tournaments.map(tournament => {
