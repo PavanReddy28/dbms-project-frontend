@@ -8,6 +8,7 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 const useStyles = makeStyles((theme) => ({
   paper: {
     padding: "30px",
+    minHeight: "300px"
   },
   container: {
     margin: "10px 0px"
@@ -130,7 +131,7 @@ function SportTeams({ teamData, sport }) {
   }
 
   return (
-    <Paper elevation={1}>
+    <Paper elevation={1} className = {classes.paper} >
       <Typography variant="h5" color="primary">{sport}</Typography>
       {teamData.length > 0 ? teamData.map(team => {
         return (
