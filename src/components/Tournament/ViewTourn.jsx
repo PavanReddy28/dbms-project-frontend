@@ -172,6 +172,20 @@ function ViewTourn() {
           </Grid>
         )
       })}
+
+      {sortedMatches && Object.keys(sortedMatches).map(sport => {
+        return (
+          <Grid item sm={6}>
+            <SportMatches matches={sortedMatches[sport]} sport = {sport}/>
+          </Grid>
+          
+          )
+
+      })}
+
+      {/* <Grid item sm={6}>
+        {sortedMatches && <SportMatches sortedMatches={sortedMatches}/>}
+      </Grid> */}
     </Grid>
 
   )
@@ -264,41 +278,46 @@ function TournDetails({ tournament }) {
   )
 }
 
-function TournTeams() {
+function SportMatches({matches,sport}) {
 
-  const [teams, setTeams] = useState([]);
-  const history = useHistory();
   const classes = useStyles();
 
-  const { tourn_id } = useParams();
+  const [open,setOpen] = useState(null);
 
-  useEffect(() => {
-    axiosInstance.get(`/teams/${tourn_id}`, {
-      headers: {
-        "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
-      }
-    }).then(response => {
-      setTeams(response.data.teams)
-    }).catch(err => {
-      err.response.status === 401 && history.push("/login");
-    })
-  }, [history, tourn_id])
+  function handleCollapse(id) {
+    id !== open ? setOpen(id) : setOpen(null);
+  }
 
   return (
-    <Paper elevation={1} className={classes.paper} >
-      <Typography variant="h5" color="primary">Teams</Typography>
-      <List>
-        {teams.map(team => {
-          return (
-            <ListItem>
-              <ListItemText primary={team.team_name} />
-            </ListItem>
-          )
-        })}
+    matches.map(match => {
+      return (
+        <Paper elevation={1} className = {classes.paper}>
+        <Typography variant="h5" color="primary">{sport}</Typography>
+        <List>
+          <ListItem button key = {match.match_id} onClick={() => handleCollapse(match.match_id)}>
+            <ListItemText primary={`${match.team1.teamName} vs ${match.team2.teamName}`} />
+            {open === match.match_id ? <ExpandLess /> : <ExpandMore />}
+          </ListItem>
+          <Collapse in={open} timeout="auto">
+            <List component="div" disablePadding>
+              <ListItem>
+                <ListItemText primary={match.date} secondary={"Date"} className={classes.nested}/>
+              </ListItem>
+              <ListItem>
+                <ListItemText primary={match.startTime} secondary={"Start Time"} className={classes.nested}/>
+              </ListItem>
+              <ListItem>
+                <ListItemText primary={match.round} secondary={"Round"} className={classes.nested}/>
+              </ListItem>
+            </List>
+          </Collapse>
+        </List>
 
-      </List>
-    </Paper>
+        </Paper>
+      )
+    })
   )
+
 }
 
 export default ViewTourn;
