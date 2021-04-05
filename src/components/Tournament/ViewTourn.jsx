@@ -8,10 +8,18 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 const useStyles = makeStyles((theme) => ({
   paper: {
     padding: "30px",
-    minHeight: "300px"
+    marginTop: "20px",
+    minHeight: "20rem",
+    backgroundColor: "#303030"
+  },
+  wrapPaper: {
+    padding: "30px",
+    minHeight: "20rem",
+    backgroundColor: "#474747"
   },
   container: {
-    margin: "10px 0px"
+    margin: "2% 0px",
+    maxWidth: "100%"
   },
   nested: {
     paddingLeft: theme.spacing(4)
@@ -97,91 +105,114 @@ function ViewTourn() {
 
     const matches = [
       {
-          "match_id": 1,
-          "date": "2021-04-06",
-          "startTime": "10:30:00+05:30",
-          "sportName": "Tennis",
-          "round": "Start",
-          "team1": {
-              "team_id": 1,
-              "teamName": "TT2"
-          },
-          "team2": {
-              "team_id": 2,
-              "teamName": "TT1"
-          }
+        "match_id": 1,
+        "date": "2021-04-06",
+        "startTime": "10:30:00+05:30",
+        "sportName": "Tennis",
+        "round": "Start",
+        "team1": {
+          "team_id": 1,
+          "teamName": "TT2"
+        },
+        "team2": {
+          "team_id": 2,
+          "teamName": "TT1"
+        }
       },
       {
-          "match_id": 2,
-          "date": "2021-04-06",
-          "startTime": "10:30:00+05:30",
-          "sportName": "Cricket",
-          "round": "Start",
-          "team1": {
-              "team_id": 3,
-              "teamName": "C1"
-          },
-          "team2": {
-              "team_id": 4,
-              "teamName": "C2"
-          }
+        "match_id": 2,
+        "date": "2021-04-06",
+        "startTime": "10:30:00+05:30",
+        "sportName": "Cricket",
+        "round": "Start",
+        "team1": {
+          "team_id": 3,
+          "teamName": "C1"
+        },
+        "team2": {
+          "team_id": 4,
+          "teamName": "C2"
+        }
       },
       {
-          "match_id": 4,
-          "date": "2021-04-06",
-          "startTime": "10:30:00+05:30",
-          "sportName": "Basketball",
-          "round": "Start",
-          "team1": {
-              "team_id": 5,
-              "teamName": "B1"
-          },
-          "team2": {
-              "team_id": 6,
-              "teamName": "B2"
-          }
+        "match_id": 4,
+        "date": "2021-04-06",
+        "startTime": "10:30:00+05:30",
+        "sportName": "Basketball",
+        "round": "Start",
+        "team1": {
+          "team_id": 5,
+          "teamName": "B1"
+        },
+        "team2": {
+          "team_id": 6,
+          "teamName": "B2"
+        }
       }
-  ]
+    ]
 
-  const orgMatches = {}
+    const orgMatches = {}
 
-  matches.forEach(match => {
-    if(match.sportName in orgMatches){
-      orgMatches[match.sportName].push(match)
-    } else {
-      orgMatches[match.sportName] = [match]
-    }
-  })
+    matches.forEach(match => {
+      if (match.sportName in orgMatches) {
+        orgMatches[match.sportName].push(match)
+      } else {
+        orgMatches[match.sportName] = [match]
+      }
+    })
 
-  setSortedMatches(orgMatches)
+    setSortedMatches(orgMatches)
 
   }, [tourn_id, history])
 
   return (
-    <Grid container className={classes.container} spacing={2}>
+    <Grid container className={classes.container} spacing={4}>
       <Grid item sm={12} lg={12}>
         {tournament && <TournDetails tournament={tournament} />}
       </Grid>
+      <Grid item sm={12}>
+        <Paper className={classes.wrapPaper}>
+          <Typography variant="h2">
+            Teams
+          </Typography>
+          <Grid container spacing={6}>
+            {sortedTeams && Object.keys(sortedTeams).map(sport => {
+              return (
+                <Grid item sm={6}>
 
-      {sortedTeams && Object.keys(sortedTeams).map(sport => {
-        return (
-          <Grid item sm={6}>
+                  <SportTeams teamData={sortedTeams[sport]} sport={sport} />
 
-            <SportTeams teamData={sortedTeams[sport]} sport={sport} />
-
+                </Grid>
+              )
+            })}
           </Grid>
-        )
-      })}
 
-      {sortedMatches && Object.keys(sortedMatches).map(sport => {
-        return (
-          <Grid item sm={6}>
-            <SportMatches matches={sortedMatches[sport]} sport = {sport}/>
+        </Paper>
+
+      </Grid>
+
+
+      <Grid item sm={12}>
+        <Paper className={classes.wrapPaper}>
+          <Typography variant="h2">
+            Matches
+        </Typography>
+          <Grid container spacing={6}>
+            {sortedMatches && Object.keys(sortedMatches).map(sport => {
+              return (
+                <Grid item sm={6}>
+                  <SportMatches matches={sortedMatches[sport]} sport={sport} />
+                </Grid>
+
+              )
+
+            })}
           </Grid>
-          
-          )
+        </Paper>
 
-      })}
+      </Grid>
+
+
 
       {/* <Grid item sm={6}>
         {sortedMatches && <SportMatches sortedMatches={sortedMatches}/>}
@@ -203,7 +234,7 @@ function SportTeams({ teamData, sport }) {
   }
 
   return (
-    <Paper elevation={1} className = {classes.paper} >
+    <Paper elevation={1} className={classes.paper} >
       <Typography variant="h5" color="primary">{sport}</Typography>
       {teamData.length > 0 ? teamData.map(team => {
         return (
@@ -243,7 +274,7 @@ function TournDetails({ tournament }) {
   const [open, setOpen] = useState(false);
 
   return (
-    <Paper elevation={1} className={classes.paper}>
+    <Paper elevation={1} className={classes.wrapPaper}>
       <Typography variant="h5" color="primary">Tournament details</Typography>
       <List>
         <ListItem>
@@ -278,11 +309,11 @@ function TournDetails({ tournament }) {
   )
 }
 
-function SportMatches({matches,sport}) {
+function SportMatches({ matches, sport }) {
 
   const classes = useStyles();
 
-  const [open,setOpen] = useState(null);
+  const [open, setOpen] = useState(null);
 
   function handleCollapse(id) {
     id !== open ? setOpen(id) : setOpen(null);
@@ -291,27 +322,27 @@ function SportMatches({matches,sport}) {
   return (
     matches.map(match => {
       return (
-        <Paper elevation={1} className = {classes.paper}>
-        <Typography variant="h5" color="primary">{sport}</Typography>
-        <List>
-          <ListItem button key = {match.match_id} onClick={() => handleCollapse(match.match_id)}>
-            <ListItemText primary={`${match.team1.teamName} vs ${match.team2.teamName}`} />
-            {open === match.match_id ? <ExpandLess /> : <ExpandMore />}
-          </ListItem>
-          <Collapse in={open} timeout="auto">
-            <List component="div" disablePadding>
-              <ListItem>
-                <ListItemText primary={match.date} secondary={"Date"} className={classes.nested}/>
-              </ListItem>
-              <ListItem>
-                <ListItemText primary={match.startTime} secondary={"Start Time"} className={classes.nested}/>
-              </ListItem>
-              <ListItem>
-                <ListItemText primary={match.round} secondary={"Round"} className={classes.nested}/>
-              </ListItem>
-            </List>
-          </Collapse>
-        </List>
+        <Paper elevation={1} className={classes.paper}>
+          <Typography variant="h5" color="primary">{sport}</Typography>
+          <List>
+            <ListItem button key={match.match_id} onClick={() => handleCollapse(match.match_id)}>
+              <ListItemText primary={`${match.team1.teamName} vs ${match.team2.teamName}`} />
+              {open === match.match_id ? <ExpandLess /> : <ExpandMore />}
+            </ListItem>
+            <Collapse in={open} timeout="auto">
+              <List component="div" disablePadding>
+                <ListItem>
+                  <ListItemText primary={match.date} secondary={"Date"} className={classes.nested} />
+                </ListItem>
+                <ListItem>
+                  <ListItemText primary={match.startTime} secondary={"Start Time"} className={classes.nested} />
+                </ListItem>
+                <ListItem>
+                  <ListItemText primary={match.round} secondary={"Round"} className={classes.nested} />
+                </ListItem>
+              </List>
+            </Collapse>
+          </List>
 
         </Paper>
       )
