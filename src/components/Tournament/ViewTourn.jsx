@@ -5,6 +5,7 @@ import { Paper, List, ListItem, ListItemText, Grid, Collapse, makeStyles, Typogr
 import Alert from '@material-ui/lab/Alert';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
+import Loading from "../../Private/Loading"
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -53,7 +54,7 @@ function ViewTourn() {
         return tournament.tournament_id === parseInt(tourn_id)
       });
 
-      setTournament(tourn);
+      setTournament(tourn? tourn: false);
 
     }).catch(err => {
       err.response.status === 401 && history.push("/login");
@@ -124,6 +125,12 @@ function ViewTourn() {
 
   }, [tourn_id, history])
 
+  if(tournament === null || sortedMatches===null || sortedTeams === null){
+    return (
+        <Loading />
+    )
+  }
+  else
   return (
     <Grid container className={classes.container} spacing={4}>
       <Grid item sm={12} lg={12}>
@@ -139,7 +146,7 @@ function ViewTourn() {
             Teams
           </Typography>
           <Grid container spacing={6}>
-            {(sortedTeams && Object.keys(sortedTeams).length > 0) ? Object.keys(sortedTeams).map(sport => {
+            {(Object.keys(sortedTeams).length > 0) ? Object.keys(sortedTeams).map(sport => {
               return (
                 <Grid item sm={6}>
 
@@ -166,7 +173,7 @@ function ViewTourn() {
             Matches
         </Typography>
           <Grid container spacing={6}>
-            {(sortedMatches && Object.keys(sortedMatches).length >0) ? Object.keys(sortedMatches).map(sport => {
+            {(Object.keys(sortedMatches).length >0) ? Object.keys(sortedMatches).map(sport => {
               return (
                 <Grid item sm={6}>
                   <SportMatches matches={sortedMatches[sport]} sport={sport} />
