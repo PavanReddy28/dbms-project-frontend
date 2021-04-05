@@ -25,8 +25,6 @@ function ViewTourn() {
   const history = useHistory();
 
   const [tournament, setTournament] = useState(null);
-  const [sports, setSports] = useState([]);
-  const [teams, setTeams] = useState([]);
 
   const [sortedTeams, setSortedTeams] = useState(null);
 
@@ -54,7 +52,6 @@ function ViewTourn() {
     // get sports
     axiosInstance.get(`/tournament/getSports/${tourn_id}`).then(
       response => {
-        setSports(response.data.sports);
         let Sports = response.data.sports;
 
         console.log(Sports)
@@ -66,7 +63,6 @@ function ViewTourn() {
             "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
           }
         }).then(response => {
-          setTeams(response.data.teams);
           let Teams = response.data.teams;
 
           let orgTeams = {}
