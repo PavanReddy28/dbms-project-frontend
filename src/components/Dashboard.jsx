@@ -209,7 +209,7 @@ function Dashboard() {
                                         <ListItem button key={tournament.tournament_id} onClick={() => handleCollapse(tournament.tournament_id)}>
                                             <ListItemText primary={tournament.t_name} />
                                             <IconButton size="small" onClick={() => {
-                                                return history.push(`/ViewTourn/${tournament.tournament_id}`)
+                                                return history.push(`/ViewTourn/auth/${tournament.tournament_id}`)
                                             }}>
                                                 <VisibilityIcon />
                                             </IconButton>
