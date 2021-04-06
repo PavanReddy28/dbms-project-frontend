@@ -302,10 +302,11 @@ function SportMatches({ matches, sport }) {
   }
 
   return (
-    matches.map(match => {
+    <>
+    <Paper elevation={1} className={classes.paper}>
+      <Typography variant="h5" color="primary">{sport}</Typography>
+      {matches.map(match => {
       return (
-        <Paper elevation={1} className={classes.paper}>
-          <Typography variant="h5" color="primary">{sport}</Typography>
           <List>
             <ListItem button key={match.match_id} onClick={() => handleCollapse(match.match_id)}>
               <ListItemText primary={`${match.team1.teamName} vs ${match.team2.teamName}`} />
@@ -326,9 +327,10 @@ function SportMatches({ matches, sport }) {
             </Collapse>
           </List>
 
-        </Paper>
       )
-    })
+    })}
+    </Paper>
+    </>
   )
 
 }
