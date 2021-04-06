@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Grid, 
     Checkbox, 
     Accordion, 
@@ -14,6 +14,7 @@ import { Grid,
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import {Alert} from "@material-ui/lab";
 import moment from 'moment';
+import {Link} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     alert: {
@@ -57,6 +58,20 @@ const AM_teams = ({ Teams, mTea, setTime, r, round, handleNext, handleBack }) =>
     const rounds = ['Finals', 'Semi Finals', 'Quarter Finals', 'Round Robin', 'Groups', 'Round of 16', 'Round of 32']
     const [mTeams, setmTeams] = useState([])
     const [incomplete, setIncomplete] = useState(false);
+    const [incomplete1, setIncomplete1] = useState(false);
+
+    useEffect(() => {
+        //console.log(Teams.length===0, Teams.length)
+        if(Teams.length===0)
+        {
+            setIncomplete1(true)
+            //console.log(incomplete1)
+        }
+    }, [Teams])
+
+    const goToStatus = () => {
+
+    }
 
     return (
         <React.Fragment>
@@ -68,9 +83,20 @@ const AM_teams = ({ Teams, mTea, setTime, r, round, handleNext, handleBack }) =>
                 <Grid container>
                     <Typography variant="h5" color="primary">Select Teams</Typography>
                 </Grid>
+                <Grid item xs={12} lg={12}>
+                    {incomplete1 && 
+                    <>
+                        <Alert className={classes.alert} severity="error">No teams are Registered / Accepted. Please update the team's status.</Alert>
+                        <Link to ="/Registrations">
+                            <Button variant="contained" color="primary" className={classes.button}>Go to Status</Button>
+                        </Link>
+                    </>
+                    }
+                </Grid>
                 
                 <List className={classes.list}>
-                {Teams.map(team => {
+                {
+                Teams.map(team => {
                         //console.log(team)
                         return (
                             <Accordion>
@@ -128,6 +154,7 @@ const AM_teams = ({ Teams, mTea, setTime, r, round, handleNext, handleBack }) =>
                             </Accordion>
                         )
                     })}
+                
                 </List>
                 </div>
                 <div className={classes.time}>          
