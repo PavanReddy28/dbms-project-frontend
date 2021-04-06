@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { axiosInstance } from "../../axiosInstance";
 import { useParams, useHistory } from "react-router-dom";
-import { Paper, List, ListItem, ListItemText, Grid, Collapse, makeStyles, Typography, IconButton } from "@material-ui/core";
+import { Paper, List, ListItem, ListItemText, Grid, Collapse, makeStyles, Typography, IconButton, Snackbar } from "@material-ui/core";
 import Alert from '@material-ui/lab/Alert';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import AddIcon from '@material-ui/icons/Add';
-import Loading from "../../Private/Loading"
+import DeleteIcon from '@material-ui/icons/Delete';
+import Loading from "../../Private/Loading";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -296,10 +297,33 @@ function SportMatches({ matches, sport }) {
   const classes = useStyles();
 
   const [open, setOpen] = useState(null);
+  const [snackBar, setSnackBar] = useState(false);
 
   function handleCollapse(id) {
     id !== open ? setOpen(id) : setOpen(null);
   }
+
+  function deleteMatch(id) {
+    axiosInstance.delete("/match",{
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
+    },
+    data: {
+      "match_id": id
+    }
+    }).then(response => {
+      window.location.reload();
+      setSnackBar(true)
+    }).catch(err => console.log(err))
+  }
+
+  const snackClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setSnackBar(false);
+  };
 
   return (
     <>
@@ -310,6 +334,9 @@ function SportMatches({ matches, sport }) {
           <List>
             <ListItem button key={match.match_id} onClick={() => handleCollapse(match.match_id)}>
               <ListItemText primary={`${match.team1.teamName} vs ${match.team2.teamName}`} />
+              <IconButton size="small" color="secondary" onClick={() => {deleteMatch(match.match_id)}}>
+                  <DeleteIcon />
+              </IconButton>
               {open === match.match_id ? <ExpandLess /> : <ExpandMore />}
             </ListItem>
             <Collapse in={open === match.match_id} timeout="auto">
@@ -330,6 +357,11 @@ function SportMatches({ matches, sport }) {
       )
     })}
     </Paper>
+    <Snackbar open={snackBar} autoHideDuration={6000} onClose={snackClose}>
+        <Alert variant="filled" onClose={snackClose} severity="success">
+          Deleted Match!
+        </Alert>
+      </Snackbar>
     </>
   )
 
