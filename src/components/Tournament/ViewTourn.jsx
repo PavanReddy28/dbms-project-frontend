@@ -66,11 +66,7 @@ function ViewTourn() {
 
 
         //get teams
-        axiosInstance.get(`/teams/${tourn_id}`, {
-          headers: {
-            "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
-          }
-        }).then(response => {
+        axiosInstance.get(`/teams/${tourn_id}`).then(response => {
           let Teams = response.data.teams;
 
           let orgTeams = {}
