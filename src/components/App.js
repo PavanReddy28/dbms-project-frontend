@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Login from "./Login"
+import Login from "./Global/Login"
 import Register from "./Register"
-import Header from "./Header"
+import Header from "./Global/Header"
 // import Footer from "./Footer";
 import CreateTourn from "./CreateTourn";
 import Home from "./HomePage/Home";
