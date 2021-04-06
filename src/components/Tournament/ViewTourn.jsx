@@ -42,11 +42,7 @@ function ViewTourn() {
 
   useEffect(() => {
 
-    axiosInstance.get("/tournament", {
-      headers: {
-        "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
-      }
-    }).then(response => {
+    axiosInstance.get("/tournamentList").then(response => {
 
       console.log(response.data)
 
@@ -57,7 +53,7 @@ function ViewTourn() {
       setTournament(tourn? tourn: false);
 
     }).catch(err => {
-      err.response.status === 401 && history.push("/login");
+      console.log(err)
     })
 
 
