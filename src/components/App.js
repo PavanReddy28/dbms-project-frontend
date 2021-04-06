@@ -6,7 +6,7 @@ import Register from "./Register"
 import Header from "./Header"
 // import Footer from "./Footer";
 import CreateTourn from "./CreateTourn";
-import Home from "./Home";
+import Home from "./HomePage/Home";
 import Dashboard from "./Dashboard";
 import PrivateRoute from "../Private/PrivateRoute";
 import TournSportReg from "./TournSportReg";
