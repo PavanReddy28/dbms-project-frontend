@@ -46,11 +46,6 @@ const AM_Tourn = ({ Tournaments, handleNext }) => {
         sportList: null
     })
 
-    const addTeams = (tourn1, sportName) => {
-        console.log(tourn1)
-        console.log(sportName)
-    }
-
     function handleSportsCollapse(id) {
         id !== open.sportList ? setOpen(prev => {
             return {
