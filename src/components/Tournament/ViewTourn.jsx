@@ -311,7 +311,7 @@ function SportMatches({ matches, sport }) {
               <ListItemText primary={`${match.team1.teamName} vs ${match.team2.teamName}`} />
               {open === match.match_id ? <ExpandLess /> : <ExpandMore />}
             </ListItem>
-            <Collapse in={open} timeout="auto">
+            <Collapse in={open === match.match_id} timeout="auto">
               <List component="div" disablePadding>
                 <ListItem>
                   <ListItemText primary={match.date} secondary={"Date"} className={classes.nested} />
