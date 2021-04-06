@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { axiosInstance } from "../../axiosInstance";
 import { useParams, useHistory } from "react-router-dom";
-import { Paper, List, ListItem, ListItemText, Grid, Collapse, makeStyles, Typography } from "@material-ui/core";
+import { Paper, List, ListItem, ListItemText, Grid, Collapse, makeStyles, Typography, IconButton } from "@material-ui/core";
 import Alert from '@material-ui/lab/Alert';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
+import AddIcon from '@material-ui/icons/Add';
 import Loading from "../../Private/Loading"
 
 const useStyles = makeStyles((theme) => ({
@@ -25,10 +26,14 @@ const useStyles = makeStyles((theme) => ({
   },
   nested: {
     paddingLeft: theme.spacing(4)
-  }
+  },
+  addIcon: {
+    display: "block",
+    marginLeft: "auto"
+},
 }))
 
-function ViewTourn() {
+function ViewTourn({auth}) {
 
   const { tourn_id } = useParams();
   const classes = useStyles();
@@ -161,10 +166,15 @@ function ViewTourn() {
 
       <Grid item sm={12}>
         <Paper className={classes.wrapPaper}>
-          <Typography variant="h2">
-            Matches
-        </Typography>
           <Grid container spacing={6}>
+              <Grid item sm={6}>
+              <Typography variant="h2">
+                Matches
+              </Typography>
+              </Grid>
+              <Grid item sm={6}>
+                {auth && <IconButton onClick={() => history.push("/addMatch")} className = {classes.addIcon}><AddIcon /></IconButton>}
+              </Grid>
             {(Object.keys(sortedMatches).length >0) ? Object.keys(sortedMatches).map(sport => {
               return (
                 <Grid item sm={6}>
