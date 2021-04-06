@@ -14,6 +14,7 @@ import provideTheme from "./Theme";
 import Registrations from "./Registrations";
 import ViewTourn from "./Tournament/ViewTourn";
 import { ThemeProvider } from "@material-ui/core/styles";
+import AddMatch from "./Matches/AddMatch"
 
 
 function App() {
@@ -46,6 +47,9 @@ function App() {
         <Header mode = {mode} toggle = {toggleMode}/>
 
         <Switch>
+          <Route exact path="/addMatch">
+            <AddMatch/>
+          </Route>
           <Route exact path="/tournSportReg">
             <TournSportReg/>
           </Route>
