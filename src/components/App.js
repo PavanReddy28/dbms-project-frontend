@@ -15,7 +15,7 @@ import Registrations from "./Registrations";
 import ViewTourn from "./Tournament/ViewTourn";
 import AuthTourn from "./Tournament/AuthTourn";
 import { ThemeProvider } from "@material-ui/core/styles";
-import AddMatch from "./Matches/AddMatch"
+import MatchSchedules from "./Schedules/MatchSchedules"
 
 
 function App() {
@@ -48,8 +48,8 @@ function App() {
         <Header mode = {mode} toggle = {toggleMode}/>
 
         <Switch>
-          <Route exact path="/addMatch">
-            <AddMatch/>
+          <Route exact path="/MatchSchedules">
+            <MatchSchedules/>
           </Route>
           <Route exact path="/tournSportReg">
             <TournSportReg/>
