@@ -31,6 +31,7 @@ import TimeLine from './TimeLine'
 import TimeLine2 from './TimeLine2'
 import LoadingRelative from "../../Private/LoadingRelative"
 import Matches from "./Matches"
+import Delete from "./Delete"
 
 const useStyles = makeStyles((theme) => ({
     // paper: {
@@ -93,6 +94,7 @@ export default function MacthSchedules() {
     const [DiaType, setDiaType] = useState('')
     const [Num, setNum] = useState(0)
     const [Scores, setScores] = useState({})
+    const [DelMatch, setDelMatch] = useState('')
 
     useEffect(() => { 
 
@@ -411,13 +413,40 @@ export default function MacthSchedules() {
         }
     }
 
+    const handleDelete = () => {
+        axiosInstance.delete('/match', {
+            params: {
+                'match_id': DelMatch
+            },
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
+            }
+        }).then(response => {
+            setDeleteOpen(false)
+            console.log('Deleted Match')
+            if(Num===0)
+            {
+                handleStep(Num, sportName)
+            }
+            else{
+                handleStep(Num, TournID)
+            }
+        })
+        .catch(err=>console.log(err));
+    }
+
+    const delRequest = (match_id) => {
+        setDelMatch(match_id)
+        setDeleteOpen(true)
+    }
+
     const timeLineSet = (step) => {
 
         switch (step) {
             case 0:
-                return <TimeLine openDialog={activateDialog} status={status} sportData={sportData} sport={sportName}/>
+                return <TimeLine delRequest={delRequest} openDialog={activateDialog} status={status} sportData={sportData} sport={sportName}/>
             case 1:
-                return <TimeLine2 openDialog={activateDialog} status={status} Tourn={tournData} />
+                return <TimeLine2 delRequest={delRequest} openDialog={activateDialog} status={status} Tourn={tournData} />
             case 2:
                 return <LoadingRelative />
             default:
@@ -481,6 +510,7 @@ export default function MacthSchedules() {
                         })}
                     </List>
                 </Grid>
+                <Delete deleteOpen={deleteOpen} setDeleteOpen={setDeleteOpen} handleDelete={handleDelete} />
                 <Matches type={DiaType} data={DiaData} setData={setDiaData} editOpen={editOpen} sport={diaSport} onCloseCancel={onCloseCancel} onClose={onCloseEdit}/>
                 <Grid item lg={6} sm={12}>
                 <div className={classes.buttons}>

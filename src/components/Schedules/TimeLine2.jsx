@@ -4,6 +4,7 @@ import {
     Typography,
     makeStyles,
     Paper,
+    IconButton
 } from '@material-ui/core';
 import TimelineItem from '@material-ui/lab/TimelineItem';
 import TimelineSeparator from '@material-ui/lab/TimelineSeparator';
@@ -15,6 +16,7 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
+import DeleteIcon from '@material-ui/icons/Delete';
 import { axiosInstance } from '../../axiosInstance';
 
 const useStyles = makeStyles((theme) => ({
@@ -26,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const TimeLine2 = ({ openDialog, status, Tourn }) => {
+const TimeLine2 = ({ openDialog, status, Tourn, delRequest }) => {
 
     const classes = useStyles()
     const [score, setScores] = useState({})
@@ -157,7 +159,11 @@ const TimeLine2 = ({ openDialog, status, Tourn }) => {
                             </CardContent>
                             <CardActions>
                                 <Button size="small" color="primary" onClick={() => openDialog(match, match.sportName, 'edit')}>
-                                    Edit Scores</Button>
+                                    Edit Scores
+                                </Button>
+                                <IconButton size="small" color="secondary" onClick={() => delRequest(match.match_id)}>
+                                    <DeleteIcon />
+                                </IconButton>
                             </CardActions>
                         </Card>
                         </TimelineContent>
@@ -193,7 +199,11 @@ const TimeLine2 = ({ openDialog, status, Tourn }) => {
                             </CardContent>
                             <CardActions>
                                 <Button size="small" color="primary" onClick={() => openDialog(match, match.sportName, 'add')}>
-                                    Add Scores</Button>
+                                    Add Scores
+                                </Button>
+                                <IconButton size="small" color="secondary" onClick={() => delRequest(match.match_id)}>
+                                    <DeleteIcon />
+                                </IconButton>
                             </CardActions>
                         </Card>
                         </TimelineContent>
