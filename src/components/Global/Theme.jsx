@@ -10,8 +10,13 @@ function provideTheme(mode) {
             secondary: {
                 main: '#ff5252',
               },
-            type: mode
-        }   
+            type: mode,
+            background: {
+                default: mode==="light"? "#ffffff": "#222222",
+                paper: mode==="dark"? "#303030": "#ffffff"
+            },
+        },
+           
     });
 
     return theme;
