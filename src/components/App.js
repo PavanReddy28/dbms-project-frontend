@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Login from "./Global/Login"
-import Register from "./Register"
+import Register from "./Global/Register"
 import Header from "./Global/Header"
 // import Footer from "./Footer";
 import CreateTourn from "./Tournament/CreateTourn";
@@ -10,7 +10,7 @@ import Home from "./HomePage/Home";
 import Dashboard from "./Dashboard";
 import PrivateRoute from "../Private/PrivateRoute";
 import TournSportReg from "./Registration/TournSportReg";
-import provideTheme from "./Theme";
+import provideTheme from "./Global/Theme";
 import Registrations from "./Registration/Registrations";
 import ViewTourn from "./Tournament/ViewTourn";
 import AuthTourn from "./Tournament/AuthTourn";
