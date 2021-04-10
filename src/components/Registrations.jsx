@@ -110,9 +110,11 @@ function RegistrationList({ data, title, type }) {
 
                         return (
                             <>
-                                <ListItem button key={tournament + type} onClick={() => handleCollapse(tournament, "tourn")}>
+                                <ListItem key={tournament + type}>
                                     <ListItemText primary={tournament} />
-                                    {open.tourn === tournament ? <ExpandLess /> : <ExpandMore />}
+                                    <IconButton onClick={() => handleCollapse(tournament, "tourn")}>
+                                        {open.tourn === tournament ? <ExpandLess /> : <ExpandMore />}
+                                    </IconButton>
                                 </ListItem>
                                 <Collapse in={open.tourn === tournament} timeout="auto">
                                     <List component="div" disablePadding>

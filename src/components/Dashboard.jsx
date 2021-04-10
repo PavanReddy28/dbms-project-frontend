@@ -205,7 +205,7 @@ function Dashboard() {
                                 return (
                                     <>
 
-                                        <ListItem button key={tournament.tournament_id} onClick={() => handleCollapse(tournament.tournament_id)}>
+                                        <ListItem key={tournament.tournament_id}>
                                             <ListItemText primary={tournament.t_name} />
                                             <IconButton size="small" onClick={() => {
                                                 return history.push(`/ViewTourn/auth/${tournament.tournament_id}`)
@@ -218,7 +218,9 @@ function Dashboard() {
                                             <IconButton size="small" color="secondary" onClick={() => activateDialog(tournament, "delete")}>
                                                 <DeleteIcon />
                                             </IconButton>
-                                            {open.main === tournament.tournament_id ? <ExpandLess /> : <ExpandMore />}
+                                            <IconButton onClick={() => handleCollapse(tournament.tournament_id)}>
+                                                {open.main === tournament.tournament_id ? <ExpandLess /> : <ExpandMore />}
+                                            </IconButton> 
                                         </ListItem>
                                         <Divider />
                                         <Collapse in={open.main === tournament.tournament_id} timeout="auto">
@@ -230,9 +232,11 @@ function Dashboard() {
                                                     <ListItemText primary={"City: " + tournament.city} className={classes.nested} />
                                                 </ListItem>
 
-                                                <ListItem button onClick={() => handleSportsCollapse(tournament.tournament_id, "sportList")}>
+                                                <ListItem>
                                                     <ListItemText primary={"Sports"} className={classes.nested} />
-                                                    {open.sportList === tournament.tournament_id ? <ExpandLess /> : <ExpandMore />}
+                                                    <IconButton onClick={() => handleSportsCollapse(tournament.tournament_id, "sportList")}>
+                                                        {open.sportList === tournament.tournament_id ? <ExpandLess /> : <ExpandMore />}
+                                                    </IconButton>
                                                 </ListItem>
                                             </List>
                                             <Collapse in={open.sportList === tournament.tournament_id} timeout="auto">

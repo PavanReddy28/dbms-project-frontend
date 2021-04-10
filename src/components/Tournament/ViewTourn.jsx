@@ -225,12 +225,15 @@ function SportTeams({ teamData, sport }) {
         return (
           <>
             <List>
-              <ListItem button onClick={() => handleCollapse(team.team_id)} key={team.team_id}>
+              <ListItem>
                 <ListItemText primary={team.team_name} />
                 <IconButton onClick={() => history.push(`/ViewTeam/${team.team_id}`)}>
                   <VisibilityIcon />
                 </IconButton>
-                {open === team.team_id ? <ExpandLess /> : <ExpandMore />}
+                <IconButton onClick={() => handleCollapse(team.team_id)} key={team.team_id}>
+                  {open === team.team_id ? <ExpandLess /> : <ExpandMore />}
+                </IconButton>
+                
               </ListItem>
             </List>
             <Collapse in={open === team.team_id} timeout="auto">
@@ -277,9 +280,11 @@ function TournDetails({ tournament }) {
         <ListItem>
           <ListItemText primary={tournament.country} secondary={"Country"} />
         </ListItem>
-        <ListItem button onClick={() => setOpen(prev => !prev)}>
-          <ListItemText primary={"Sports"} secondary={"Click to view"} />
-          {open ? <ExpandLess /> : <ExpandMore />}
+        <ListItem>
+          <ListItemText primary={"Sports"} />
+          <IconButton onClick={() => setOpen(prev => !prev)}>
+            {open ? <ExpandLess /> : <ExpandMore />}
+          </IconButton>
         </ListItem>
         <Collapse in={open} timeout="auto">
           <List component="div" disablePadding>
@@ -337,12 +342,14 @@ function SportMatches({ matches, sport }) {
       {matches.map(match => {
       return (
           <List>
-            <ListItem button key={match.match_id} onClick={() => handleCollapse(match.match_id)}>
+            <ListItem key={match.match_id}>
               <ListItemText primary={`${match.team1.teamName} vs ${match.team2.teamName}`} />
               <IconButton size="small" color="secondary" onClick={() => {deleteMatch(match.match_id)}}>
                   <DeleteIcon />
               </IconButton>
-              {open === match.match_id ? <ExpandLess /> : <ExpandMore />}
+              <IconButton onClick={() => handleCollapse(match.match_id)}>
+                {open === match.match_id ? <ExpandLess /> : <ExpandMore />}
+              </IconButton>
             </ListItem>
             <Collapse in={open === match.match_id} timeout="auto">
               <List component="div" disablePadding>
