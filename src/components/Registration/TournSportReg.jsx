@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { axiosInstance } from '../axiosInstance';
+import { axiosInstance } from '../../axiosInstance';
 import { CssBaseline, Paper, Typography, Button, Grid } from '@material-ui/core';
 import TournSportRegComp from './TournSportRegComp';
 import TourSportSelectComp from './TourSportSelectComp';

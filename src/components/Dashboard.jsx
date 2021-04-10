@@ -27,7 +27,7 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import EditTourn from "./Tournament/EditTourn";
-import { DashboardRegistrations } from "./Registrations"
+import { DashboardRegistrations } from "./Registration/Registrations"
 
 
 const useStyles = makeStyles((theme) => ({

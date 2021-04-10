@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import { axiosInstance } from '../axiosInstance'
+import { axiosInstance } from '../../axiosInstance'
 import { Grid, Typography, Button, Select, MenuItem, InputLabel } from '@material-ui/core';
 import {Alert} from "@material-ui/lab";
 
@@ -23,61 +23,71 @@ const useStyles = makeStyles((theme) => ({
   }));
   
 
-export const TournSportRegComp = ({ TournData, tList, onAdd , handleNext }) => {
+export const TourSportSelectComp = ({ Tourn, sportData, onAdd , handleNext, handleBack }) => {
     const classes = useStyles()
 
-    //const [TournList, setTournList] = useState([])
-    const [Tourn, setTourn] = useState(TournData? TournData : {})
+    const [sportsList, setSportsList] = useState([])
     const [incomplete, setIncomplete] = useState(false);
+    const [sport1, setSport1] = useState(sportData? sportData : '')
+    //console.log(sportData, sport1)
 
-    // useEffect(() => {
-    //     axiosInstance.get('/tournamentList').then(
-    //         response => {
-    //             //console.log(response.data.tournaments)
-    //             setTournList(response.data.tournaments)
-    //         }
-    //     ).catch(err => console.log(err))
-    // }, [])
+    useEffect(() => {
+        axiosInstance.get(`/tournament/getSports/${Tourn.tournId[0]}`).then(
+            response => {
+                setSportsList(response.data.sports)
+            }
+        ).catch(err => console.log(err))
+    }, [Tourn])
 
     const goNext = () => {    
-        if(Object.keys(Tourn).length === 0)
+        if(!sport1)
         {
           setIncomplete(true);
           return 
         }
-        console.log(Tourn)
-        onAdd(Tourn)
-        handleNext()
+        handleNext()   
     };
+
+    const goBack = () => {
+        onAdd(sport1)
+        handleBack()
+    }
 
     return(
         <React.Fragment>
             <Grid item xs={12} lg={12}>
-                    {incomplete && <Alert className={classes.alert} severity="error">Please Choose a Tournament.</Alert>}
+                    {incomplete && <Alert className={classes.alert} severity="error">Please fill all fields</Alert>}
             </Grid>
             <Typography variant="h6" gutterBottom>
-            Choose a Tournament
+            Select a sport
             </Typography>
             <Grid container spacing={3}>
                 <Grid item xs={12}>
-                <Select
+                    <Select
                     required={true}
-                    id="tournName"
-                    name="tournName"
-                    label="Tournament"
-                    //defaultValue={Tourn.length>0 && Tourn? Tourn.tournName:""}
-                    onChange={(e)=>setTourn({[e.target.name]: e.target.value, 
-                        tournId: tList.filter(tourn => tourn.t_name===e.target.value).map(item => item.tournament_id)})}
-                    value={Tourn? Tourn.tournName:""}                       
+                    id="sport1"
+                    name="sport1"
+                    label="Team Sport"
+                    defaultValue=''
+                    value={sport1}
+                    onChange={(e)=>{
+                        setSport1(e.target.value)
+                        onAdd(e.target.value)
+                    }}
                     >
-                    {tList.map((tourn, index) => (
-                        <MenuItem key={index} value={tourn.t_name}>
-                            {tourn.t_name}
-                        </MenuItem>
+                    {sportsList.map((name) => (
+                    <MenuItem key={name} value={name}>
+                        {name}
+                    </MenuItem>
                     ))}
                     </Select>
                 </Grid>
                 <div className={classes.buttons}>
+                    <Button 
+                        onClick={goBack} 
+                        className={classes.button}>
+                        Back
+                    </Button>
                     <Button
                         variant="contained"
                         color="primary"
@@ -91,4 +101,4 @@ export const TournSportRegComp = ({ TournData, tList, onAdd , handleNext }) => {
     )
 }
 
-export default TournSportRegComp
+export default TourSportSelectComp

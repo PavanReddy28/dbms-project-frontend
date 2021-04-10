@@ -5,7 +5,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import { useHistory } from "react-router-dom";
-import { axiosInstance } from "../axiosInstance";
+import { axiosInstance } from "../../axiosInstance";
 
 
 const RegistrationStyles = makeStyles((theme) => ({
