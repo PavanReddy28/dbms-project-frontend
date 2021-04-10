@@ -32,13 +32,8 @@ export const TourSportSelectComp = ({ Tourn, sportData, onAdd , handleNext, hand
     //console.log(sportData, sport1)
 
     useEffect(() => {
-        axiosInstance.get('/tournament/getSports', {
-            params: {
-              tournament_id: Tourn.tournId[0]
-            }
-          }).then(
+        axiosInstance.get(`/tournament/getSports/${Tourn.tournId[0]}`).then(
             response => {
-                console.log(response.data.sports)
                 setSportsList(response.data.sports)
             }
         ).catch(err => console.log(err))
