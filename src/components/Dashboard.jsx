@@ -74,7 +74,6 @@ function Dashboard() {
     const [editOpen, setEditOpen] = useState(false);
     const [dialogTourn, setDialogTourn] = useState(null);
 
-    const matches = ["Goa vs Pilani", "Goa vs Hyd", "Goa vs Pilani", "Goa vs Hyd", "Goa vs Pilani", "Goa vs Hyd", "Goa vs Pilani", "Goa vs Hyd", "Goa vs Pilani", "Goa vs Hyd"];
 
     //GET request to get all tournaments from backend
     //GET request to get all PENDING registrations
@@ -263,18 +262,6 @@ function Dashboard() {
                     <DashboardRegistrations classes={classes.paper} registrations={registrations} />
                 </Grid>
 
-                <Grid item lg={6} sm={12}>
-                    <Paper className={classes.paper} elevation={1}>
-                        <Typography variant="h5" color="primary">Current Matches</Typography>
-                        <List className={classes.list}>
-
-
-                            {matches.map(match => {
-                                return <ListItem><ListItemText primary={match} /></ListItem>
-                            })}
-                        </List>
-                    </Paper>
-                </Grid>
             </Grid>
             <Dialog
                 open={deleteOpen}
