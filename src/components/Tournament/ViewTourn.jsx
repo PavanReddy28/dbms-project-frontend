@@ -8,6 +8,7 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Loading from "../../Private/Loading";
+import VisibilityIcon from '@material-ui/icons/Visibility';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -210,6 +211,7 @@ function SportTeams({ teamData, sport }) {
   const [open, setOpen] = useState(null);
 
   const classes = useStyles();
+  const history = useHistory();
 
   function handleCollapse(id) {
 
@@ -225,6 +227,9 @@ function SportTeams({ teamData, sport }) {
             <List>
               <ListItem button onClick={() => handleCollapse(team.team_id)} key={team.team_id}>
                 <ListItemText primary={team.team_name} />
+                <IconButton onClick={() => history.push(`/ViewTeam/${team.team_id}`)}>
+                  <VisibilityIcon />
+                </IconButton>
                 {open === team.team_id ? <ExpandLess /> : <ExpandMore />}
               </ListItem>
             </List>
