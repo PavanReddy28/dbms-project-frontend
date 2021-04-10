@@ -3,14 +3,9 @@ import { axiosInstance } from '../../axiosInstance'
 import {Alert} from "@material-ui/lab";
 import {Link} from "react-router-dom";
 import { 
-    Dialog,
-    DialogActions,
-    DialogTitle,
-    DialogContent,
     CssBaseline,
     Typography,
     Paper,
-    Divider,
     Button, } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 import AM_Tourn from './AM_Tourn'
@@ -37,10 +32,9 @@ const useStyles = makeStyles((theme) => ({
             padding: theme.spacing(3),
         },
     },
-    
 }));
 
-const AddMatch = ({ editOpen, setEditOpen, onClose }) => {
+const AddMatch = () => {
 
     const classes = useStyles();
     const [Tournaments, setTournaments] = useState([])
@@ -115,32 +109,28 @@ const AddMatch = ({ editOpen, setEditOpen, onClose }) => {
             return(
                 <>
                     <Alert severity="success">Successfully Added.</Alert>
-                    <Button variant="contained" color="primary" onClick={setEditOpen(false)} className={classes.button}>Return to Matches</Button>
+                    <Link to ="/Dashboard">
+                        <Button variant="contained" color="primary" className={classes.button}>Return to Matches</Button>
+                    </Link>
                 </>
             )
     }
     };
 
     return (
-        <Dialog
-            open={editOpen}
-            aria-labelledby="alert-dialog-title"
-            aria-describedby="alert-dialog-description">
-            <DialogTitle id="alert-dialog-title">{"Match Scheduling "}</DialogTitle>
-            <Divider />
-            <DialogContent>
+        <React.Fragment>
+            <CssBaseline />
+            <main className={classes.layout}>
+            <Paper className={classes.paper}>
+                <Typography component="h1" variant="h4" align="center">
+                    Match Scheduling
+                </Typography>
                 <React.Fragment>
                     {getStepContent(activeStep)}
                 </React.Fragment>
-            </DialogContent>
-            <Divider />
-
-            <DialogActions>
-                <Button onClick={onClose} color="primary" autoFocus>
-                    Cancel
-                </Button>
-            </DialogActions>
-        </Dialog>
+            </Paper>
+            </main>
+        </React.Fragment>
     )
 }
 
