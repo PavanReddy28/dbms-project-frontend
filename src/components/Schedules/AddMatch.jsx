@@ -109,7 +109,7 @@ const AddMatch = () => {
             return(
                 <>
                     <Alert severity="success">Successfully Added.</Alert>
-                    <Link to ="/Dashboard">
+                    <Link to ="/MatchSchedules">
                         <Button variant="contained" color="primary" className={classes.button}>Return to Matches</Button>
                     </Link>
                 </>
