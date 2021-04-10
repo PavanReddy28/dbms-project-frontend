@@ -29,7 +29,7 @@ import { axiosInstance } from '../../axiosInstance';
 import TimeLine from './TimeLine'
 import TimeLine2 from './TimeLine2'
 import LoadingRelative from "../../Private/LoadingRelative"
-import Scores from './Scores';
+//import Scores from './Scores';
 
 const useStyles = makeStyles((theme) => ({
     // paper: {
@@ -276,7 +276,7 @@ export default function HomeMatchSchedules() {
                         })}
                     </List>
                 </Grid>
-                <Scores editOpen={editOpen} onClose={setEditOpen}/>
+                {/* <Scores editOpen={editOpen} onClose={setEditOpen}/> */}
                 <Grid item lg={6} sm={12}>
                     <div className={classes.buttons}>
                     <Button 
