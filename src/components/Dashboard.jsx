@@ -26,7 +26,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import VisibilityIcon from '@material-ui/icons/Visibility';
-import EditTourn from "./EditTourn";
+import EditTourn from "./Tournament/EditTourn";
 import { DashboardRegistrations } from "./Registrations"
 
 
