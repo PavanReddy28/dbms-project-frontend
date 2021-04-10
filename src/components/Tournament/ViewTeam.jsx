@@ -4,7 +4,7 @@ import { axiosInstance } from "../../axiosInstance";
 import Loading from "../../Private/Loading";
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import { Paper, List, ListItem, ListItemText, Grid, Collapse, makeStyles, Typography, IconButton, Snackbar, Icon } from "@material-ui/core";
+import { Paper, List, ListItem, ListItemText, Collapse, makeStyles, Typography, IconButton } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     paper: {

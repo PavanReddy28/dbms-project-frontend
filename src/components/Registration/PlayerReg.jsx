@@ -1,13 +1,12 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import { CssBaseline, Paper, Stepper, Step, StepLabel, Typography, Button } from '@material-ui/core';
+import { Stepper, Step, StepLabel, Button } from '@material-ui/core';
 import {Alert} from "@material-ui/lab";
 import {axiosInstance} from "../../axiosInstance";
 import {Link} from "react-router-dom";
 import TeamCapDetails from './TeamCapDetails';
 import TeamDetails from './TeamDetails';
 import PlayerRegReview from './PlayerRegReview';
-import { TournSportReg } from './TournSportReg';
 
 const useStyles = makeStyles((theme) => ({
     layout: {
