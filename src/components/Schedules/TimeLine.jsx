@@ -143,7 +143,7 @@ const TimeLine = ({ openDialog, sportData, sport, status, delRequest }) => {
                         </Typography>
                         </TimelineOppositeContent>
                         <TimelineSeparator>
-                        <TimelineDot>
+                        <TimelineDot color="primary" variant="outlined">
                             {icons(sport)}
                         </TimelineDot>
                         <TimelineConnector />
@@ -162,7 +162,7 @@ const TimeLine = ({ openDialog, sportData, sport, status, delRequest }) => {
                                 <Button size="small" color="primary" onClick={() => openDialog(match, sport, 'edit')}>
                                     Edit Scores
                                 </Button>
-                                <IconButton size="small" color="secondary" onClick={() => delRequest(match.match_id)}>
+                                <IconButton size="small" onClick={() => delRequest(match.match_id)}>
                                     <DeleteIcon />
                                 </IconButton>
                             </CardActions>
@@ -188,7 +188,7 @@ const TimeLine = ({ openDialog, sportData, sport, status, delRequest }) => {
                             </Typography>
                             </TimelineOppositeContent>
                             <TimelineSeparator>
-                            <TimelineDot>
+                            <TimelineDot color="primary" variant="outlined">
                                 {icons(sport)}
                             </TimelineDot>
                             <TimelineConnector />
@@ -206,7 +206,7 @@ const TimeLine = ({ openDialog, sportData, sport, status, delRequest }) => {
                                 <Button size="small" color="primary" onClick={() => openDialog(match, sport, 'add')}>
                                     Add Scores
                                 </Button>
-                                <IconButton size="small" color="secondary" onClick={() => delRequest(match.match_id)}>
+                                <IconButton size="small" onClick={() => delRequest(match.match_id)}>
                                     <DeleteIcon />
                                 </IconButton>
                             </CardActions>

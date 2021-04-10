@@ -68,7 +68,7 @@ const TimeLine = ({ openDialog, sportData, sport, status }) => {
                         </Typography>
                         </TimelineOppositeContent>
                         <TimelineSeparator>
-                        <TimelineDot>
+                        <TimelineDot color="primary" variant="outlined">
                             {icons(sport)}
                         </TimelineDot>
                         <TimelineConnector />
@@ -102,7 +102,7 @@ const TimeLine = ({ openDialog, sportData, sport, status }) => {
                             </Typography>
                             </TimelineOppositeContent>
                             <TimelineSeparator>
-                            <TimelineDot>
+                            <TimelineDot color="primary" variant="outlined">
                                 {icons(sport)}
                             </TimelineDot>
                             <TimelineConnector />

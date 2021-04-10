@@ -67,7 +67,7 @@ const TimeLine2 = ({ openDialog, status, Tourn }) => {
                         </Typography>
                         </TimelineOppositeContent>
                         <TimelineSeparator>
-                        <TimelineDot>
+                        <TimelineDot color="primary" variant="outlined">
                             {icons(match.sportName)}
                         </TimelineDot>
                         <TimelineConnector />
@@ -101,7 +101,7 @@ const TimeLine2 = ({ openDialog, status, Tourn }) => {
                         </Typography>
                         </TimelineOppositeContent>
                         <TimelineSeparator>
-                        <TimelineDot>
+                        <TimelineDot color="primary" variant="outlined">
                             {icons(match.sportName)}
                         </TimelineDot>
                         <TimelineConnector />
