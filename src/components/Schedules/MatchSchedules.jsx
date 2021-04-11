@@ -93,8 +93,9 @@ export default function MacthSchedules() {
     const [DiaData, setDiaData] = useState({})
     const [DiaType, setDiaType] = useState('')
     const [Num, setNum] = useState(0)
-    const [Scores, setScores] = useState({})
     const [DelMatch, setDelMatch] = useState('')
+    const [sportResult, setSportResult] = useState([])
+    const [tournResult, setTournResult] = useState({})
 
     useEffect(() => { 
 
@@ -135,7 +136,6 @@ export default function MacthSchedules() {
                 axiosInstance.get(`/match/cricket/result/${match.match_id}`).then(
                     responses => {
                         console.log(responses.data)
-                        setScores(responses.data)
                         setDiaData({data: responses.data, m:match})
                         setDiaSport(sport)
                         setEditOpen(true)
@@ -147,7 +147,6 @@ export default function MacthSchedules() {
                 axiosInstance.get(`/match/team/result/${match.match_id}`).then(
                     responses => {
                         console.log(responses.data, 'fuck')
-                        setScores(responses.data)
                         setDiaData({data: responses.data, m:match})
                         setDiaSport(sport)
                         setEditOpen(true)
@@ -159,7 +158,6 @@ export default function MacthSchedules() {
                 axiosInstance.get(`/match/net/result/${match.match_id}`).then(
                     responses => {
                         console.log(responses.data)
-                        setScores(responses.data)
                         setDiaData({data: responses.data, m:match})
                         setDiaSport(sport)
                         setEditOpen(true)
@@ -349,6 +347,7 @@ export default function MacthSchedules() {
                     //console.log(sportData)     
                 }
             ).catch(err => console.log(err))
+
             axiosInstance.get(`/matches/pending/${TournID}/${info}`).then(
                 response => {
                     console.log(response.data, 'l')
@@ -365,9 +364,14 @@ export default function MacthSchedules() {
                     setActiveStep(num)     
                 }
             ).catch(err => console.log(err))
-            
-             
-            
+
+            axiosInstance.get(`/results/${TournID}/${info}`).then(
+                response => {
+                    console.log(response.data)
+                    setSportResult(response.data.results)
+                }
+            ).catch(err=>console.log(err))        
+                       
         }
         else if(num===1)
         {
@@ -392,6 +396,7 @@ export default function MacthSchedules() {
                     
                 }
             ).catch(err => console.log(err))
+
             axiosInstance.get(`/${info}/matchList/pending`).then(
                 response => {
                     console.log(response.data, 'lii')
@@ -409,7 +414,14 @@ export default function MacthSchedules() {
                     setActiveStep(num)        
                 }
             ).catch(err => console.log(err))
-            
+
+            axiosInstance.get(`/tourn/results/${info}`).then(
+                response => {
+                    console.log(response.data)
+                    setTournResult(response.data)
+                    console.log(info, tournResult[info])
+                }
+            ).catch(err=>console.log(err))                
         }
     }
 
@@ -444,9 +456,9 @@ export default function MacthSchedules() {
 
         switch (step) {
             case 0:
-                return <TimeLine delRequest={delRequest} openDialog={activateDialog} status={status} sportData={sportData} sport={sportName}/>
+                return <TimeLine results={sportResult} delRequest={delRequest} openDialog={activateDialog} status={status} sportData={sportData} sport={sportName}/>
             case 1:
-                return <TimeLine2 delRequest={delRequest} openDialog={activateDialog} status={status} Tourn={tournData} />
+                return <TimeLine2 results={tournResult} delRequest={delRequest} openDialog={activateDialog} status={status} Tourn={tournData} />
             case 2:
                 return <LoadingRelative />
             default:

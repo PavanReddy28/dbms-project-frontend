@@ -18,6 +18,10 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { axiosInstance } from '../../axiosInstance';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -28,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const TimeLine = ({ openDialog, sportData, sport, status, delRequest }) => {
+const TimeLine = ({ results, openDialog, sportData, sport, status, delRequest }) => {
 
     const classes = useStyles()
     const [score, setScores] = useState({})
@@ -56,76 +60,96 @@ const TimeLine = ({ openDialog, sportData, sport, status, delRequest }) => {
         }
     }
 
-    // const scores = (match, sport) => {
-    //     console.log(score)
-        
-    //     if(sport==='Basketball' || sport==='Football' ||sport==='Hockey')
-    //     {
-    //         axiosInstance.get(`/match/team/result/${match.match_id}`).then(
-    //             responses => {
-    //                 console.log(responses.data, 'fuck')
-    //                 setScores(responses.data)
-    //             }
-    //         ).catch(err=>console.log(err))
-            
-    //         if(score){
-    //         return (
-    //             <Typography gutterBottom>
-    //                 {score.t1Score} - {score.t2Score}
-    //             </Typography>
-    //         )}
-    //     }
-    //     else if(sport==='Cricket')
-    //     {
-    //         axiosInstance.get(`/match/cricket/result/${match.match_id}`).then(
-    //             responses => {
-    //                 console.log(responses.data)
-    //                 setScores(responses.data)
-    //             }
-    //         ).catch(err=>console.log(err))
-    //         if(score){
-    //         return (
-    //             <React.Fragment>
-    //             <Typography variant="body">
-    //                 {match.team1.teamName}
-    //             </Typography>
-    //             <Typography gutterBottom>
-    //                 {score.t1Innings.runs}/{score.t1Innings.wickets}
-    //             </Typography>
-    //             <Typography variant="body">
-    //                 {match.team1.teamName}
-    //             </Typography>
-    //             <Typography gutterBottom>
-    //                 {score.t2Innings.runs}/{score.t2Innings.wickets}
-    //             </Typography>
-    //             </React.Fragment>
-    //         )}
-    //     }
-    //     else if(sport==='Badminton' || sport==='Tennis' || sport==='Table Tennis')
-    //     {
-    //         axiosInstance.get(`/match/net/result/${match.match_id}`).then(
-    //             responses => {
-    //                 console.log(responses.data, 'Nigga')
-    //                 setScores(responses.data)
-    //             }
-    //         ).catch(err=>console.log(err))
-    //         if(score.set1){
-    //         return (
-    //             <React.Fragment>
-    //             <Typography gutterBottom>
-    //                 {score.set1.team1} - {score.set1.team2}
-    //             </Typography>
-    //             <Typography gutterBottom>
-    //                 {score.set2.team1} - {score.set2.team2}
-    //             </Typography>
-    //             <Typography gutterBottom>
-    //                 {score.set3? `${score.set3.team1} - ${score.set3.team2}` : ''}
-    //             </Typography>
+    const scores = (match, sport) => {
+
+        if(sport==='Basketball' || sport==='Football' ||sport==='Hockey')
+        {
+            if(results){
+                console.log(results)
+                return(
+                    results.filter(m => {
+                    return match.match_id===m.match_id
+                }).map(result=>{
+                    console.log('ENTER result')
+                    return (
+                        <React.Fragment>
+                        <Typography  >
+                        Scores
+                        </Typography>
+                        <Typography gutterBottom>
+                            {result.t1score} - {result.t2score}
+                        </Typography>
+                        </React.Fragment>
+                    )
+                }))
+            }
+        }
+        else if(sport==='Cricket')
+        {
+            if(results){
                 
-    //             </React.Fragment>
-    //         )}
-    //     }
-    // }
+                console.log(results)
+                return(
+                results.filter(m => {
+                    return match.match_id===m.match_id
+                }).map(result=>{
+                    console.log('ENTER',result)
+                    return (
+                        <React.Fragment>
+                        <Typography >
+                            {match.team1.teamName}
+                        </Typography>
+                        <Typography gutterBottom>
+                            {result.t1Innings.runs}/{result.t1Innings.wickets}
+                        </Typography>
+                        <Typography >
+                            {match.team1.teamName}
+                        </Typography>
+                        <Typography gutterBottom>
+                            {result.t2Innings.runs}/{result.t2Innings.wickets}
+                        </Typography>
+                        </React.Fragment>
+                    )
+                })
+                )
+        }
+        }
+        else if(sport==='Badminton' || sport==='Tennis' || sport==='Table Tennis')
+        {
+            if(results){
+                
+                console.log(results)
+                return(results.filter(m => {
+                    return match.match_id===m.match_id
+                }).map(result=>{
+                    console.log('ENTER',result)
+                    
+                    return (
+                        <React.Fragment>
+                            <Typography  >
+                            Set 1
+                        </Typography>
+                            <Typography gutterBottom>
+                                {result.set1.team1} - {result.set1.team2}
+                            </Typography>
+                            <Typography >
+                                Set 2
+                            </Typography>
+                            <Typography gutterBottom>
+                                {result.set2.team1} - {result.set2.team2}
+                            </Typography>
+                            <Typography >
+                                Set 3
+                            </Typography>
+                            <Typography gutterBottom>
+                                {result.set3.team1!==null || result.set3.team2!==null? `${result.set3.team1} - ${result.set3.team2}` : 'NA'}
+                            </Typography>
+                        </React.Fragment>
+                    )
+                })) }
+        }
+    }
+
     const setPage = (status1) => {
         if(status1)
         {
@@ -156,7 +180,18 @@ const TimeLine = ({ openDialog, sportData, sport, status, delRequest }) => {
                                 </Typography>
                                 <Typography>{sport}</Typography>
                                 <Typography>{match.round}</Typography>
-                                {/* {scores(match, sport)} */}
+                                <Accordion>
+                                    <AccordionSummary
+                                    expandIcon={<ExpandMoreIcon />}
+                                    aria-controls="panel1a-content"
+                                    id="panel1a-header"
+                                    >
+                                    <Typography variant='h6'>Result</Typography>
+                                    </AccordionSummary>
+                                    <AccordionDetails>
+                                        {scores(match, sport)}
+                                    </AccordionDetails>
+                                </Accordion>
                             </CardContent>
                             <CardActions>
                                 <Button size="small" color="primary" onClick={() => openDialog(match, sport, 'edit')}>
@@ -200,7 +235,7 @@ const TimeLine = ({ openDialog, sportData, sport, status, delRequest }) => {
                                     {match.team1.teamName} VS {match.team2.teamName}
                                     </Typography>
                                     <Typography>{sport}</Typography>
-                                    <Typography>{match.round}</Typography>
+                                    <Typography gutterBottom>{match.round}</Typography>
                                 </CardContent>
                                 <CardActions>
                                 <Button size="small" color="primary" onClick={() => openDialog(match, sport, 'add')}>
