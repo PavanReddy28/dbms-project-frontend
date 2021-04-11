@@ -9,14 +9,19 @@ import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Loading from "../../Private/Loading";
 import VisibilityIcon from '@material-ui/icons/Visibility';
-import { FaBeer } from 'react-icons/fa';
 
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    padding: "30px",
-    marginTop: "20px",
-    minHeight: "20rem",
+    padding: theme.spacing(3),
+    marginTop: theme.spacing(3),
+    minHeight: 300,
+    maxHeight: 300,
+    overflow: "auto"
+  },
+  tournDetails: {
+    marginTop: theme.spacing(3),
+    padding: theme.spacing(1),
   },
   wrapPaper: {
     padding: "30px",
@@ -37,6 +42,9 @@ const useStyles = makeStyles((theme) => ({
     display: "block",
     marginLeft: "auto"
   },
+  default: {
+    marginTop: theme.spacing(3),
+  }
 }))
 
 function ViewTourn({ auth }) {
@@ -282,7 +290,7 @@ function SportTeams({ teamData, sport }) {
             </Collapse>
           </>
         )
-      }) : <Typography>No Teams Present</Typography>}
+      }) : (<Typography className={classes.default}>No Teams Present</Typography>)}
     </Paper>
   )
 }
@@ -293,7 +301,7 @@ function TournDetails({ tournament }) {
   const [open, setOpen] = useState(false);
 
   return (
-    <Paper elevation={1}>
+    <Paper elevation={1} className={classes.tournDetails}>
       <List>
         <ListItem>
           <ListItemText primary={tournament.t_name} secondary={"Name"} />
