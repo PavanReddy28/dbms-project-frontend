@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
     form: {
         marginTop: "10%"
     },
-    registerButton: {
+    loginButton: {
         marginTop: theme.spacing(3)
     },
     login: {
@@ -48,7 +48,7 @@ function Login() {
                 // store the token if it exists into the local storage
                 localStorage.setItem("accessToken", response.data.access_token);
                 // go to base url after login
-                history.replace("/dashboard")
+                history.push("/dashboard")
 
             }).catch((err) => {
 
@@ -110,6 +110,7 @@ function Login() {
                         variant="contained"
                         color="primary"
                         onClick={authenticate}
+                        className={classes.loginButton}
                     >Sign in</Button>
                 </form>
             </div>
