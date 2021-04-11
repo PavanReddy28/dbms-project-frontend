@@ -1,16 +1,33 @@
 import React, { useState } from "react";
-import {Container, TextField, Button, Typography, makeStyles} from '@material-ui/core'
+import { Container, TextField, Button, Typography, makeStyles, Avatar } from '@material-ui/core'
 import { axiosInstance } from '../../axiosInstance';
+import { useHistory } from "react-router-dom";
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 
 const useStyles = makeStyles((theme) => ({
     form: {
         marginTop: "10%"
+    },
+    registerButton: {
+        marginTop: theme.spacing(3)
+    },
+    register: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+    avatar: {
+        backgroundColor: theme.palette.primary.main,
+        margin: theme.spacing(3),
+        padding: theme.spacing(3.5)
     }
 }));
 
 
 function Register() {
+
+    const history = useHistory();
 
     const classes = useStyles();
 
@@ -26,7 +43,9 @@ function Register() {
             axiosInstance.post("/register", {
                 "username": userName,
                 "password": passWord
-            }).then(response => alert("user registered"))
+            }).then(response => {
+                history.push("/login")
+            })
                 .catch((err) => console.log(err))
         } else {
             setValidate(false);
@@ -36,55 +55,61 @@ function Register() {
 
 
     return (
-        <Container maxWidth="xs" className = {classes.form}>
-            <Typography component="h1" variant="h5">
-                Sign Up!
-        </Typography>
-            <form>
-                <TextField
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="email"
-                    label="Username"
-                    name="username"
-                    autoFocus
-                    onChange={event => setUserName(event.target.value)}
-                    value={userName}
-                />
-                <TextField
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    name="password"
-                    label="Password"
-                    type="password"
-                    onChange={event => setPassWord(event.target.value)}
-                    value={passWord}
-                />
-                <TextField
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    name="confirm-password"
-                    label="Confirm Password"
-                    type="password"
-                    onChange={event => setConfirmPassWord(event.target.value)}
-                    value={confirmPassWord}
-                    error={!validate}
-                    helperText={!validate && "Passwords do not match"}
-                />
-                <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                    onClick={authenticate}
-                >Register Account</Button>
-            </form>
+        <Container maxWidth="xs" className={classes.form}>
+            <div className={classes.register}>
+                <Avatar className={classes.avatar}>
+                    <LockOutlinedIcon/>
+                </Avatar>
+                <Typography component="h1" variant="h5">
+                    Sign Up!
+                </Typography>
+                <form>
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="email"
+                        label="Username"
+                        name="username"
+                        autoFocus
+                        onChange={event => setUserName(event.target.value)}
+                        value={userName}
+                    />
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        name="password"
+                        label="Password"
+                        type="password"
+                        onChange={event => setPassWord(event.target.value)}
+                        value={passWord}
+                    />
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        name="confirm-password"
+                        label="Confirm Password"
+                        type="password"
+                        onChange={event => setConfirmPassWord(event.target.value)}
+                        value={confirmPassWord}
+                        error={!validate}
+                        helperText={!validate && "Passwords do not match"}
+                    />
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        color="primary"
+                        onClick={authenticate}
+                        className={classes.registerButton}
+                    >Register Account</Button>
+                </form>
+            </div>
         </Container>
     )
 }
