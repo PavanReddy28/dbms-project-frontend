@@ -8,10 +8,30 @@ const useStyles = makeStyles((theme) => ({
         minHeight: "300px"
     },
     heroContent: {
-        padding: theme.spacing(8, 0, 6)
+        padding: theme.spacing(16, 0, 12)
     },
     container: {
         marginTop: "10px"
+    },
+    cardHeader: {
+        backgroundColor:
+            theme.palette.type === 'light' ? theme.palette.grey[200] : theme.palette.grey[700],
+    },
+    cardContent: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'baseline',
+        marginTop: theme.spacing(2),
+    },
+    registerText: {
+        padding: theme.spacing(16, 0, 12),
+        textAlign: "center",
+    },
+    registerButton: {
+        marginTop: "3.5rem"
+    },
+    tournList: {
+        marginBottom: "10%"
     }
 }))
 
@@ -36,15 +56,11 @@ function Home() {
 
     const history = useHistory();
 
-    const routeChange = () => {
-        let path = `./TournSportReg`;
-        history.push(path);
-    }
 
     return (
 
         <>
-            <Container maxWidth="sm" component="main" className={classes.heroContent}>
+            <Container minWidth="sm" component="main" className={classes.heroContent}>
                 <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
                     Welcome to the Tournament Management App!
                 </Typography>
@@ -52,33 +68,46 @@ function Home() {
                     An app to help with your tournament hassle
                 </Typography>
             </Container>
-            <Divider />
-                <Grid container alignItems="flex-end" spacing={2} className={classes.container}>
+            <Container maxWidth="md">
+                <Grid container alignItems="flex-end" spacing={5} className={classes.container}>
 
 
                     {featureCards.map((item, index) => {
                         return (
                             <Grid item key={index} sm={12} md={4} lg={4}>
                                 <Card className={classes.card}>
-                                    <CardHeader title={item.heading} titleTypographyProps={{ align: 'center' }} />
+                                    <CardHeader title={item.heading} titleTypographyProps={{ align: 'center' }} className={classes.cardHeader} />
                                     <CardContent>
-                                        <Typography>{item.content}</Typography>
-                                        <Button
-                                            color='primary'
-                                            onClick={routeChange}>
-                                            {item.heading}
-                                        </Button>
+                                        <div className={classes.cardContent}>
+                                            <Typography>{item.content}</Typography>
+                                        </div>
+
                                     </CardContent>
                                 </Card>
                             </Grid>
                         )
                     })}
 
+                </Grid>
+            </Container>
+            <Container maxWidth="md">
+                <div className={classes.registerText}>
+                    <Typography component="h3" variant="h3" align="center" color="textPrimary" gutterBottom>
+                        Register your teams
+                </Typography>
+                    <Typography variant="h6" align="center" color="textSecondary" component="p" maxWidth="md">
+                        Once you register your team to a particular tournament, the organizer will be able to view the details and add you accordingly
+                </Typography>
+                    <Button color="primary" variant="contained" onClick={() => history.push("/tournSportReg")} className={classes.registerButton}>Register</Button>
+                </div>
+                <Grid container className={classes.tournList}>
                     <Grid item sm={12}>
                         <TournList />
                     </Grid>
-
                 </Grid>
+            </Container>
+
+
         </>
 
     )

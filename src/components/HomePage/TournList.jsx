@@ -37,7 +37,7 @@ function TournList() {
         axiosInstance.get("/tournamentList").then(response => {
             setTournaments(response.data.tournaments)
         })
-    })
+    },[])
 
     return (
         <Paper elevation ={1} className={classes.paper}>

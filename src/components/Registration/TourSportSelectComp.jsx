@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import { axiosInstance } from '../axiosInstance'
-import { Grid, Typography, Button, Select, MenuItem, InputLabel } from '@material-ui/core';
+import { axiosInstance } from '../../axiosInstance'
+import { Grid, Typography, Button, Select, MenuItem } from '@material-ui/core';
 import {Alert} from "@material-ui/lab";
 
 const useStyles = makeStyles((theme) => ({
@@ -32,13 +32,8 @@ export const TourSportSelectComp = ({ Tourn, sportData, onAdd , handleNext, hand
     //console.log(sportData, sport1)
 
     useEffect(() => {
-        axiosInstance.get('/tournament/getSports', {
-            params: {
-              tournament_id: Tourn.tournId[0]
-            }
-          }).then(
+        axiosInstance.get(`/tournament/getSports/${Tourn.tournId[0]}`).then(
             response => {
-                console.log(response.data.sports)
                 setSportsList(response.data.sports)
             }
         ).catch(err => console.log(err))

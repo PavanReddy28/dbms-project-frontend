@@ -5,7 +5,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import { useHistory } from "react-router-dom";
-import { axiosInstance } from "../axiosInstance";
+import { axiosInstance } from "../../axiosInstance";
 
 
 const RegistrationStyles = makeStyles((theme) => ({
@@ -13,7 +13,7 @@ const RegistrationStyles = makeStyles((theme) => ({
         margin: "10px 0"
     },
     paper: {
-        padding: "1rem"
+        padding: theme.spacing(4)
     },
     checkIcon: {
         color: "#00e676"
@@ -110,9 +110,11 @@ function RegistrationList({ data, title, type }) {
 
                         return (
                             <>
-                                <ListItem button key={tournament + type} onClick={() => handleCollapse(tournament, "tourn")}>
+                                <ListItem key={tournament + type}>
                                     <ListItemText primary={tournament} />
-                                    {open.tourn === tournament ? <ExpandLess /> : <ExpandMore />}
+                                    <IconButton onClick={() => handleCollapse(tournament, "tourn")}>
+                                        {open.tourn === tournament ? <ExpandLess /> : <ExpandMore />}
+                                    </IconButton>
                                 </ListItem>
                                 <Collapse in={open.tourn === tournament} timeout="auto">
                                     <List component="div" disablePadding>
@@ -234,12 +236,15 @@ function Registrations() {
 
 const DashStyles = makeStyles((theme) => ({
     paper: {
-        padding: "30px",
+        padding: theme.spacing(4),
+        overflow: "auto",
+        minHeight: 600,
+        maxHeight: 600,    
     },
     button: {
         display: "block",
         marginLeft: "auto"
-    }
+    },
 }))
 
 // handle case when no registrations found
@@ -261,7 +266,7 @@ function DashboardRegistrations(props) {
             </Grid>
 
 
-            <List>
+            <List className={classes.list}>
                 {Object.keys(props.registrations).map(tournament => {
 
                     return (

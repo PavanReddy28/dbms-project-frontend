@@ -1,7 +1,8 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { axiosInstance } from "../axiosInstance";
-import { useHistory, Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import {
+    Container,
     Grid,
     Typography,
     makeStyles,
@@ -26,22 +27,25 @@ import EditIcon from '@material-ui/icons/Edit';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import VisibilityIcon from '@material-ui/icons/Visibility';
-import EditTourn from "./EditTourn";
+
 import MatchSchedules from './Schedules/MatchSchedules'
-import { DashboardRegistrations } from "./Registrations"
-import MacthSchedules from "./Schedules/MatchSchedules";
+import EditTourn from "./Tournament/EditTourn";
+import { DashboardRegistrations } from "./Registration/Registrations"
 
 
 const useStyles = makeStyles((theme) => ({
     paper: {
-        padding: "30px",
+        padding: theme.spacing(4),
+        overflow: "auto",
+        minHeight: 600,
+        maxHeight: 600,
     },
     container: {
+
         padding: "15px"
+        marginTop: theme.spacing(4)
     },
     list: {
-        maxHeight: "300px",
-        overflow: "auto"
     },
     addIcon: {
         display: "block",
@@ -76,7 +80,6 @@ function Dashboard() {
     const [editOpen, setEditOpen] = useState(false);
     const [dialogTourn, setDialogTourn] = useState(null);
 
-    const matches = ["Goa vs Pilani", "Goa vs Hyd", "Goa vs Pilani", "Goa vs Hyd", "Goa vs Pilani", "Goa vs Hyd", "Goa vs Pilani", "Goa vs Hyd", "Goa vs Pilani", "Goa vs Hyd"];
 
     //GET request to get all tournaments from backend
     //GET request to get all PENDING registrations
@@ -187,8 +190,8 @@ function Dashboard() {
     }
 
     return (
-        <>
-            <Grid container spacing={2} className={classes.container}>
+        <Container maxWidth="xl">
+            <Grid container spacing={4} className={classes.container}>
                 <Grid item lg={6} sm={12}>
                     <Paper className={classes.paper} elevation={1}>
                         <Grid container>
@@ -208,7 +211,7 @@ function Dashboard() {
                                 return (
                                     <>
 
-                                        <ListItem button key={tournament.tournament_id} onClick={() => handleCollapse(tournament.tournament_id)}>
+                                        <ListItem key={tournament.tournament_id}>
                                             <ListItemText primary={tournament.t_name} />
                                             <IconButton size="small" onClick={() => {
                                                 return history.push(`/ViewTourn/auth/${tournament.tournament_id}`)
@@ -221,7 +224,9 @@ function Dashboard() {
                                             <IconButton size="small" color="secondary" onClick={() => activateDialog(tournament, "delete")}>
                                                 <DeleteIcon />
                                             </IconButton>
-                                            {open.main === tournament.tournament_id ? <ExpandLess /> : <ExpandMore />}
+                                            <IconButton onClick={() => handleCollapse(tournament.tournament_id)}>
+                                                {open.main === tournament.tournament_id ? <ExpandLess /> : <ExpandMore />}
+                                            </IconButton> 
                                         </ListItem>
                                         <Divider />
                                         <Collapse in={open.main === tournament.tournament_id} timeout="auto">
@@ -233,9 +238,11 @@ function Dashboard() {
                                                     <ListItemText primary={"City: " + tournament.city} className={classes.nested} />
                                                 </ListItem>
 
-                                                <ListItem button onClick={() => handleSportsCollapse(tournament.tournament_id, "sportList")}>
+                                                <ListItem>
                                                     <ListItemText primary={"Sports"} className={classes.nested} />
-                                                    {open.sportList === tournament.tournament_id ? <ExpandLess /> : <ExpandMore />}
+                                                    <IconButton onClick={() => handleSportsCollapse(tournament.tournament_id, "sportList")}>
+                                                        {open.sportList === tournament.tournament_id ? <ExpandLess /> : <ExpandMore />}
+                                                    </IconButton>
                                                 </ListItem>
                                             </List>
                                             <Collapse in={open.sportList === tournament.tournament_id} timeout="auto">
@@ -266,16 +273,6 @@ function Dashboard() {
                 </Grid>
 
                 <Grid item lg={12}>
-                    {/* <Paper className={classes.paper} elevation={1}>
-                        <Typography variant="h5" color="primary">Current Matches</Typography>
-                        <List className={classes.list}>
-
-
-                            {matches.map(match => {
-                                return <ListItem><ListItemText primary={match} /></ListItem>
-                            })}
-                        </List>
-                    </Paper> */}
                     <MacthSchedules />
                 </Grid>
             </Grid>
@@ -302,7 +299,7 @@ function Dashboard() {
                 </DialogActions>
             </Dialog>
             <EditTourn tournament={dialogTourn} editOpen={editOpen} onClose={() => handleCancel("edit")} onEdit={handleEdit} />
-        </>
+        </Container>
     )
 }
 

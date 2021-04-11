@@ -1,8 +1,8 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import { CssBaseline, Paper, Stepper, Step, StepLabel, Typography, Button } from '@material-ui/core';
+import { Stepper, Step, StepLabel, Button } from '@material-ui/core';
 import {Alert} from "@material-ui/lab";
-import {axiosInstance} from "../axiosInstance";
+import {axiosInstance} from "../../axiosInstance";
 import {Link} from "react-router-dom";
 import IndReview from './IndReview';
 import IndGenDetails from './IndGenDetails';
@@ -46,6 +46,7 @@ const IndPlayerReg = ({ info, data, onAdd, goBack }) => {
     
     const classes = useStyles();
     const [Team, setTeam] = React.useState(data.team? data.team : {});
+    //eslint-disable-next-line
     const [playerData, setplayerData] = React.useState([]);
     const [activeStep, setActiveStep] = React.useState(0);
 
@@ -119,10 +120,6 @@ const IndPlayerReg = ({ info, data, onAdd, goBack }) => {
         setTeam(Team);
     };
 
-    const addplayerData = (playerData) => {
-        console.log(playerData);
-        setplayerData(playerData);
-    };
 
     return (
 
