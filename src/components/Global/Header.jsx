@@ -44,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
     logout: {
         boxShadow: 'none',
         color: "#ffffff",
+        marginLeft: 5,
         // border: 'none',
         border: "1px solid rgba(255, 255, 255, 0.4)",
 
@@ -82,13 +83,13 @@ function Header(props) {
             name: "Dashboard"
         },
         {
+            path: "/register",
+            name: "Register"
+        },
+        {
             path: "/login",
             name: "Login"
         },
-        {
-            path: "/register",
-            name: "Register"
-        }
 
     ]
 
