@@ -8,6 +8,19 @@ import Brightness4Icon from '@material-ui/icons/Brightness4';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
 
 const useStyles = makeStyles((theme) => ({
+    '@global': {
+        '*::-webkit-scrollbar': {
+            width: '0.2em'
+          },
+          '*::-webkit-scrollbar-track': {
+            '-webkit-box-shadow': 'inset 0 0 6px rgba(0,0,0,0)'
+          },
+          '*::-webkit-scrollbar-thumb': {
+            backgroundColor: theme.palette.primary.main,
+            outline: '1px solid slategrey'
+          }
+          
+    },
     
     nav: {
         marginLeft: "auto"

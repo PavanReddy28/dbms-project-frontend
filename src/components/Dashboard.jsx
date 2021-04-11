@@ -32,19 +32,6 @@ import { DashboardRegistrations } from "./Registration/Registrations"
 
 
 const useStyles = makeStyles((theme) => ({
-    '@global': {
-        '*::-webkit-scrollbar': {
-            width: '0.2em'
-          },
-          '*::-webkit-scrollbar-track': {
-            '-webkit-box-shadow': 'inset 0 0 6px rgba(0,0,0,0)'
-          },
-          '*::-webkit-scrollbar-thumb': {
-            backgroundColor: theme.palette.primary.main,
-            outline: '1px solid slategrey'
-          }
-          
-    },
     paper: {
         padding: theme.spacing(4),
         overflow: "auto",
