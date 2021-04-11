@@ -9,7 +9,8 @@ import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Loading from "../../Private/Loading";
 import VisibilityIcon from '@material-ui/icons/Visibility';
-import SportsBasketballIcon from '@material-ui/icons/SportsBasketball';
+import { FaBeer } from 'react-icons/fa';
+
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -134,7 +135,7 @@ function ViewTourn({ auth }) {
   }
   else
     return (
-      <>
+      <Container maxWidth="xl">
         <Grid container className={classes.teamContainer} spacing={6}>
           <Grid item sm={12} lg={12}>
             <Typography variant="h2">
@@ -209,15 +210,30 @@ function ViewTourn({ auth }) {
           </Grid>
         </Grid>
 
-      </>
+      </Container>
 
 
     )
 }
 
-function SportIcon() {
-  return <SportsBasketballIcon />
-}
+// function SportIcon(props) {
+//   switch (props.sport) {
+//     case "Basketball":
+//       return <SportsBasketballIcon/>;
+    
+//     case "Football":
+//       return <SportsSoccerIcon />;
+    
+//     case "Cricket":
+//       return <SportsCricketIcon />
+    
+//     case "Hockey":
+//       return <SportsHockeyIcon />
+    
+//     default:
+//       return null;
+//   }
+// }
 
 function SportTeams({ teamData, sport }) {
 
@@ -233,7 +249,7 @@ function SportTeams({ teamData, sport }) {
 
   return (
     <Paper elevation={1} className={classes.paper} >
-      <Typography variant="h5" color="primary">{sport} <SportIcon /></Typography>
+      <Typography variant="h5" color="primary">{sport}</Typography>
       {teamData.length > 0 ? teamData.map(team => {
         return (
           <>
