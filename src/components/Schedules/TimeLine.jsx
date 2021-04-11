@@ -4,8 +4,14 @@ import {
     Typography,
     makeStyles,
     Paper,
-    IconButton
+    IconButton,
+    ListItem,
+    ListItemText,
+    Divider,
+    Collapse
 } from '@material-ui/core';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
 import TimelineItem from '@material-ui/lab/TimelineItem';
 import TimelineSeparator from '@material-ui/lab/TimelineSeparator';
 import TimelineConnector from '@material-ui/lab/TimelineConnector';
@@ -35,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
 const TimeLine = ({ results, openDialog, sportData, sport, status, delRequest }) => {
 
     const classes = useStyles()
-    const [score, setScores] = useState({})
+    const [open, setOpen] = useState(false)
 
     const icons = (sport) => {
         if(sport==='Basketball')
@@ -180,18 +186,23 @@ const TimeLine = ({ results, openDialog, sportData, sport, status, delRequest })
                                 </Typography>
                                 <Typography>{sport}</Typography>
                                 <Typography>{match.round}</Typography>
-                                <Accordion>
-                                    <AccordionSummary
-                                    expandIcon={<ExpandMoreIcon />}
-                                    aria-controls="panel1a-content"
-                                    id="panel1a-header"
-                                    >
-                                    <Typography variant='h6'>Result</Typography>
-                                    </AccordionSummary>
-                                    <AccordionDetails>
-                                        {scores(match, sport)}
-                                    </AccordionDetails>
-                                </Accordion>
+                                <ListItem button fullWidth onClick={() => {
+                                    if(open===true)
+                                    {
+                                        setOpen(false)
+                                    }
+                                    else
+                                    {
+                                        setOpen(true)
+                                    }
+                                }}>
+                                    <ListItemText primary={'Result'} />
+                                    {open === true ? <ExpandLess /> : <ExpandMore />}
+                                </ListItem>
+                                <Divider />
+                                <Collapse in={open===true} timeout="auto">
+                                    {scores(match, sport)}
+                                </Collapse>
                             </CardContent>
                             <CardActions>
                                 <Button size="small" color="primary" onClick={() => openDialog(match, sport, 'edit')}>

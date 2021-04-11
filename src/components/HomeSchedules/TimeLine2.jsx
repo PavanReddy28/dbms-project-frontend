@@ -1,10 +1,16 @@
 import { SportsBasketballRounded, SportsCricketRounded, SportsSoccerRounded, SportsTennisRounded } from '@material-ui/icons'
-import React from 'react'
+import React, {useState} from 'react'
 import {
     Typography,
     makeStyles,
     Paper,
+    ListItem,
+    ListItemText,
+    Divider,
+    Collapse
 } from '@material-ui/core';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
 import TimelineItem from '@material-ui/lab/TimelineItem';
 import TimelineSeparator from '@material-ui/lab/TimelineSeparator';
 import TimelineConnector from '@material-ui/lab/TimelineConnector';
@@ -33,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
 const TimeLine2 = ({ results, openDialog, status, Tourn }) => {
 
     const classes = useStyles()
+    const [open, setOpen] = useState(false)
 
     const icons = (sport) => {
         if(sport==='Basketball')
@@ -176,19 +183,23 @@ const TimeLine2 = ({ results, openDialog, status, Tourn }) => {
                                 </Typography>
                                 <Typography>{match.sportName}</Typography>
                                 <Typography gutterBottom>{match.round}</Typography>
-                                <Accordion>
-                                    <AccordionSummary
-                                    expandIcon={<ExpandMoreIcon />}
-                                    aria-controls="panel1a-content"
-                                    id="panel1a-header"
-                                    >
-                                    <Typography variant='h6'>Result</Typography>
-                                    </AccordionSummary>
-                                    <AccordionDetails>
-                                        {scores(match, match.sportName)}
-                                    </AccordionDetails>
-                                </Accordion>
-                                
+                                <ListItem button fullWidth onClick={() => {
+                                    if(open===true)
+                                    {
+                                        setOpen(false)
+                                    }
+                                    else
+                                    {
+                                        setOpen(true)
+                                    }
+                                }}>
+                                    <ListItemText primary={'Result'} />
+                                    {open === true ? <ExpandLess /> : <ExpandMore />}
+                                </ListItem>
+                                <Divider />
+                                <Collapse in={open===true} timeout="auto">
+                                    {scores(match, match.sportName)}
+                                </Collapse>                                
                             </CardContent>
                         </Card>
                         </TimelineContent>
