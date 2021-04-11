@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
         padding: "30px",
     },
     container: {
-        margin: "10px"
+        padding: "15px"
     },
     list: {
         maxHeight: "300px",
