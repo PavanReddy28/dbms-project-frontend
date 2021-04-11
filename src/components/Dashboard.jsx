@@ -27,7 +27,9 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import EditTourn from "./EditTourn";
+import MatchSchedules from './Schedules/MatchSchedules'
 import { DashboardRegistrations } from "./Registrations"
+import MacthSchedules from "./Schedules/MatchSchedules";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -263,8 +265,8 @@ function Dashboard() {
                     <DashboardRegistrations classes={classes.paper} registrations={registrations} />
                 </Grid>
 
-                <Grid item lg={6} sm={12}>
-                    <Paper className={classes.paper} elevation={1}>
+                <Grid item lg={12}>
+                    {/* <Paper className={classes.paper} elevation={1}>
                         <Typography variant="h5" color="primary">Current Matches</Typography>
                         <List className={classes.list}>
 
@@ -273,7 +275,8 @@ function Dashboard() {
                                 return <ListItem><ListItemText primary={match} /></ListItem>
                             })}
                         </List>
-                    </Paper>
+                    </Paper> */}
+                    <MacthSchedules />
                 </Grid>
             </Grid>
             <Dialog
