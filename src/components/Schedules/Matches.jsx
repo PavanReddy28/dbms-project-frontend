@@ -155,6 +155,7 @@ const Matches = ({ type, data, setData, editOpen, sport, onCloseCancel, onClose 
                             id="t11"
                             name="t11"
                             label='Wickets'
+                            type='Number'
                             value={result.t1Innings?result.t1Innings.wickets:''}
                             onChange={(e)=>setResult( previous => {
                                 const val = {...previous}
@@ -253,6 +254,7 @@ const Matches = ({ type, data, setData, editOpen, sport, onCloseCancel, onClose 
                         required={true}
                         id="t1"
                         name="t1"
+                        type='Number'
                         value={result? result.t1score:''}
                         label={data.m.team1.teamName}
                         onChange={(e)=>setResult( previous => {
@@ -753,7 +755,11 @@ const Matches = ({ type, data, setData, editOpen, sport, onCloseCancel, onClose 
             </DialogContent>
             <Divider />
             <DialogActions>
-                <Button onClick={()=>onCloseCancel()} color="primary" autoFocus>
+                <Button onClick={()=>{
+                    setIncomplete(false)
+                    onCloseCancel()
+                    }} 
+                    color="primary" autoFocus>
                     Cancel
                 </Button>
                 <Button onClick={()=>{
@@ -765,6 +771,7 @@ const Matches = ({ type, data, setData, editOpen, sport, onCloseCancel, onClose 
                             setIncomplete(true)
                             return
                         }
+                        setIncomplete(false)
                         onClose(result, sport, type, {'set1':nScores1, 'set2': nScores2, 'set3': nScores3})
                     }
                     else if(sport==='Cricket')
@@ -774,6 +781,7 @@ const Matches = ({ type, data, setData, editOpen, sport, onCloseCancel, onClose 
                             setIncomplete(true)
                             return
                         }
+                        setIncomplete(false)
                         onClose(result, sport, type, {'t1Innings':cScores1, 't2Innings': cScores2})
                     }
                     else{
@@ -782,6 +790,7 @@ const Matches = ({ type, data, setData, editOpen, sport, onCloseCancel, onClose 
                             setIncomplete(true)
                             return
                         }
+                        setIncomplete(false)
                         onClose(result, sport, type, {})
                     }}
                     else
@@ -793,6 +802,7 @@ const Matches = ({ type, data, setData, editOpen, sport, onCloseCancel, onClose 
                                 setIncomplete(true)
                                 return
                             }
+                            setIncomplete(false)
                             onClose(result, sport, type, {'set1':nScores1, 'set2': nScores2, 'set3': nScores3})
                         }
                         else if(sport==='Cricket')
@@ -802,6 +812,7 @@ const Matches = ({ type, data, setData, editOpen, sport, onCloseCancel, onClose 
                                 setIncomplete(true)
                                 return
                             }
+                            setIncomplete(false)
                             onClose(result, sport, type, {'t1Innings':cScores1, 't2Innings': cScores2})
                         }
                         else{
@@ -810,6 +821,7 @@ const Matches = ({ type, data, setData, editOpen, sport, onCloseCancel, onClose 
                                 setIncomplete(true)
                                 return
                             }
+                            setIncomplete(false)
                             onClose(result, sport, type, {})
                         }
                     }
