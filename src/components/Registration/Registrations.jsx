@@ -13,7 +13,7 @@ const RegistrationStyles = makeStyles((theme) => ({
         margin: "10px 0"
     },
     paper: {
-        padding: "1rem"
+        padding: theme.spacing(4)
     },
     checkIcon: {
         color: "#00e676"
@@ -236,12 +236,15 @@ function Registrations() {
 
 const DashStyles = makeStyles((theme) => ({
     paper: {
-        padding: "30px",
+        padding: theme.spacing(4),
+        overflow: "auto",
+        minHeight: 300,
+        maxHeight: 300,
     },
     button: {
         display: "block",
         marginLeft: "auto"
-    }
+    },
 }))
 
 // handle case when no registrations found
@@ -263,7 +266,7 @@ function DashboardRegistrations(props) {
             </Grid>
 
 
-            <List>
+            <List className={classes.list}>
                 {Object.keys(props.registrations).map(tournament => {
 
                     return (

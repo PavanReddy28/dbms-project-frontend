@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { axiosInstance } from "../axiosInstance";
 import { useHistory } from "react-router-dom";
 import {
+    Container,
     Grid,
     Typography,
     makeStyles,
@@ -32,14 +33,15 @@ import { DashboardRegistrations } from "./Registration/Registrations"
 
 const useStyles = makeStyles((theme) => ({
     paper: {
-        padding: "30px",
+        padding: theme.spacing(4),
+        overflow: "auto",
+        minHeight: 300,
+        maxHeight: 300,
     },
     container: {
-        margin: "10px"
+        marginTop: theme.spacing(4)
     },
     list: {
-        maxHeight: "300px",
-        overflow: "auto"
     },
     addIcon: {
         display: "block",
@@ -184,7 +186,7 @@ function Dashboard() {
     }
 
     return (
-        <>
+        <Container maxWidth="xl">
             <Grid container spacing={2} className={classes.container}>
                 <Grid item lg={6} sm={12}>
                     <Paper className={classes.paper} elevation={1}>
@@ -290,7 +292,7 @@ function Dashboard() {
                 </DialogActions>
             </Dialog>
             <EditTourn tournament={dialogTourn} editOpen={editOpen} onClose={() => handleCancel("edit")} onEdit={handleEdit} />
-        </>
+        </Container>
     )
 }
 
