@@ -15,6 +15,10 @@ import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -24,9 +28,13 @@ const useStyles = makeStyles((theme) => ({
     secondaryTail: {
         backgroundColor: theme.palette.secondary.main,
     },
+    heading: {
+        fontSize: theme.typography.pxToRem(15),
+        fontWeight: theme.typography.fontWeightRegular,
+      },
 }));
 
-const TimeLine = ({ openDialog, sportData, sport, status }) => {
+const TimeLine = ({ results, openDialog, sportData, sport, status }) => {
 
     const classes = useStyles()
 
@@ -50,6 +58,96 @@ const TimeLine = ({ openDialog, sportData, sport, status }) => {
         else if(sport==='Badminton' || sport==='Tennis' || sport==='Table Tennis')
         {
             return (<SportsTennisRounded/>)
+        }
+    }
+
+    const scores = (match, sport) => {
+
+        if(sport==='Basketball' || sport==='Football' ||sport==='Hockey')
+        {
+            if(results){
+                console.log(results)
+                return(
+                    results.filter(m => {
+                    return match.match_id===m.match_id
+                }).map(result=>{
+                    console.log('ENTER result')
+                    return (
+                        <React.Fragment>
+                        <Typography  >
+                        Scores
+                        </Typography>
+                        <Typography gutterBottom>
+                            {result.t1score} - {result.t2score}
+                        </Typography>
+                        </React.Fragment>
+                    )
+                }))
+            }
+        }
+        else if(sport==='Cricket')
+        {
+            if(results){
+                
+                console.log(results)
+                return(
+                results.filter(m => {
+                    return match.match_id===m.match_id
+                }).map(result=>{
+                    console.log('ENTER',result)
+                    return (
+                        <React.Fragment>
+                        <Typography >
+                            {match.team1.teamName}
+                        </Typography>
+                        <Typography gutterBottom>
+                            {result.t1Innings.runs}/{result.t1Innings.wickets}
+                        </Typography>
+                        <Typography >
+                            {match.team1.teamName}
+                        </Typography>
+                        <Typography gutterBottom>
+                            {result.t2Innings.runs}/{result.t2Innings.wickets}
+                        </Typography>
+                        </React.Fragment>
+                    )
+                })
+                )
+        }
+        }
+        else if(sport==='Badminton' || sport==='Tennis' || sport==='Table Tennis')
+        {
+            if(results){
+                
+                console.log(results)
+                return(results.filter(m => {
+                    return match.match_id===m.match_id
+                }).map(result=>{
+                    console.log('ENTER',result)
+                    
+                    return (
+                        <React.Fragment>
+                            <Typography  >
+                            Set 1
+                        </Typography>
+                            <Typography gutterBottom>
+                                {result.set1.team1} - {result.set1.team2}
+                            </Typography>
+                            <Typography >
+                                Set 2
+                            </Typography>
+                            <Typography gutterBottom>
+                                {result.set2.team1} - {result.set2.team2}
+                            </Typography>
+                            <Typography >
+                                Set 3
+                            </Typography>
+                            <Typography gutterBottom>
+                                {result.set3.team1!==null || result.set3.team2!==null? `${result.set3.team1} - ${result.set3.team2}` : 'NA'}
+                            </Typography>
+                        </React.Fragment>
+                    )
+                })) }
         }
     }
 
@@ -79,11 +177,21 @@ const TimeLine = ({ openDialog, sportData, sport, status }) => {
                                 <Typography variant="h6" component="h1">
                                 {match.team1.teamName} VS {match.team2.teamName}
                                 </Typography>
-                                <Typography>{match.round}</Typography>
+                                <Typography>{sport}</Typography>
+                                <Typography gutterBottom>{match.round}</Typography>
+                                <Accordion>
+                                    <AccordionSummary
+                                    expandIcon={<ExpandMoreIcon />}
+                                    aria-controls="panel1a-content"
+                                    id="panel1a-header"
+                                    >
+                                    <Typography variant='h6'>Result</Typography>
+                                    </AccordionSummary>
+                                    <AccordionDetails>
+                                    {scores(match, sport)}
+                                    </AccordionDetails>
+                                </Accordion>
                             </CardContent>
-                            <CardActions>
-                                <Button size="small" color="primary" onClick={() => openDialog(match, sport)}>View Scores</Button>
-                            </CardActions>
                         </Card>
                         </TimelineContent>
                     </TimelineItem>

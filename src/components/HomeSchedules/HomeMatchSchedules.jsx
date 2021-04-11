@@ -87,6 +87,8 @@ export default function HomeMatchSchedules() {
     const [editOpen, setEditOpen] = useState(false);
     const [activeStep, setActiveStep] = useState();
     const [status, setStatus] = useState(false)
+    const [sportResult, setSportResult] = useState([])
+    const [tournResult, setTournResult] = useState({})
 
     useEffect(() => { 
 
@@ -172,8 +174,13 @@ export default function HomeMatchSchedules() {
                             setActiveStep(num)     
                         }
                     ).catch(err => console.log(err))
-                    
-                     
+
+                    axiosInstance.get(`/results/${TournID}/${info}`).then(
+                        response => {
+                            console.log(response.data)
+                            setSportResult(response.data.results)
+                        }
+                    ).catch(err=>console.log(err)) 
                     //console.log(sportData)     
                 }
             ).catch(err => console.log(err))
@@ -204,9 +211,17 @@ export default function HomeMatchSchedules() {
                             console.log(tournData, 'liii')
                             setActiveStep(num)        
                         }
-                    ).catch(err => console.log(err))
+                    ).catch(err => console.log(err))  
                 }
             ).catch(err => console.log(err))
+
+            axiosInstance.get(`/tourn/results/${info}`).then(
+                response => {
+                    console.log(response.data)
+                    setTournResult(response.data)
+                    console.log(info, tournResult[info])
+                }
+            ).catch(err=>console.log(err))    
             
         }
     }
@@ -215,9 +230,9 @@ export default function HomeMatchSchedules() {
 
         switch (step) {
             case 0:
-                return <TimeLine openDialog={activateDialog} status={status} sportData={sportData} sport={sportName}/>
+                return <TimeLine results={sportResult} openDialog={activateDialog} status={status} sportData={sportData} sport={sportName}/>
             case 1:
-                return <TimeLine2 openDialog={activateDialog} status={status} Tourn={tournData} />
+                return <TimeLine2 results={tournResult} openDialog={activateDialog} status={status} Tourn={tournData} />
             case 2:
                 return <LoadingRelative />
             default:
