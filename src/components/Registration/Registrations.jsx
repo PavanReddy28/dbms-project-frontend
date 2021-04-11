@@ -238,8 +238,8 @@ const DashStyles = makeStyles((theme) => ({
     paper: {
         padding: theme.spacing(4),
         overflow: "auto",
-        minHeight: 300,
-        maxHeight: 300,
+        minHeight: 600,
+        maxHeight: 600,    
     },
     button: {
         display: "block",

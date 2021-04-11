@@ -32,11 +32,24 @@ import { DashboardRegistrations } from "./Registration/Registrations"
 
 
 const useStyles = makeStyles((theme) => ({
+    '@global': {
+        '*::-webkit-scrollbar': {
+            width: '0.2em'
+          },
+          '*::-webkit-scrollbar-track': {
+            '-webkit-box-shadow': 'inset 0 0 6px rgba(0,0,0,0)'
+          },
+          '*::-webkit-scrollbar-thumb': {
+            backgroundColor: theme.palette.primary.main,
+            outline: '1px solid slategrey'
+          }
+          
+    },
     paper: {
         padding: theme.spacing(4),
         overflow: "auto",
-        minHeight: 300,
-        maxHeight: 300,
+        minHeight: 600,
+        maxHeight: 600,
     },
     container: {
         marginTop: theme.spacing(4)
@@ -187,7 +200,7 @@ function Dashboard() {
 
     return (
         <Container maxWidth="xl">
-            <Grid container spacing={2} className={classes.container}>
+            <Grid container spacing={4} className={classes.container}>
                 <Grid item lg={6} sm={12}>
                     <Paper className={classes.paper} elevation={1}>
                         <Grid container>
