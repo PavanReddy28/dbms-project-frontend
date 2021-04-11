@@ -11,17 +11,17 @@ const useStyles = makeStyles((theme) => ({
     '@global': {
         '*::-webkit-scrollbar': {
             width: '0.2em'
-          },
-          '*::-webkit-scrollbar-track': {
+        },
+        '*::-webkit-scrollbar-track': {
             '-webkit-box-shadow': 'inset 0 0 6px rgba(0,0,0,0)'
-          },
-          '*::-webkit-scrollbar-thumb': {
+        },
+        '*::-webkit-scrollbar-thumb': {
             backgroundColor: theme.palette.primary.main,
             outline: '1px solid slategrey'
-          }
-          
+        }
+
     },
-    
+
     nav: {
         marginLeft: "auto"
     },
@@ -34,12 +34,34 @@ const useStyles = makeStyles((theme) => ({
         textDecoration: "none"
     },
     list: {
-        width: "250px"
-        
+        width: 250
+
     },
     listItem: {
         textDecoration: "none",
         color: theme.palette.text.primary
+    },
+    logout: {
+        boxShadow: 'none',
+        color: "#ffffff",
+        // border: 'none',
+        border: "1px solid rgba(255, 255, 255, 0.4)",
+
+        '&:hover': {
+            backgroundColor: '#ffffff',
+            color: theme.palette.primary.main,
+            boxShadow: 'none',
+        },
+        '&:active': {
+            backgroundColor: '#ffffff',
+            color: theme.palette.primary.main,
+            boxShadow: 'none',
+        },
+        '&:focus': {
+            backgroundColor: '#ffffff',
+            color: theme.palette.primary.main,
+            boxShadow: 'none',
+        },
     }
 }))
 
@@ -67,11 +89,11 @@ function Header(props) {
             path: "/register",
             name: "Register"
         }
-        
+
     ]
 
-    function Logout(){
-        axiosInstance.post("/logout",{
+    function Logout() {
+        axiosInstance.post("/logout", {
             headers: {
                 "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
             }
@@ -84,51 +106,51 @@ function Header(props) {
 
     return (
         <div className={classes.root}>
-        <AppBar position="sticky">
-            <Toolbar>
-                <Typography variant="h6">
-                    App name
+            <AppBar position="sticky">
+                <Toolbar>
+                    <Typography variant="h6">
+                        App name
                     </Typography>
-                <Hidden only={["xs", "sm"]}>
-                    <Box className={classes.nav}>
+                    <Hidden only={["xs", "sm"]}>
+                        <Box className={classes.nav}>
 
-                    <IconButton onClick={props.toggle} style={{color: "white"}}>
-                        {props.mode === "dark"?<Brightness7Icon />:<Brightness4Icon />}
-                        
-                    </IconButton>
-                        
-                        {links.map(link => {
-                            return (
-                                <Link to={link.path} className={classes.link}>
-                                    <Button color="inherit" className={classes.navLink}>{link.name}</Button>
-                                </Link>
-                            )
-                        })}
-                        <Button variant="outlined" onClick={Logout}>Log Out</Button>
-                    </Box>
-                </Hidden>
-                <Hidden only={["md","lg","xl"]}>
-                    <IconButton
-                        onClick={() => setIsOpen(true)}
-                        color="inherit"
-                        className={classes.nav}
-                    >
-                    <Menu />
-                    </IconButton>
-                </Hidden>
+                            <IconButton onClick={props.toggle} style={{ color: "white" }}>
+                                {props.mode === "dark" ? <Brightness7Icon /> : <Brightness4Icon />}
 
-            </Toolbar>
-        </AppBar>
-        <Drawer anchor="right" open={isOpen} onClose={() => setIsOpen(false)}>
-                <List className = {classes.list}>
+                            </IconButton>
+
+                            {links.map(link => {
+                                return (
+                                    <Link to={link.path} className={classes.link}>
+                                        <Button color="inherit" className={classes.navLink}>{link.name}</Button>
+                                    </Link>
+                                )
+                            })}
+                            <Button variant="outlined" className={classes.logout} onClick={Logout}>Log Out</Button>
+                        </Box>
+                    </Hidden>
+                    <Hidden only={["md", "lg", "xl"]}>
+                        <IconButton
+                            onClick={() => setIsOpen(true)}
+                            color="inherit"
+                            className={classes.nav}
+                        >
+                            <Menu />
+                        </IconButton>
+                    </Hidden>
+
+                </Toolbar>
+            </AppBar>
+            <Drawer anchor="right" open={isOpen} onClose={() => setIsOpen(false)}>
+                <List className={classes.list}>
                     {links.map(link => {
                         return (
                             <Link to={link.path} className={classes.link}>
-                            <ListItem button >
-                                <ListItemText primary={link.name} className={classes.listItem}/>
-                            </ListItem>
+                                <ListItem button >
+                                    <ListItemText primary={link.name} className={classes.listItem} />
+                                </ListItem>
                             </Link>
-                            
+
                         )
                     })}
                     {/* need to fix style */}
@@ -136,7 +158,7 @@ function Header(props) {
                         <ListItemText primary={"Logout"} className={classes.listItem} />
                     </ListItem>
                 </List>
-        </Drawer>
+            </Drawer>
         </div>
 
     )
