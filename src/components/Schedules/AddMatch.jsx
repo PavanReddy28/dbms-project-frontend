@@ -8,8 +8,8 @@ import {
     Paper,
     Button, } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
-import AM_Tourn from './AM_Tourn'
-import AM_teams from './AM_teams'
+import AddMatchTourn from './AM_Tourn'
+import AddMatchTeams from './AM_teams'
 import moment from 'moment';
 
 const useStyles = makeStyles((theme) => ({
@@ -105,9 +105,9 @@ const AddMatch = () => {
     {
         switch (step) {
         case 0:
-            return <AM_Tourn Tournaments={Tournaments} handleNext={addTeams}/>;
+            return <AddMatchTourn Tournaments={Tournaments} handleNext={addTeams}/>;
         case 1:
-            return <AM_teams Teams={Teams} mTea={setmTeams} setTime={setTime} r={round} round={setRound} handleNext={onSubmit} handleBack={handleBack}/>;
+            return <AddMatchTeams Teams={Teams} mTea={setmTeams} setTime={setTime} r={round} round={setRound} handleNext={onSubmit} handleBack={handleBack}/>;
         default:
             return(
                 <>

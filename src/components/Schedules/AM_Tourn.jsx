@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { 
     Grid,
     Typography,
-    Paper,
     List,
     ListItem,
     ListItemText,
@@ -39,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const AM_Tourn = ({ Tournaments, handleNext }) => {
+const AddMatchTourn = ({ Tournaments, handleNext }) => {
 
     const classes = useStyles();
     const [open, setOpen] = useState({
@@ -132,4 +131,4 @@ const AM_Tourn = ({ Tournaments, handleNext }) => {
     )
 }
 
-export default AM_Tourn
+export default AddMatchTourn
