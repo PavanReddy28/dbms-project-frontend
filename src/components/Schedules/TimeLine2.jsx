@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
 const TimeLine2 = ({ results, openDialog, status, Tourn, delRequest }) => {
 
     const classes = useStyles()    
-    const [open, setOpen] = useState(false)
+    const [open, setOpen] = useState(null)
 
     const icons = (sport) => {
         if(sport==='Basketball')
@@ -182,25 +182,25 @@ const TimeLine2 = ({ results, openDialog, status, Tourn, delRequest }) => {
                         <Card elevation={3} className={classes.paper}>
                             <CardContent>
                                 <Typography variant="h6" component="h1">
-                                {match.team1.teamName} VS {match.team2.teamName}
+                                {match.team1.teamName} {match.match_id} VS {match.team2.teamName}
                                 </Typography>
                                 <Typography>{match.sportName}</Typography>
                                 <Typography gutterBottom>{match.round}</Typography>
                                 <ListItem button fullWidth onClick={() => {
-                                    if(open===true)
+                                    if(open===match.match_id)
                                     {
-                                        setOpen(false)
+                                        setOpen(null)
                                     }
                                     else
                                     {
-                                        setOpen(true)
+                                        setOpen(match.match_id)
                                     }
                                 }}>
                                     <ListItemText primary={'Result'} />
-                                    {open === true ? <ExpandLess /> : <ExpandMore />}
+                                    {open === match.match_id ? <ExpandLess /> : <ExpandMore />}
                                 </ListItem>
                                 <Divider />
-                                <Collapse in={open===true} timeout="auto">
+                                <Collapse in={open===match.match_id} timeout="auto">
                                     {scores(match, match.sportName)}
                                 </Collapse>
                             </CardContent>
