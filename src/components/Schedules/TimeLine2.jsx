@@ -124,7 +124,7 @@ const TimeLine2 = ({ results, openDialog, status, Tourn, delRequest }) => {
         }
         else if(sport==='Badminton' || sport==='Tennis' || sport==='Table Tennis')
         {
-            if(results){
+            if(results[sport]){
                 return(
                 results[sport].filter(m => {
                     return match.match_id===m.match_id

@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
     },
     container: {
 
-        padding: "15px"
+        padding: "15px",
         marginTop: theme.spacing(4)
     },
     list: {
@@ -273,7 +273,7 @@ function Dashboard() {
                 </Grid>
 
                 <Grid item lg={12}>
-                    <MacthSchedules />
+                    <MatchSchedules />
                 </Grid>
             </Grid>
             <Dialog
