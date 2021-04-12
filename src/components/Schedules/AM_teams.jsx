@@ -73,6 +73,16 @@ const AM_teams = ({ Teams, mTea, setTime, r, round, handleNext, handleBack }) =>
 
     }
 
+    const incompleteCheck = () => {
+        console.log(Teams.length)
+        if(Teams.length===0)
+        {
+            setIncomplete1(true)
+            //console.log(incomplete1)
+        }
+        return incomplete1
+    }
+
     return (
         <React.Fragment>
              {/* <Paper className={classes.paper} elevation={1}> */}
@@ -163,7 +173,7 @@ const AM_teams = ({ Teams, mTea, setTime, r, round, handleNext, handleBack }) =>
                         id="datetime-local"
                         label="Next appointment"
                         type="datetime-local"
-                        defaultValue="2020-03-24T10:30"
+                        defaultValue= {moment().format("YYYY-MM-DDThh:mm")}
                         className={classes.textField}
                         InputLabelProps={{
                         shrink: true,

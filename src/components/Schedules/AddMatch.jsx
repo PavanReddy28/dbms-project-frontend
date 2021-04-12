@@ -10,6 +10,7 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import AM_Tourn from './AM_Tourn'
 import AM_teams from './AM_teams'
+import moment from 'moment';
 
 const useStyles = makeStyles((theme) => ({
     layout: {
@@ -86,7 +87,7 @@ const AddMatch = () => {
             "team1_id": id1,
             "team2_id": id2,
             "sportName": sport,
-            "date": time,
+            "date": moment(time).format(),
             "round": round
         }
         console.log(Match)
