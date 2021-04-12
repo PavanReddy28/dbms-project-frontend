@@ -66,6 +66,8 @@ const AM_teams = ({ Teams, mTea, setTime, r, round, handleNext, handleBack }) =>
         {
             setIncomplete1(true)
             //console.log(incomplete1)
+        } else {
+            setIncomplete1(false)
         }
     }, [Teams])
 
@@ -125,7 +127,9 @@ const AM_teams = ({ Teams, mTea, setTime, r, round, handleNext, handleBack }) =>
                                             //console.log(val, val.length)
                                             if(val.length>=2)
                                             {
-                                                setIncomplete(true)
+                                                setIncomplete(true);
+                                            } else{
+                                                setIncomplete(false);
                                             }
                                             if(val.indexOf(team.team_name) > -1)
                                             {
@@ -173,7 +177,7 @@ const AM_teams = ({ Teams, mTea, setTime, r, round, handleNext, handleBack }) =>
                         id="datetime-local"
                         label="Next appointment"
                         type="datetime-local"
-                        defaultValue= {moment().format("YYYY-MM-DDThh:mm")}
+                        defaultValue={moment().format("YYYY-MM-DDThh:mm")}
                         className={classes.textField}
                         InputLabelProps={{
                         shrink: true,
