@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-const AM_teams = ({ Teams, mTea, setTime, r, round, handleNext, handleBack }) => {
+const AddMatchTeams = ({ Teams, mTea, setTime, r, round, handleNext, handleBack }) => {
 
     const classes = useStyles()
 
@@ -71,22 +71,6 @@ const AM_teams = ({ Teams, mTea, setTime, r, round, handleNext, handleBack }) =>
         }
     }, [Teams])
 
-    const goToStatus = () => {
-
-    }
-
-    const incompleteCheck = () => {
-        console.log(Teams.length)
-        if(Teams.length<2)
-        {
-            setIncomplete1(true)
-            //console.log(incomplete1)
-        }
-        else {
-            setIncomplete1(false)
-        }
-        return incomplete1
-    }
 
     return (
         <React.Fragment>
@@ -242,4 +226,4 @@ const AM_teams = ({ Teams, mTea, setTime, r, round, handleNext, handleBack }) =>
     )
 }
 
-export default AM_teams
+export default AddMatchTeams
