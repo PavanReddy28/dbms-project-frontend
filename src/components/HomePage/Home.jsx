@@ -2,6 +2,7 @@ import React from "react";
 import { Typography, Grid, Card, CardHeader, CardContent, Button, Divider, makeStyles, Container } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import TournList from "./TournList";
+import HomeMatchSchedules from "../HomeSchedules/HomeMatchSchedules"
 
 const useStyles = makeStyles((theme) => ({
     card: {
@@ -106,6 +107,10 @@ function Home() {
                     </Grid>
                 </Grid>
             </Container>
+            
+            <Container maxWidth="lg">
+                <HomeMatchSchedules/>   
+            </Container>        
 
 
         </>
