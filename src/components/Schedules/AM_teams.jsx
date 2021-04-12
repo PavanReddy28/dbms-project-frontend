@@ -188,11 +188,12 @@ const AM_teams = ({ Teams, mTea, setTime, r, round, handleNext, handleBack }) =>
                         onChange={(ev) => {
                             if (!ev.target['validity'].valid)
                             {
+                                console.log(ev.target)
                                 return;
                             }
                             let dt= ev.target['value'];
                             // dt = moment(dt).format()
-                            console.log(dt)
+                            console.log(dt, moment().format("YYYY-MM-DDThh:mm"))
                             setTime(dt);
                         }
                         }
