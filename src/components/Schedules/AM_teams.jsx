@@ -190,8 +190,9 @@ const AM_teams = ({ Teams, mTea, setTime, r, round, handleNext, handleBack }) =>
                             {
                                 return;
                             }
-                            let dt= ev.target['value'] + ':00';
-                            dt = moment(dt).format()
+                            let dt= ev.target['value'];
+                            // dt = moment(dt).format()
+                            console.log(dt)
                             setTime(dt);
                         }
                         }
