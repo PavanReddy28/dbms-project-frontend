@@ -82,12 +82,13 @@ const AddMatch = () => {
         console.log(mTeams, Teams.filter(team => team.team_name===mTeams[0]))
         let id1 = Teams.filter(team => team.team_name===mTeams[0])[0].team_id
         let id2 = Teams.filter(team => team.team_name===mTeams[1])[0].team_id
+        console.log(moment(time+':00').format())
         const Match = {
             "tournament_id": tourn.tournament_id,
             "team1_id": id1,
             "team2_id": id2,
             "sportName": sport,
-            "date": moment(time).format(),
+            "date": moment(time+':00').format(),
             "round": round
         }
         console.log(Match)
