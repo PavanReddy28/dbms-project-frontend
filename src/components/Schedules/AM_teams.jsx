@@ -77,10 +77,13 @@ const AM_teams = ({ Teams, mTea, setTime, r, round, handleNext, handleBack }) =>
 
     const incompleteCheck = () => {
         console.log(Teams.length)
-        if(Teams.length===0)
+        if(Teams.length<2)
         {
             setIncomplete1(true)
             //console.log(incomplete1)
+        }
+        else {
+            setIncomplete1(false)
         }
         return incomplete1
     }
