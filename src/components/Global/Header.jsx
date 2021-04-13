@@ -99,6 +99,7 @@ function Header(props) {
                 "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
             }
         }).then(response => {
+            localStorage.removeItem("accessToken");
             history.push("/");
         }).catch(err => {
             history.push("/");
