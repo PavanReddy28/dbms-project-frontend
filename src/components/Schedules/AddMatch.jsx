@@ -83,13 +83,14 @@ const AddMatch = () => {
         let id1 = Teams.filter(team => team.team_name===mTeams[0])[0].team_id
         let id2 = Teams.filter(team => team.team_name===mTeams[1])[0].team_id
         console.log(moment(time+':00').format())
+        console.log(moment().format("YYYY-MM-DDThh:mm"))
         const Match = {
             "tournament_id": tourn.tournament_id,
             "team1_id": id1,
             "team2_id": id2,
             "sportName": sport,
-            "date": moment(time+':00').format(),
-            "round": round
+            "date": moment(time+':00').format()==='2000-01-01T00:00:00+05:30'?moment().format():moment(time+':00').format(),
+            "round": round===''?'Finals':round
         }
         console.log(Match)
         
@@ -111,7 +112,7 @@ const AddMatch = () => {
             return(
                 <>
                     <Alert severity="success">Successfully Added.</Alert>
-                    <Link to ="/MatchSchedules">
+                    <Link to ="/Dashboard">
                         <Button variant="contained" color="primary" className={classes.button}>Return to Matches</Button>
                     </Link>
                 </>
