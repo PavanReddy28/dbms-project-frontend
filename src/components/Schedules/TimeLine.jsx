@@ -3,7 +3,6 @@ import React, {useState} from 'react'
 import {
     Typography,
     makeStyles,
-    Paper,
     IconButton,
     List,
     ListItem,
@@ -24,11 +23,6 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { axiosInstance } from '../../axiosInstance';
-import Accordion from '@material-ui/core/Accordion';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Alert } from '@material-ui/lab';
 
 const useStyles = makeStyles((theme) => ({

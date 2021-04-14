@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Timeline from '@material-ui/lab/Timeline';
 import { useHistory } from "react-router-dom";
-import AddMatch from './AddMatch'
 import {
     Grid,
     Typography,
@@ -13,16 +12,9 @@ import {
     Button,
     IconButton,
     Collapse,
-    Dialog,
-    DialogActions,
-    DialogContentText,
-    DialogTitle,
-    DialogContent,
     Divider
 } from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
-import EditIcon from '@material-ui/icons/Edit';
 import SportsIcon from '@material-ui/icons/Sports';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';

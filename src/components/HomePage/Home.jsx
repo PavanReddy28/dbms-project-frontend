@@ -1,5 +1,5 @@
 import React from "react";
-import { Typography, Grid, Card, CardHeader, CardContent, Button, Divider, makeStyles, Container } from "@material-ui/core";
+import { Typography, Grid, Card, CardHeader, CardContent, Button, makeStyles, Container } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import TournList from "./TournList";
 import HomeMatchSchedules from "../HomeSchedules/HomeMatchSchedules"
