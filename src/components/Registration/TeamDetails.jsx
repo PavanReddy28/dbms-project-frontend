@@ -66,7 +66,15 @@ const TeamDetails = ({ playerData, TeamNum, onAdd, handleNext, handleBack }) => 
 
     const handleChange = (index, e) => {
         const values = [...players];
-        values[index][e.target.name] = e.target.value;
+        let numFilter;
+        if(e.target.name === "age"){
+            numFilter = e.target.value.replace(/[^0-9]/g, '');
+        } else {
+            numFilter = e.target.value
+        }
+
+        
+        values[index][e.target.name] = numFilter;
         setPlayers(values);
     }
 

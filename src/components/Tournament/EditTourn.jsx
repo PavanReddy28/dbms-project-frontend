@@ -11,7 +11,6 @@ import {
     Chip,
     Input,
     MenuItem,
-    useTheme,
     Grid,
     Divider
 } from '@material-ui/core';
@@ -52,19 +51,10 @@ const MenuProps = {
     },
 };
 
-function getStyles(name, sport, theme) {
-    return {
-        fontWeight: theme.typography.fontWeightRegular
-        // sport.indexOf(name) === -1
-        //     ? theme.typography.fontWeightRegular
-        //     : theme.typography.fontWeightMedium,
-    };
-}
 
 function EditTourn(props) {
 
     const classes = useStyles();
-    const theme = useTheme();
 
     const [tourn, setTourn] = useState(null);
 
@@ -195,12 +185,14 @@ function EditTourn(props) {
                             id="zip"
                             name="zip"
                             label="Zip / Postal code"
-                            onChange={(e) => setTourn(previous => {
+                            onChange={(e) => {
+                                const onlyNums = e.target.value.replace(/[^0-9]/g, '');
+                                setTourn(previous => {
                                 return {
                                     ...previous,
-                                    [e.target.name]: e.target.value
+                                    [e.target.name]: onlyNums
                                 }
-                            })}
+                            })}}
                             value={tourn ? tourn.zip : ""}
                             fullWidth
                         />

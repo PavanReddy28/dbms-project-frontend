@@ -1,6 +1,6 @@
 import  React,{ useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Typography, TextField, Button, FormControl, Select, MenuItem, InputLabel } from '@material-ui/core';
+import { Grid, Typography, TextField, Button } from '@material-ui/core';
 import {Alert} from "@material-ui/lab";
 
 const useStyles = makeStyles((theme) => ({
@@ -78,12 +78,14 @@ const TeamCapDetails = ({Team, onAdd, handleNext, handleBack}) => {
           id="num_players"
           name="num_players"
           label="Number of Players"
-          onChange={(e)=>setTeam( previous => {
-            return {
-              ...previous,
-              [e.target.name]: e.target.value
-            }
-          })}
+          onChange={(e)=>{
+              const onlyNums = e.target.value.replace(/[^0-9]/g, '');
+              setTeam( previous => {
+              return {
+                ...previous,
+                [e.target.name]: onlyNums
+              }
+            })}}
           value={team.num_players?team.num_players:""}
           fullWidth
         />
@@ -147,12 +149,14 @@ const TeamCapDetails = ({Team, onAdd, handleNext, handleBack}) => {
             id="cAge" 
             name="cAge" 
             label="Age" 
-            onChange={(e)=>setTeam( previous => {
-                return {
-                  ...previous,
-                  [e.target.name]: e.target.value
-                }
-              })}
+            onChange={(e)=>{
+              const onlyNums = e.target.value.replace(/[^0-9]/g, '');
+              setTeam( previous => {
+              return {
+                ...previous,
+                [e.target.name]: onlyNums
+              }
+            })}}
               value={team.cAge?team.cAge:""}
               fullWidth
             />
@@ -163,12 +167,14 @@ const TeamCapDetails = ({Team, onAdd, handleNext, handleBack}) => {
             id="contact"
             name="contact"
             label="Mobile No."
-            onChange={(e)=>setTeam( previous => {
+            onChange={(e)=>{
+              const onlyNums = e.target.value.replace(/[^0-9]/g, '');
+              setTeam( previous => {
               return {
                 ...previous,
-                [e.target.name]: e.target.value
+                [e.target.name]: onlyNums
               }
-            })}
+            })}}
             value={team.contact?team.contact:""}
             fullWidth
           />

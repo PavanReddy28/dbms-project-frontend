@@ -136,12 +136,14 @@ const TournForm = ({Tournament, onAdd, handleNext}) => {
             id="zip"
             name="zip"
             label="Zip / Postal code"
-            onChange={(e)=>setTourn( previous => {
+            onChange={(e)=>{
+              const onlyNums = e.target.value.replace(/[^0-9]/g, '');
+              setTourn( previous => {
               return {
                 ...previous,
-                [e.target.name]: e.target.value
+                [e.target.name]: onlyNums
               }
-            })}
+            })}}
             value={tourn.zip?tourn.zip:""}
             fullWidth
           />
@@ -152,12 +154,15 @@ const TournForm = ({Tournament, onAdd, handleNext}) => {
             id="country"
             name="country"
             label="Country"
-            onChange={(e)=>setTourn( previous => {
+            onChange={(e)=>{
+              
+              setTourn( previous => {
               return {
                 ...previous,
                 [e.target.name]: e.target.value
               }
             })}
+            }
             value={tourn.country?tourn.country:""}
             fullWidth
             autoComplete="shipping country"
