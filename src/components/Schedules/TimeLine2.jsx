@@ -1,5 +1,5 @@
 import { SportsBasketballRounded, SportsCricketRounded, SportsSoccerRounded, SportsTennisRounded } from '@material-ui/icons'
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import {
     Typography,
     makeStyles,
@@ -53,135 +53,127 @@ const useStyles = makeStyles((theme) => ({
 
 const TimeLine2 = ({ results, openDialog, status, Tourn, delRequest }) => {
 
-    const classes = useStyles()    
+    const classes = useStyles()
     const [open, setOpen] = useState(null)
 
     const icons = (sport) => {
-        if(sport==='Basketball')
-        {
-            return (<SportsBasketballRounded/>)
+        if (sport === 'Basketball') {
+            return (<SportsBasketballRounded />)
         }
-        else if(sport==='Tennis')
-        {
-            return (<SportsTennisRounded/>)
+        else if (sport === 'Tennis') {
+            return (<SportsTennisRounded />)
         }
-        else if(sport==='Football')
-        {
-            return (<SportsSoccerRounded/>)
+        else if (sport === 'Football') {
+            return (<SportsSoccerRounded />)
         }
-        else if(sport==='Cricket')
-        {
-            return (<SportsCricketRounded/>)
+        else if (sport === 'Cricket') {
+            return (<SportsCricketRounded />)
         }
-        else if(sport==='Badminton' || sport==='Tennis' || sport==='Table Tennis')
-        {
-            return (<SportsTennisRounded/>)
+        else if (sport === 'Badminton' || sport === 'Tennis' || sport === 'Table Tennis') {
+            return (<SportsTennisRounded />)
         }
-    }    
+    }
 
     const scores = (match, sport) => {
 
-        if(sport==='Basketball' || sport==='Football' ||sport==='Hockey')
-        {
+        if (sport === 'Basketball' || sport === 'Football' || sport === 'Hockey') {
             console.log('ENTER 0', match, sport)
-            if(results){
+            if (results) {
                 console.log('ENTER 1', results[sport])
-                return(
+                return (
                     results[sport].filter(m => {
                         console.log('ENTER 2', m)
-                        return match.match_id===m.match_id
-                    }).map(result=>{
+                        return match.match_id === m.match_id
+                    }).map(result => {
                         console.log('ENTER 3', result)
                         return (
-                        //     <React.Fragment>
-                        // <Typography >
-                        // Scores
-                        // </Typography>
-                        // <Typography gutterBottom>
-                        //     {result.t1score} - {result.t2score}
-                        // </Typography>
-                        // </React.Fragment>
-                        <List component="div">
-                            <ListItemText primary = {match.team1.team_id === result.winner_id? match.team1.teamName : match.team2.teamName} secondary={"Winner"} className={classes.nested}/>
-                            <ListItemText primary = {result.t1score} secondary={match.team1.teamName} className={classes.nested}/>
-                            <ListItemText primary = {result.t2score} secondary={match.team2.teamName} className={classes.nested}/>
-                        </List>
+                            //     <React.Fragment>
+                            // <Typography >
+                            // Scores
+                            // </Typography>
+                            // <Typography gutterBottom>
+                            //     {result.t1score} - {result.t2score}
+                            // </Typography>
+                            // </React.Fragment>
+                            <List component="div">
+                                <ListItemText primary={match.team1.team_id === result.winner_id ? match.team1.teamName : match.team2.teamName} secondary={"Winner"} className={classes.nested} />
+                                <ListItemText primary={result.t1score} secondary={match.team1.teamName} className={classes.nested} />
+                                <ListItemText primary={result.t2score} secondary={match.team2.teamName} className={classes.nested} />
+                            </List>
                         )
                     })
                 )
-            }            
+            }
         }
-        else if(sport==='Cricket')
-        {
-            if(results){
-                return(
+        else if (sport === 'Cricket') {
+            if (results) {
+                return (
                     results[sport].filter(m => {
-                    return match.match_id===m.match_id
-                }).map(result=>{
+                        return match.match_id === m.match_id
+                    }).map(result => {
 
-                    console.log('ENTER')
-                    return (                        
-                        // <React.Fragment>
-                        // <Typography variant="body">
-                        //     {match.team1.teamName}
-                        // </Typography>
-                        // <Typography gutterBottom>
-                        //     {result.t1Innings.runs}/{result.t1Innings.wickets}
-                        // </Typography>
-                        // <Typography variant="body">
-                        //     {match.team1.teamName}
-                        // </Typography>
-                        // <Typography gutterBottom>
-                        //     {result.t2Innings.runs}/{result.t2Innings.wickets}
-                        // </Typography>
-                        // </React.Fragment>
-                        <List component="div">
-                            <ListItemText primary = {match.team1.team_id === result.winner_id? match.team1.teamName : match.team2.teamName} secondary={"Winner"} className={classes.nested}/>
-                            <ListItemText primary = {`${result.t1Innings.runs} runs for ${result.t1Innings.wickets} wickets`} secondary={match.team1.teamName} className={classes.nested}/>
-                            <ListItemText primary = {`${result.t2Innings.runs} runs for ${result.t2Innings.wickets} wickets`} secondary={match.team2.teamName} className={classes.nested}/>
-                        </List>
-                    )
-                }) 
+                        console.log('ENTER')
+                        return (
+                            // <React.Fragment>
+                            // <Typography variant="body">
+                            //     {match.team1.teamName}
+                            // </Typography>
+                            // <Typography gutterBottom>
+                            //     {result.t1Innings.runs}/{result.t1Innings.wickets}
+                            // </Typography>
+                            // <Typography variant="body">
+                            //     {match.team1.teamName}
+                            // </Typography>
+                            // <Typography gutterBottom>
+                            //     {result.t2Innings.runs}/{result.t2Innings.wickets}
+                            // </Typography>
+                            // </React.Fragment>
+                            <List component="div">
+                                <ListItemText primary={match.team1.team_id === result.winner_id ? match.team1.teamName : match.team2.teamName} secondary={"Winner"} className={classes.nested} />
+                                <ListItemText primary={`${result.t1Innings.runs} runs for ${result.t1Innings.wickets} wickets`} secondary={match.team1.teamName} className={classes.nested} />
+                                <ListItemText primary={`${result.t2Innings.runs} runs for ${result.t2Innings.wickets} wickets`} secondary={match.team2.teamName} className={classes.nested} />
+                            </List>
+                        )
+                    })
                 )
             }
         }
-        else if(sport==='Badminton' || sport==='Tennis' || sport==='Table Tennis')
-        {
-            if(results[sport]){
-                return(
-                results[sport].filter(m => {
-                    return match.match_id===m.match_id
-                }).map(result=>{
-                    console.log('ENTER')
-                    return (
-                        // <React.Fragment>
-                        //     <Typography >
-                        //     Set 1
-                        // </Typography>
-                        //     <Typography gutterBottom>
-                        //         {result.set1.team1} - {result.set1.team2}
-                        //     </Typography>
-                        //     <Typography >
-                        //         Set 2
-                        //     </Typography>
-                        //     <Typography gutterBottom>
-                        //         {result.set2.team1} - {result.set2.team2}
-                        //     </Typography>
-                        //     <Typography >
-                        //         Set 3
-                        //     </Typography>
-                        //     <Typography gutterBottom>
-                        //         {result.set3.team1!==null || result.set3.team2!==null? `${result.set3.team1} - ${result.set3.team2}` : 'NA'}
-                        //     </Typography>
-                        // </React.Fragment>
-                        <List component="div">
-                            <ListItemText primary = {match.team1.team_id === result.winner_id? match.team1.teamName : match.team2.teamName} secondary={"Winner"} className={classes.nested}/>
-                            <ListItemText primary = {`${result.set1.team1} - ${result.set1.team2}`} secondary={"Set 1"} className={classes.nested}/>
-                            <ListItemText primary = {`${result.set2.team1} - ${result.set2.team2}`} secondary={"Set 2"} className={classes.nested}/>
-                            <ListItemText primary = {`${result.set3.team1} - ${result.set3.team2}`} secondary={"Set 3"} className={classes.nested}/>
-                        </List>
-                    )
-                })
+        else if (sport === 'Badminton' || sport === 'Tennis' || sport === 'Table Tennis') {
+            if (results[sport]) {
+                return (
+                    results[sport].filter(m => {
+                        return match.match_id === m.match_id
+                    }).map(result => {
+                        console.log('ENTER')
+                        return (
+                            // <React.Fragment>
+                            //     <Typography >
+                            //     Set 1
+                            // </Typography>
+                            //     <Typography gutterBottom>
+                            //         {result.set1.team1} - {result.set1.team2}
+                            //     </Typography>
+                            //     <Typography >
+                            //         Set 2
+                            //     </Typography>
+                            //     <Typography gutterBottom>
+                            //         {result.set2.team1} - {result.set2.team2}
+                            //     </Typography>
+                            //     <Typography >
+                            //         Set 3
+                            //     </Typography>
+                            //     <Typography gutterBottom>
+                            //         {result.set3.team1!==null || result.set3.team2!==null? `${result.set3.team1} - ${result.set3.team2}` : 'NA'}
+                            //     </Typography>
+                            // </React.Fragment>
+                            <List component="div">
+                                <ListItemText primary={match.team1.team_id === result.winner_id ? match.team1.teamName : match.team2.teamName} secondary={"Winner"} className={classes.nested} />
+                                <ListItemText primary={`${result.set1.team1} - ${result.set1.team2}`} secondary={"Set 1"} className={classes.nested} />
+                                <ListItemText primary={`${result.set2.team1} - ${result.set2.team2}`} secondary={"Set 2"} className={classes.nested} />
+                                <ListItemText primary={`${result.set3.team1} - ${result.set3.team2}`} secondary={"Set 3"} className={classes.nested} />
+                            </List>
+                        )
+                    })
                 )
             }
         }
@@ -190,120 +182,117 @@ const TimeLine2 = ({ results, openDialog, status, Tourn, delRequest }) => {
     const setPage = (status) => {
         console.log(Tourn, 1)
         console.log("tourn")
-        if(status)
-        {   
-            if(!Tourn || !Tourn.complete){
+        if (status) {
+            if (!Tourn || !Tourn.complete) {
                 return
             }
-            else if(Tourn.complete && Tourn.complete.length === 0){
+            else if (Tourn.complete && Tourn.complete.length === 0) {
                 return <Alert severity="warning">No matches complete</Alert>
             }
             console.log('T Enter complete')
-            return(Tourn.complete.map( match => {
+            return (Tourn.complete.map(match => {
 
                 return (
                     <TimelineItem>
                         <TimelineOppositeContent>
-                        <Typography variant="body2" color="textSecondary">
-                            {match.date} {match.startTime}
-                        </Typography>
+                            <Typography variant="body2" color="textSecondary">
+                                {match.date} {match.startTime}
+                            </Typography>
                         </TimelineOppositeContent>
                         <TimelineSeparator>
-                        <TimelineDot color="primary" variant="outlined">
-                            {icons(match.sportName)}
-                        </TimelineDot>
-                        <TimelineConnector />
+                            <TimelineDot color="primary" variant="outlined">
+                                {icons(match.sportName)}
+                            </TimelineDot>
+                            <TimelineConnector />
                         </TimelineSeparator>
                         <TimelineContent className={classes.timelineItem}>
-                        <Card elevation={3} className={classes.paper}>
-                            <CardContent>
-                                <Typography variant="h6" component="h1">
-                                {match.team1.teamName} VS {match.team2.teamName}
-                                </Typography>
-                                <Typography color="textSecondary">Sport: {match.sportName}</Typography>
-                                <Typography gutterBottom color="textSecondary">Round: {match.round}</Typography>
-                                <ListItem fullWidth>
-                                    <ListItemText primary={'Result'} />
-                                    <IconButton onClick={() => {
-                                    if(open===match.match_id)
-                                    {
-                                        setOpen(null)
-                                    }
-                                    else
-                                    {
-                                        setOpen(match.match_id)
-                                    }
-                                }}>
-                                        {open === match.match_id ? <ExpandLess /> : <ExpandMore />}
-                                    </IconButton>
-                                    
-                                </ListItem>
-                                <Divider />
-                                <Collapse in={open===match.match_id} timeout="auto">
-                                    {scores(match, match.sportName)}
-                                </Collapse>
-                            </CardContent>
-                            <CardActions>
-                                <Button size="small" color="primary" onClick={() => openDialog(match, match.sportName, 'edit')}>
-                                    Edit Scores
+                            <Card elevation={3} className={classes.paper}>
+                                <CardContent>
+                                    <Typography variant="h6" component="h1">
+                                        {match.team1.teamName} VS {match.team2.teamName}
+                                    </Typography>
+                                    <Typography color="textSecondary">Sport: {match.sportName}</Typography>
+                                    <Typography gutterBottom color="textSecondary">Round: {match.round}</Typography>
+                                    <ListItem fullWidth>
+                                        <ListItemText primary={'Result'} />
+                                        <IconButton onClick={() => {
+                                            if (open === match.match_id) {
+                                                setOpen(null)
+                                            }
+                                            else {
+                                                setOpen(match.match_id)
+                                            }
+                                        }}>
+                                            {open === match.match_id ? <ExpandLess /> : <ExpandMore />}
+                                        </IconButton>
+
+                                    </ListItem>
+                                    <Divider />
+                                    <Collapse in={open === match.match_id} timeout="auto">
+                                        {scores(match, match.sportName)}
+                                    </Collapse>
+                                </CardContent>
+                                <CardActions>
+                                    <Button size="small" color="primary" onClick={() => openDialog(match, match.sportName, 'edit')}>
+                                        Edit Scores
                                 </Button>
-                                <IconButton size="small" onClick={() => delRequest(match.match_id)}>
-                                    <DeleteIcon />
-                                </IconButton>
-                            </CardActions>
-                        </Card>
+                                    <IconButton size="small" onClick={() => delRequest(match.match_id)}>
+                                        <DeleteIcon />
+                                    </IconButton>
+                                </CardActions>
+                            </Card>
                         </TimelineContent>
                     </TimelineItem>
                 )
             }))
 
         }
-        else{
+        else {
             console.log('T Enter pend')
 
-            if( !Tourn || !Tourn.pending){
+            if (!Tourn || !Tourn.pending) {
                 return
             }
-            
-            else if(Tourn.pending && Tourn.pending.length === 0){
+
+            else if (Tourn.pending && Tourn.pending.length === 0) {
                 return <Alert severity="warning">No matches scheduled</Alert>
             }
 
-            return(Tourn.pending.map( match => {
+            return (Tourn.pending.map(match => {
                 return (
                     <>
-                    <TimelineItem>
-                        <TimelineOppositeContent>
-                        <Typography variant="body2" color="textSecondary">
-                            {match.date} {match.startTime}
-                        </Typography>
-                        </TimelineOppositeContent>
-                        <TimelineSeparator>
-                        <TimelineDot color="primary" variant="outlined">
-                            {icons(match.sportName)}
-                        </TimelineDot>
-                        <TimelineConnector />
-                        </TimelineSeparator>
-                        <TimelineContent>
-                        <Card elevation={3} className={classes.paper}>
-                            <CardContent>
-                                <Typography variant="h6" component="h1">
-                                {match.team1.teamName} VS {match.team2.teamName}
+                        <TimelineItem>
+                            <TimelineOppositeContent>
+                                <Typography variant="body2" color="textSecondary">
+                                    {match.date} {match.startTime}
                                 </Typography>
-                                <Typography color="textSecondary">Sport: {match.sportName}</Typography>
-                                <Typography gutterBottom color="textSecondary">Round: {match.round}</Typography>
-                            </CardContent>
-                            <CardActions>
-                                <Button size="small" color="primary" onClick={() => openDialog(match, match.sportName, 'add')}>
-                                    Add Scores
+                            </TimelineOppositeContent>
+                            <TimelineSeparator>
+                                <TimelineDot color="primary" variant="outlined">
+                                    {icons(match.sportName)}
+                                </TimelineDot>
+                                <TimelineConnector />
+                            </TimelineSeparator>
+                            <TimelineContent>
+                                <Card elevation={3} className={classes.paper}>
+                                    <CardContent>
+                                        <Typography variant="h6" component="h1">
+                                            {match.team1.teamName} VS {match.team2.teamName}
+                                        </Typography>
+                                        <Typography color="textSecondary">Sport: {match.sportName}</Typography>
+                                        <Typography gutterBottom color="textSecondary">Round: {match.round}</Typography>
+                                    </CardContent>
+                                    <CardActions>
+                                        <Button size="small" color="primary" onClick={() => openDialog(match, match.sportName, 'add')}>
+                                            Add Scores
                                 </Button>
-                                <IconButton size="small" onClick={() => delRequest(match.match_id)}>
-                                    <DeleteIcon />
-                                </IconButton>
-                            </CardActions>
-                        </Card>
-                        </TimelineContent>
-                    </TimelineItem>
+                                        <IconButton size="small" onClick={() => delRequest(match.match_id)}>
+                                            <DeleteIcon />
+                                        </IconButton>
+                                    </CardActions>
+                                </Card>
+                            </TimelineContent>
+                        </TimelineItem>
                     </>
                 )
             }))

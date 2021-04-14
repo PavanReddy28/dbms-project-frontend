@@ -40,11 +40,11 @@ const Review = ({ Tournament, sports, handleNext, handleBack }) => {
                 Review
             </Typography>
             <Grid item xs={12}>
-                    <Typography variant="h6" gutterBottom className={classes.title}>
+                <Typography variant="h6" gutterBottom className={classes.title}>
                     {Tournament.tournName}
-                    </Typography>
-                    <Typography variant="body2">{Tournament.college}</Typography>
-                </Grid>
+                </Typography>
+                <Typography variant="body2">{Tournament.college}</Typography>
+            </Grid>
             <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
                     <Typography variant="h6" gutterBottom className={classes.title}>
@@ -59,7 +59,7 @@ const Review = ({ Tournament, sports, handleNext, handleBack }) => {
                         Sports Being Organized
                     </Typography>
                     <Typography gutterBottom>{sports.teamSport.join(', ')}</Typography>
-                    <Typography gutterBottom>{sports.indivSport.join(', ')}</Typography>                            
+                    <Typography gutterBottom>{sports.indivSport.join(', ')}</Typography>
                 </Grid>
                 <div className={classes.buttons}>
                     <Button onClick={onhSubmit} className={classes.button}>

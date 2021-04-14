@@ -1,19 +1,19 @@
 import React from 'react'
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { TextField, IconButton, Typography, Grid, Button } from '@material-ui/core';
-import {Alert} from "@material-ui/lab";
+import { Alert } from "@material-ui/lab";
 import RemoveIcon from "@material-ui/icons/Remove";
 import AddIcon from "@material-ui/icons/Add";
 
 const useStyles = makeStyles((theme) => ({
-    textFields : {
+    textFields: {
         margin: theme.spacing(2)
     },
-    text : {
-        marginRight : theme.spacing(5)
+    text: {
+        marginRight: theme.spacing(5)
     },
-    add : {
-        marginRight : theme.spacing(3)
+    add: {
+        marginRight: theme.spacing(3)
     },
     formControl: {
         margin: theme.spacing(2),
@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     alert: {
         width: "100%",
         margin: "15px 0px"
-      }
+    }
 }));
 
 
@@ -45,117 +45,114 @@ const TeamDetails = ({ playerData, TeamNum, onAdd, handleNext, handleBack }) => 
 
     const classes = useStyles();
 
-    const [players, setPlayers] = React.useState(playerData.length!==0? playerData: [{fname:'', lname:'', age:''}]);
-    const [incomplete,setIncomplete] = React.useState(false);
+    const [players, setPlayers] = React.useState(playerData.length !== 0 ? playerData : [{ fname: '', lname: '', age: '' }]);
+    const [incomplete, setIncomplete] = React.useState(false);
 
-    const onSubmit = (e) => {  
+    const onSubmit = (e) => {
         //console.log(players.length, parseInt(TeamNum.num_players), players.length===parseInt(TeamNum.num_players))
-        if(players.length!==parseInt(TeamNum.num_players)-1)
-        {
+        if (players.length !== parseInt(TeamNum.num_players) - 1) {
             setIncomplete(true);
-            return 
+            return
         }
         onAdd(players);
         handleNext();
-      };
+    };
 
-      const onhSubmit = (e) => {
+    const onhSubmit = (e) => {
         onAdd(players);
         handleBack(0);
-      };    
+    };
 
     const handleChange = (index, e) => {
         const values = [...players];
         let numFilter;
-        if(e.target.name === "age"){
+        if (e.target.name === "age") {
             numFilter = e.target.value.replace(/[^0-9]/g, '');
         } else {
             numFilter = e.target.value
         }
 
-        
+
         values[index][e.target.name] = numFilter;
         setPlayers(values);
     }
 
     const onHandleAdd = () => {
-        setPlayers([...players, {fname:'', lname:'', age:''}]);
+        setPlayers([...players, { fname: '', lname: '', age: '' }]);
     }
 
     const onHandleRemove = (index) => {
         const values = [...players];
         values.splice(index, 1);
-        if(values.length===0)
-        {
-            setPlayers([{fname:'', lname:'', age:''}]);
+        if (values.length === 0) {
+            setPlayers([{ fname: '', lname: '', age: '' }]);
         }
-        else
-        {
+        else {
             setPlayers(values);
         }
-        
+
     }
-    
+
     return (
         <React.Fragment>
-        <Grid item xs={12} lg={12}>
-            {incomplete && <Alert className={classes.alert} severity="error">Please fill all {TeamNum.num_players} Team Member details.</Alert>}
-        </Grid>
+            <Grid item xs={12} lg={12}>
+                {incomplete && <Alert className={classes.alert} severity="error">Please fill all {TeamNum.num_players} Team Member details.</Alert>}
+            </Grid>
             <Typography variant="h6" gutterBottom>
                 Add Team Members
             </Typography>
             <Grid container spacing={3}>
                 <form className={classes.formControl}>
-                {
-                    players.map((player, index) => {
-                        return (
-                        <div key={index} className={classes.textFields}>
-                            
-                            <Typography variant="h6" gutterBottom className={classes.title}>
-                            Player {index+1}
-                            </Typography>
-                            
-                            <TextField
-                                required={true}
-                                id="fname"
-                                name="fname"
-                                label="First Name"
-                                onChange={e => handleChange(index, e)}
-                                value={player.fname}
-                                className={classes.text}
-                            />
-                            <TextField
-                                required={true}
-                                id="lname"
-                                name="lname"
-                                label="Last Name"
-                                onChange={(e) => handleChange(index, e)}
-                                value={player.lname}
-                                
-                            />
-                            <TextField 
-                            required={true}
-                            id="age" 
-                            name="age" 
-                            label="Age" 
-                            onChange={e => handleChange(index, e)}
-                            value={player.age}
-                            className={classes.add}
-                            />
-                            <IconButton onClick = {() => onHandleRemove(index)}>
-                                <RemoveIcon />
-                            </IconButton>
-                            <IconButton onClick = {() => onHandleAdd()}>
-                                <AddIcon />
-                            </IconButton>
-                        </div>
-                        )
-                    })
-                }     
-                </form>           
+                    {
+                        players.map((player, index) => {
+                            return (
+                                <div key={index} className={classes.textFields}>
+
+                                    <Typography variant="h6" gutterBottom className={classes.title}>
+                                        Player {index + 1}
+                                    </Typography>
+
+                                    <TextField
+                                        required={true}
+                                        id="fname"
+                                        name="fname"
+                                        label="First Name"
+                                        onChange={e => handleChange(index, e)}
+                                        value={player.fname}
+                                        className={classes.text}
+                                    />
+                                    <TextField
+                                        required={true}
+                                        id="lname"
+                                        name="lname"
+                                        label="Last Name"
+                                        onChange={(e) => handleChange(index, e)}
+                                        value={player.lname}
+
+                                    />
+                                    <TextField
+                                        required={true}
+                                        id="age"
+                                        name="age"
+                                        label="Age"
+                                        onChange={e => handleChange(index, e)}
+                                        value={player.age}
+                                        className={classes.add}
+                                    />
+                                    <IconButton onClick={() => onHandleRemove(index)}>
+                                        <RemoveIcon />
+                                    </IconButton>
+                                    <IconButton onClick={() => onHandleAdd()}>
+                                        <AddIcon />
+                                    </IconButton>
+                                </div>
+                            )
+                        })
+                    }
+                </form>
                 <div className={classes.buttons}>
-                    <Button 
-                        onClick={onhSubmit} 
+                    <Button
+                        onClick={onhSubmit}
                         className={classes.button}>
                         Back
                     </Button>

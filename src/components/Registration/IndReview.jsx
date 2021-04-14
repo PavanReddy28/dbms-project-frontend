@@ -45,7 +45,7 @@ const IndReview = ({ Team, info, playerData, handleNext, handleBack }) => {
             <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
                     <Typography variant="h6" gutterBottom className={classes.title}>
-                    {Team.team_name}
+                        {Team.team_name}
                     </Typography>
                     <Typography gutterBottom>{Team.college}</Typography>
                     <Typography gutterBottom>Tournament : {info.tourn.tournName}</Typography>
@@ -53,9 +53,9 @@ const IndReview = ({ Team, info, playerData, handleNext, handleBack }) => {
                 <Grid item container direction="column" xs={12} sm={6}>
                     <Typography gutterBottom>Captain : {Team.cFirstName} {Team.cLastName}</Typography>
                     <Typography gutterBottom>Contact Info : {Team.contact}</Typography>
-                    <Typography gutterBottom>Sport : {info.sport}</Typography>                            
-                </Grid>    
-            </Grid>        
+                    <Typography gutterBottom>Sport : {info.sport}</Typography>
+                </Grid>
+            </Grid>
             <Grid container spacing={0}>
                 <div className={classes.buttons}>
                     <Button onClick={onhSubmit} className={classes.button}>

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Login from "./Global/Login"
@@ -23,19 +23,19 @@ import HomeMatchSchedules from "./HomeSchedules/HomeMatchSchedules"
 
 function App() {
 
-  const [mode, setMode] = useState(localStorage.getItem("theme") !== null?localStorage.getItem("theme"):"dark");
+  const [mode, setMode] = useState(localStorage.getItem("theme") !== null ? localStorage.getItem("theme") : "dark");
 
   let theme = provideTheme(mode);
 
   useEffect(() => {
     //eslint-disable-next-line
     theme = provideTheme(mode);
-    localStorage.setItem("theme",mode)
-  },[mode])
+    localStorage.setItem("theme", mode)
+  }, [mode])
 
   function toggleMode() {
     setMode(prev => {
-      if(prev === "dark"){
+      if (prev === "dark") {
         return "light";
       } else {
         return "dark";
@@ -48,20 +48,20 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Router>
-        <Header mode = {mode} toggle = {toggleMode}/>
+        <Header mode={mode} toggle={toggleMode} />
 
         <Switch>
           <Route exact path="/HomeMatchSchedules">
-            <HomeMatchSchedules/>
+            <HomeMatchSchedules />
           </Route>
           <Route exact path="/MatchSchedules">
-            <MatchSchedules/>
+            <MatchSchedules />
           </Route>
           <Route exact path="/addMatch">
-            <AddMatch/>
+            <AddMatch />
           </Route>
           <Route exact path="/tournSportReg">
-            <TournSportReg/>
+            <TournSportReg />
           </Route>
           <Route exact path="/login">
             <Login />
@@ -80,7 +80,7 @@ function App() {
           </Route>
           <PrivateRoute exact path='/dashboard' component={Dashboard} />
           <PrivateRoute exact path="/createTourn" component={CreateTourn} />
-          <PrivateRoute exact path="/registrations" component = {Registrations} />
+          <PrivateRoute exact path="/registrations" component={Registrations} />
           <PrivateRoute exact path="/viewTourn/auth/:tourn_id" component={AuthTourn} />
         </Switch>
 

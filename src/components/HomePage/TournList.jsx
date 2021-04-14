@@ -2,22 +2,12 @@ import React, { useEffect, useState } from "react";
 import { axiosInstance } from "../../axiosInstance";
 import { useHistory } from "react-router-dom";
 import {
-    Grid,
     Typography,
     makeStyles,
     Paper,
     List,
     ListItem,
-    ListItemText,
-    Button,
-    IconButton,
-    Collapse,
-    Dialog,
-    DialogActions,
-    DialogContentText,
-    DialogTitle,
-    DialogContent,
-    Divider
+    ListItemText
 } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
@@ -37,11 +27,11 @@ function TournList() {
         axiosInstance.get("/tournamentList").then(response => {
             setTournaments(response.data.tournaments)
         })
-    },[])
+    }, [])
 
     return (
-        <Paper elevation ={1} className={classes.paper}>
-            <Typography variant ="h5" color="primary">Current Tournaments</Typography>
+        <Paper elevation={1} className={classes.paper}>
+            <Typography variant="h5" color="primary">Current Tournaments</Typography>
             <List>
                 {tournaments && tournaments.map(tournament => {
                     return (
@@ -51,7 +41,7 @@ function TournList() {
                     )
                 })}
             </List>
-            
+
         </Paper>
 
     )

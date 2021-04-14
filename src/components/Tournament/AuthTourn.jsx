@@ -3,7 +3,7 @@ import ViewTourn from "./ViewTourn"
 
 function AuthTourn() {
 
-    return <ViewTourn auth/>
+    return <ViewTourn auth />
 }
 
 export default AuthTourn;

@@ -108,10 +108,10 @@ function ViewTourn({ auth }) {
 
 
         }).catch(err => {
-          if(err.response.status && err.response.status === 401){
-              history.push("/login");
+          if (err.response.status && err.response.status === 401) {
+            history.push("/login");
           }
-      });
+        });
 
 
 
@@ -230,16 +230,16 @@ function ViewTourn({ auth }) {
 //   switch (props.sport) {
 //     case "Basketball":
 //       return <SportsBasketballIcon/>;
-    
+
 //     case "Football":
 //       return <SportsSoccerIcon />;
-    
+
 //     case "Cricket":
 //       return <SportsCricketIcon />
-    
+
 //     case "Hockey":
 //       return <SportsHockeyIcon />
-    
+
 //     default:
 //       return null;
 //   }

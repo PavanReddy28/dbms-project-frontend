@@ -194,11 +194,11 @@ export default function MatchSchedules() {
                         handleStep(Num, TournID)
                     }
                 })
-                .catch(err => {
-                    if(err.response.status && err.response.status === 401){
-                        history.push("/login");
-                    }
-                });
+                    .catch(err => {
+                        if (err.response.status && err.response.status === 401) {
+                            history.push("/login");
+                        }
+                    });
             }
             else if (sport === 'Football' || sport === 'Basketball' || sport === 'Hockey') {
                 //console.log('LLL111')
@@ -215,11 +215,11 @@ export default function MatchSchedules() {
                         handleStep(Num, TournID)
                     }
                 })
-                .catch(err => {
-                    if(err.response.status && err.response.status === 401){
-                        history.push("/login");
-                    }
-                });
+                    .catch(err => {
+                        if (err.response.status && err.response.status === 401) {
+                            history.push("/login");
+                        }
+                    });
             }
             else if (sport === 'Tennis' || sport === 'Badminton' || sport === 'Table Tennis') {
                 axiosInstance.post(`/match/net/result/${DiaData.m.match_id}`, {
@@ -240,11 +240,11 @@ export default function MatchSchedules() {
                         handleStep(Num, TournID)
                     }
                 })
-                .catch(err => {
-                    if(err.response.status && err.response.status === 401){
-                        history.push("/login");
-                    }
-                });
+                    .catch(err => {
+                        if (err.response.status && err.response.status === 401) {
+                            history.push("/login");
+                        }
+                    });
             }
         }
         else if (f === 'edit') {
@@ -266,11 +266,11 @@ export default function MatchSchedules() {
                         handleStep(Num, TournID)
                     }
                 })
-                .catch(err => {
-                    if(err.response.status && err.response.status === 401){
-                        history.push("/login");
-                    }
-                });
+                    .catch(err => {
+                        if (err.response.status && err.response.status === 401) {
+                            history.push("/login");
+                        }
+                    });
             }
             else if (sport === 'Football' || sport === 'Basketball' || sport === 'Hockey') {
                 console.log('LLL111', `/match/team/result/${DiaData.m.match_id}`, {
@@ -295,11 +295,11 @@ export default function MatchSchedules() {
                         handleStep(Num, TournID)
                     }
                 })
-                .catch(err => {
-                    if(err.response.status && err.response.status === 401){
-                        history.push("/login");
-                    }
-                });
+                    .catch(err => {
+                        if (err.response.status && err.response.status === 401) {
+                            history.push("/login");
+                        }
+                    });
             }
             else if (sport === 'Tennis' || sport === 'Badminton' || sport === 'Table Tennis') {
                 axiosInstance.put(`/match/net/result/${DiaData.m.match_id}`, {
@@ -320,11 +320,11 @@ export default function MatchSchedules() {
                         handleStep(Num, TournID)
                     }
                 })
-                .catch(err => {
-                    if(err.response.status && err.response.status === 401){
-                        history.push("/login");
-                    }
-                });
+                    .catch(err => {
+                        if (err.response.status && err.response.status === 401) {
+                            history.push("/login");
+                        }
+                    });
             }
         }
         setEditOpen(false)
@@ -472,14 +472,14 @@ export default function MatchSchedules() {
                     <Grid container>
                         <Grid item sm={12}>
                             <div className={classes.default}>
-                                <SportsIcon style={{fontSize: 100}}/>
+                                <SportsIcon style={{ fontSize: 100 }} />
 
                             </div>
                         </Grid>
-                        
+
                     </Grid>
-                        
-                            
+
+
                 )
         }
     }
@@ -509,13 +509,13 @@ export default function MatchSchedules() {
                                         <ListItem fullWidth key={tournament.tournament_id}>
                                             <ListItemText primary={tournament.t_name} />
                                             <IconButton onClick={() => {
-                                            handleCollapse(tournament.tournament_id)
-                                            setTournID(tournament.tournament_id)
-                                            handleStep(1, tournament.tournament_id)
-                                        }}>
+                                                handleCollapse(tournament.tournament_id)
+                                                setTournID(tournament.tournament_id)
+                                                handleStep(1, tournament.tournament_id)
+                                            }}>
                                                 {open.main === tournament.tournament_id ? <ExpandLess /> : <ExpandMore />}
                                             </IconButton>
-                                            
+
                                         </ListItem>
                                         <Divider />
                                         <Collapse in={open.main === tournament.tournament_id} timeout="auto">
@@ -547,25 +547,25 @@ export default function MatchSchedules() {
                         {open.main && <div className={classes.scheduleContainer}>
                             <div className={classes.buttons}>
                                 <Button
-                                color="primary"
-                                variant={status === true ? "contained": "outlined"}
-                                onClick={() => setStatus(true)}
-                                className={classes.button}>
-                                Completed
+                                    color="primary"
+                                    variant={status === true ? "contained" : "outlined"}
+                                    onClick={() => setStatus(true)}
+                                    className={classes.button}>
+                                    Completed
                             </Button>
-                            <Button
-                                color="primary"
-                                variant={status === false ? "contained": "outlined"}
-                                onClick={() => setStatus(false)}
-                                className={classes.button}>
-                                Scheduled
+                                <Button
+                                    color="primary"
+                                    variant={status === false ? "contained" : "outlined"}
+                                    onClick={() => setStatus(false)}
+                                    className={classes.button}>
+                                    Scheduled
                             </Button>
                             </div>
                             <Timeline align="alternate">
-                            {timeLineSet(activeStep)}
+                                {timeLineSet(activeStep)}
                             </Timeline>
                         </div>}
-                        
+
                     </Grid>
                 </Grid>
             </Paper>

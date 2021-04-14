@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Typography, Button, Select, MenuItem } from '@material-ui/core';
-import {Alert} from "@material-ui/lab";
+import { Alert } from "@material-ui/lab";
 
 const useStyles = makeStyles((theme) => ({
     buttons: {
@@ -13,20 +13,20 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: theme.spacing(1),
     },
     alert: {
-      width: "100%",
-      margin: "15px 0px"
+        width: "100%",
+        margin: "15px 0px"
     },
     title: {
-      marginTop: theme.spacing(2),
-  },
-  }));
-  
+        marginTop: theme.spacing(2),
+    },
+}));
 
-export const TournSportRegComp = ({ TournData, tList, onAdd , handleNext }) => {
+
+export const TournSportRegComp = ({ TournData, tList, onAdd, handleNext }) => {
     const classes = useStyles()
 
     //const [TournList, setTournList] = useState([])
-    const [Tourn, setTourn] = useState(TournData? TournData : {})
+    const [Tourn, setTourn] = useState(TournData ? TournData : {})
     const [incomplete, setIncomplete] = useState(false);
 
     // useEffect(() => {
@@ -38,42 +38,43 @@ export const TournSportRegComp = ({ TournData, tList, onAdd , handleNext }) => {
     //     ).catch(err => console.log(err))
     // }, [])
 
-    const goNext = () => {    
-        if(Object.keys(Tourn).length === 0)
-        {
-          setIncomplete(true);
-          return 
+    const goNext = () => {
+        if (Object.keys(Tourn).length === 0) {
+            setIncomplete(true);
+            return
         }
         console.log(Tourn)
         onAdd(Tourn)
         handleNext()
     };
 
-    return(
+    return (
         <React.Fragment>
             <Grid item xs={12} lg={12}>
-                    {incomplete && <Alert className={classes.alert} severity="error">Please Choose a Tournament.</Alert>}
+                {incomplete && <Alert className={classes.alert} severity="error">Please Choose a Tournament.</Alert>}
             </Grid>
             <Typography variant="h6" gutterBottom>
-            Choose a Tournament
+                Choose a Tournament
             </Typography>
             <Grid container spacing={3}>
                 <Grid item xs={12}>
-                <Select
-                    required={true}
-                    id="tournName"
-                    name="tournName"
-                    label="Tournament"
-                    //defaultValue={Tourn.length>0 && Tourn? Tourn.tournName:""}
-                    onChange={(e)=>setTourn({[e.target.name]: e.target.value, 
-                        tournId: tList.filter(tourn => tourn.t_name===e.target.value).map(item => item.tournament_id)})}
-                    value={Tourn? Tourn.tournName:""}                       
+                    <Select
+                        required={true}
+                        id="tournName"
+                        name="tournName"
+                        label="Tournament"
+                        //defaultValue={Tourn.length>0 && Tourn? Tourn.tournName:""}
+                        onChange={(e) => setTourn({
+                            [e.target.name]: e.target.value,
+                            tournId: tList.filter(tourn => tourn.t_name === e.target.value).map(item => item.tournament_id)
+                        })}
+                        value={Tourn ? Tourn.tournName : ""}
                     >
-                    {tList.map((tourn, index) => (
-                        <MenuItem key={index} value={tourn.t_name}>
-                            {tourn.t_name}
-                        </MenuItem>
-                    ))}
+                        {tList.map((tourn, index) => (
+                            <MenuItem key={index} value={tourn.t_name}>
+                                {tourn.t_name}
+                            </MenuItem>
+                        ))}
                     </Select>
                 </Grid>
                 <div className={classes.buttons}>
@@ -86,7 +87,7 @@ export const TournSportRegComp = ({ TournData, tList, onAdd , handleNext }) => {
                     </Button>
                 </div>
             </Grid>
-        </React.Fragment>      
+        </React.Fragment>
     )
 }
 

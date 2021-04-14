@@ -1,21 +1,21 @@
 import React from 'react'
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { Input, InputLabel, MenuItem, FormControl, FormControlLabel, Select, Typography, Grid, Checkbox, Chip, Button } from '@material-ui/core';
-import {Alert} from "@material-ui/lab";
+import { Input, InputLabel, MenuItem, FormControl, Select, Typography, Grid, Chip, Button } from '@material-ui/core';
+import { Alert } from "@material-ui/lab";
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
         margin: theme.spacing(1),
         minWidth: 120,
-      },
-      chips: {
+    },
+    chips: {
         display: 'flex',
         flexWrap: 'wrap',
-      },
-      chip: {
+    },
+    chip: {
         margin: 2,
-      },
-      buttons: {
+    },
+    buttons: {
         display: 'flex',
         justifyContent: 'flex-end',
     },
@@ -26,16 +26,16 @@ const useStyles = makeStyles((theme) => ({
     alert: {
         width: "100%",
         margin: "15px 0px"
-      }
+    }
 }));
-  
+
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
     PaperProps: {
         style: {
-        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-        width: 250,
+            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+            width: 250,
         },
     },
 };
@@ -56,9 +56,9 @@ const sportsList = {
 function getStyles(name, sport, theme) {
     return {
         fontWeight:
-        sport.indexOf(name) === -1
-            ? theme.typography.fontWeightRegular
-            : theme.typography.fontWeightMedium,
+            sport.indexOf(name) === -1
+                ? theme.typography.fontWeightRegular
+                : theme.typography.fontWeightMedium,
     };
 }
 
@@ -68,11 +68,11 @@ const SportData = ({ sports, onAdd, handleNext, handleBack }) => {
     const classes = useStyles();
     const theme = useTheme();
 
-    const [teamSport, setTeamSport] = React.useState(sports.teamSport? sports.teamSport : []);
-    const [indivSport, setIndivSport] = React.useState(sports.indivSport? sports.indivSport : []);
+    const [teamSport, setTeamSport] = React.useState(sports.teamSport ? sports.teamSport : []);
+    const [indivSport, setIndivSport] = React.useState(sports.indivSport ? sports.indivSport : []);
 
-    const [incomplete,setIncomplete] = React.useState(false);
-  
+    const [incomplete, setIncomplete] = React.useState(false);
+
     const handleTeamChange = (event) => {
         setTeamSport(event.target.value);
     };
@@ -81,27 +81,26 @@ const SportData = ({ sports, onAdd, handleNext, handleBack }) => {
         setIndivSport(event.target.value);
     };
 
-    const onSubmit = (e) => {    
-        if(teamSport.length===0 && indivSport.length===0)
-        {
+    const onSubmit = (e) => {
+        if (teamSport.length === 0 && indivSport.length === 0) {
             setIncomplete(true);
-            return 
+            return
         }
-        onAdd({teamSport, indivSport});
+        onAdd({ teamSport, indivSport });
         handleNext();
-      };
+    };
 
-      const onhSubmit = (e) => {
-        onAdd({teamSport, indivSport});
+    const onhSubmit = (e) => {
+        onAdd({ teamSport, indivSport });
         handleBack();
-      };
-    
-    
+    };
+
+
     return (
         <React.Fragment>
-        <Grid item xs={12} lg={12}>
-            {incomplete && <Alert className={classes.alert} severity="error">Please select at least one sport</Alert>}
-        </Grid>
+            <Grid item xs={12} lg={12}>
+                {incomplete && <Alert className={classes.alert} severity="error">Please select at least one sport</Alert>}
+            </Grid>
             <Typography variant="h6" gutterBottom>
                 Select the sports to be played
             </Typography>
@@ -117,12 +116,12 @@ const SportData = ({ sports, onAdd, handleNext, handleBack }) => {
                             onChange={handleTeamChange}
                             input={<Input id="select-team-multiple-chip" />}
                             renderValue={(selected) => (
-                                    <div className={classes.chips}>
-                                        {selected.map((value) => (
-                                            <Chip key={value} label={value} className={classes.chip} />
-                                        ))}
-                                    </div>
-                                )}
+                                <div className={classes.chips}>
+                                    {selected.map((value) => (
+                                        <Chip key={value} label={value} className={classes.chip} />
+                                    ))}
+                                </div>
+                            )}
                             MenuProps={MenuProps}>
 
                             {sportsList.teamSports.map((name) => (
@@ -145,12 +144,12 @@ const SportData = ({ sports, onAdd, handleNext, handleBack }) => {
                             onChange={handleIndivChange}
                             input={<Input id="select-indiv-multiple-chip" />}
                             renderValue={(selected) => (
-                                    <div className={classes.chips}>
-                                        {selected.map((value) => (
-                                            <Chip key={value} label={value} className={classes.chip} />
-                                        ))}
-                                    </div>
-                                )}
+                                <div className={classes.chips}>
+                                    {selected.map((value) => (
+                                        <Chip key={value} label={value} className={classes.chip} />
+                                    ))}
+                                </div>
+                            )}
                             MenuProps={MenuProps}>
 
                             {sportsList.indivSports.map((name) => (
@@ -160,9 +159,9 @@ const SportData = ({ sports, onAdd, handleNext, handleBack }) => {
                             ))}
 
                         </Select>
-                    </FormControl>          
+                    </FormControl>
                 </Grid>
-                
+
                 <div className={classes.buttons}>
                     <Button onClick={onhSubmit} className={classes.button}>
                         Back

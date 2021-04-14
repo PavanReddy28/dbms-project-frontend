@@ -69,9 +69,9 @@ function Login() {
     return (
         <Container maxWidth="xs" className={classes.form}>
             <div className={classes.login}>
-            <Avatar className={classes.avatar}>
-                <LockOutlinedIcon />
-            </Avatar>
+                <Avatar className={classes.avatar}>
+                    <LockOutlinedIcon />
+                </Avatar>
                 <Typography component="h1" variant="h5">
                     Sign in
             </Typography>

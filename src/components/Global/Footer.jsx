@@ -26,7 +26,7 @@ function Footer() {
     return (
         <footer className={classes.footer}>
 
-            <Container maxWidth="xl" className = {classes.footerText}>
+            <Container maxWidth="xl" className={classes.footerText}>
                 <Typography variant="body1">Copyright © App Name {new Date().getFullYear()}</Typography>
             </Container>
         </footer>

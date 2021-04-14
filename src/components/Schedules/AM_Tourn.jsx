@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { 
+import {
     Grid,
     Typography,
     List,
@@ -7,7 +7,8 @@ import {
     ListItemText,
     Divider,
     Collapse,
-    makeStyles } from '@material-ui/core';
+    makeStyles
+} from '@material-ui/core';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import LoadingRelative from '../../Private/LoadingRelative';
@@ -75,12 +76,11 @@ const AddMatchTourn = ({ Tournaments, handleNext }) => {
     }
 
     const loading = () => {
-        if(Tournaments.length===0)
-        {
-            return(<LoadingRelative/>)
+        if (Tournaments.length === 0) {
+            return (<LoadingRelative />)
         }
-        else{
-            return(
+        else {
+            return (
                 Tournaments.map(tournament => {
                     return (
                         <>
@@ -91,16 +91,16 @@ const AddMatchTourn = ({ Tournaments, handleNext }) => {
                             <Divider />
                             <Collapse in={open.main === tournament.tournament_id} timeout="auto">
                                 <ListItem button onClick={() => handleSportsCollapse(tournament.tournament_id, "sportList")}>
-                                        <ListItemText primary={"Sports"} className={classes.nested} />
-                                        {open.sportList === tournament.tournament_id ? <ExpandLess /> : <ExpandMore />}
-                                    </ListItem>
+                                    <ListItemText primary={"Sports"} className={classes.nested} />
+                                    {open.sportList === tournament.tournament_id ? <ExpandLess /> : <ExpandMore />}
+                                </ListItem>
                                 <Collapse in={open.sportList === tournament.tournament_id} timeout="auto">
                                     <List component="div" disablePadding>
                                         {tournament.sports.map(sport => {
                                             return (
                                                 <>
                                                     <ListItem button key={sport} onClick={() => handleNext(tournament, sport)}>
-                                                        <ListItemText primary={sport} className={classes.sportNested}/>
+                                                        <ListItemText primary={sport} className={classes.sportNested} />
                                                     </ListItem>
                                                 </>
                                             )
@@ -117,15 +117,15 @@ const AddMatchTourn = ({ Tournaments, handleNext }) => {
 
     return (
         <React.Fragment>
-             {/* <Paper className={classes.paper} elevation={1}> */}
-             <div className={classes.paper}>
+            {/* <Paper className={classes.paper} elevation={1}> */}
+            <div className={classes.paper}>
                 <Grid container>
                     <Typography variant="h5" color="primary">Choose Tournament and Sport</Typography>
                 </Grid>
                 <List className={classes.list}>
                     {loading()}
                 </List>
-                </div>
+            </div>
             {/* </Paper> */}
         </React.Fragment>
     )

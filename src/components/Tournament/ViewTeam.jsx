@@ -12,9 +12,9 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(3)
     },
     nested: {
-      paddingLeft: theme.spacing(4)
+        paddingLeft: theme.spacing(4)
     }
-  }))
+}))
 
 function ViewTeam() {
 
@@ -34,7 +34,7 @@ function ViewTeam() {
     if (team) {
         return (
             <Paper elevation={1} className={classes.paper}>
-            <Typography variant="h5" color="primary">Team Details</Typography>
+                <Typography variant="h5" color="primary">Team Details</Typography>
                 <List>
                     <ListItem>
                         <ListItemText primary={team.team_name} secondary={"Team name"} />
@@ -50,10 +50,10 @@ function ViewTeam() {
                     </ListItem>
                     <ListItem>
                         <ListItemText primary={"Players"} secondary={"Click to view"} />
-                        <IconButton onClick = {() => setOpen(prev => !prev)}>
+                        <IconButton onClick={() => setOpen(prev => !prev)}>
                             {open ? <ExpandLess /> : <ExpandMore />}
                         </IconButton>
-                        
+
                     </ListItem>
                     <Collapse in={open}>
                         <List component="div" disablePadding>
@@ -62,13 +62,13 @@ function ViewTeam() {
                                 return (
                                     <>
                                         <ListItem>
-                                            <ListItemText primary={player.firstname} secondary={"First Name"} className={classes.nested}/>
+                                            <ListItemText primary={player.firstname} secondary={"First Name"} className={classes.nested} />
                                         </ListItem>
                                         <ListItem>
-                                            <ListItemText primary={player.lastname} secondary={"Last Name"} className={classes.nested}/>
+                                            <ListItemText primary={player.lastname} secondary={"Last Name"} className={classes.nested} />
                                         </ListItem>
                                         <ListItem>
-                                            <ListItemText primary={player.age} secondary={"Age"} className={classes.nested}/>
+                                            <ListItemText primary={player.age} secondary={"Age"} className={classes.nested} />
                                         </ListItem>
                                     </>
                                 )

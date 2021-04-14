@@ -91,7 +91,7 @@ function Dashboard() {
         }).then(response => {
             setTournaments(response.data.tournaments);
         }).catch(err => {
-            if(err.response.status && err.response.status === 401){
+            if (err.response.status && err.response.status === 401) {
                 history.push("/login");
             }
         });
@@ -104,7 +104,7 @@ function Dashboard() {
             setRegistrations(response.data);
             console.log(Object.keys(response.data))
         }).catch(err => {
-            if(err.response.status && err.response.status === 401){
+            if (err.response.status && err.response.status === 401) {
                 history.push("/login");
             }
         });;
@@ -234,7 +234,7 @@ function Dashboard() {
                                             </IconButton>
                                             <IconButton onClick={() => handleCollapse(tournament.tournament_id)}>
                                                 {open.main === tournament.tournament_id ? <ExpandLess /> : <ExpandMore />}
-                                            </IconButton> 
+                                            </IconButton>
                                         </ListItem>
                                         <Divider />
                                         <Collapse in={open.main === tournament.tournament_id} timeout="auto">

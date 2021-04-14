@@ -67,7 +67,7 @@ function RegistrationList({ data, title, type }) {
         }).then(response => {
             window.location.reload();
         }).catch(err => {
-            if(err.response.status && err.response.status === 400){
+            if (err.response.status && err.response.status === 400) {
                 history.push("/login");
             }
         });;
@@ -110,7 +110,7 @@ function RegistrationList({ data, title, type }) {
             <Paper elevation={1} className={classes.paper}>
                 <Typography variant="h5" color="primary">{title}</Typography>
                 <List>
-                    {Object.keys(data).length !== 0 ? Object.keys(data).map((tournament,idx) => {
+                    {Object.keys(data).length !== 0 ? Object.keys(data).map((tournament, idx) => {
 
 
                         return (
@@ -126,7 +126,7 @@ function RegistrationList({ data, title, type }) {
                                         {data[tournament].map(reg => {
                                             return (
                                                 <>
-                                                    <ListItem key={reg.team_id} button onClick={() => handleCollapse(reg.team_id,"reg")}>
+                                                    <ListItem key={reg.team_id} button onClick={() => handleCollapse(reg.team_id, "reg")}>
                                                         <ListItemText primary={reg.team_name} secondary={tournament} className={classes.nested} />
                                                         {open.reg === reg.team_id ? <ExpandLess /> : <ExpandMore />}
                                                         {(type === "pending" || type === "rejected") && (
@@ -151,21 +151,21 @@ function RegistrationList({ data, title, type }) {
                                                     <Divider />
                                                     <Collapse in={open.reg === reg.team_id}>
                                                         <List component="div" disablePadding>
-                                                        <ListItem key = {`${reg.team_id}-${reg.college}`}>
-                                                                    <ListItemText primary={reg.college} secondary={"College/Organizer"} className={classes.innerNested} />              
-                                                        </ListItem>
-                                                        <ListItem key = {`${reg.team_id}-${reg.num_players}`}>
-                                                                    <ListItemText primary={reg.num_players} secondary={"Players"} className={classes.innerNested} />
-                                                        </ListItem>
-                                                        <ListItem key = {`${reg.team_id}-${reg.captain_f_name}`}>
-                                                                    <ListItemText primary={`${reg.captain_f_name} ${reg.captain_l_name}`} secondary={"Captain"} className={classes.innerNested} />
-                                                        </ListItem>
-                                                        <ListItem key = {`${reg.team_id}-${reg.sport}`}>
-                                                                    <ListItemText primary={reg.sport} secondary={"Sport"} className={classes.innerNested} />
-                                                        </ListItem>
-                                                        <ListItem key = {`${reg.team_id}-${reg.contact}`}>
-                                                                    <ListItemText primary={reg.contact} secondary={"Contact Number"} className={classes.innerNested} />
-                                                        </ListItem>
+                                                            <ListItem key={`${reg.team_id}-${reg.college}`}>
+                                                                <ListItemText primary={reg.college} secondary={"College/Organizer"} className={classes.innerNested} />
+                                                            </ListItem>
+                                                            <ListItem key={`${reg.team_id}-${reg.num_players}`}>
+                                                                <ListItemText primary={reg.num_players} secondary={"Players"} className={classes.innerNested} />
+                                                            </ListItem>
+                                                            <ListItem key={`${reg.team_id}-${reg.captain_f_name}`}>
+                                                                <ListItemText primary={`${reg.captain_f_name} ${reg.captain_l_name}`} secondary={"Captain"} className={classes.innerNested} />
+                                                            </ListItem>
+                                                            <ListItem key={`${reg.team_id}-${reg.sport}`}>
+                                                                <ListItemText primary={reg.sport} secondary={"Sport"} className={classes.innerNested} />
+                                                            </ListItem>
+                                                            <ListItem key={`${reg.team_id}-${reg.contact}`}>
+                                                                <ListItemText primary={reg.contact} secondary={"Contact Number"} className={classes.innerNested} />
+                                                            </ListItem>
                                                         </List>
                                                     </Collapse>
                                                 </>
@@ -200,7 +200,7 @@ function Registrations() {
         }).then(response => {
             setPending(response.data);
         }).catch(err => {
-            if(err.response.status && err.response.status === 400){
+            if (err.response.status && err.response.status === 400) {
                 history.push("/login");
             }
         });
@@ -212,7 +212,7 @@ function Registrations() {
         }).then(response => {
             setRejected(response.data);
         }).catch(err => {
-            if(err.response.status && err.response.status === 400){
+            if (err.response.status && err.response.status === 400) {
                 history.push("/login");
             }
         });
@@ -224,7 +224,7 @@ function Registrations() {
         }).then(response => {
             setRegistered(response.data);
         }).catch(err => {
-            if(err.response.status && err.response.status === 400){
+            if (err.response.status && err.response.status === 400) {
                 history.push("/login");
             }
         });
@@ -257,7 +257,7 @@ const DashStyles = makeStyles((theme) => ({
         padding: theme.spacing(4),
         overflow: "auto",
         minHeight: 600,
-        maxHeight: 600,    
+        maxHeight: 600,
     },
     button: {
         display: "block",

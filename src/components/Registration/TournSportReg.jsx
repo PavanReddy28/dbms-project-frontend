@@ -75,39 +75,33 @@ export const TournSportReg = () => {
     };
 
     const handleNext = () => {
-        if(activeStep===0)
-        {
+        if (activeStep === 0) {
             setActiveStep(1);
         }
-        else if(activeStep===1)
-        {
+        else if (activeStep === 1) {
             console.log(sport)
             console.log(sport in genSportsList.indivSports, genSportsList.indivSports.indexOf(sport) > -1)
-            if(genSportsList.teamSports.indexOf(sport) > -1)  
-            {  
-                setActiveStep(2);    
+            if (genSportsList.teamSports.indexOf(sport) > -1) {
+                setActiveStep(2);
             }
-            else if(genSportsList.indivSports.indexOf(sport) > -1)  
-            {  
-                setActiveStep(3);   
+            else if (genSportsList.indivSports.indexOf(sport) > -1) {
+                setActiveStep(3);
             }
         }
     };
-    
+
     const handleBack = () => {
-        if(activeStep===1)
-        {
+        if (activeStep === 1) {
             setActiveStep(0);
         }
-        else if(activeStep>1)
-        {
+        else if (activeStep > 1) {
             setActiveStep(1);
         }
     }
 
     const addTourn = (tourn) => {
         console.log(tourn)
-        setTourn(tourn)       
+        setTourn(tourn)
     }
 
     const addSport = (sport1) => {
@@ -119,35 +113,34 @@ export const TournSportReg = () => {
         setData(data1)
     }
 
-    function getStepContent(step)
-    {
+    function getStepContent(step) {
         switch (step) {
-        case 0:
-            return <TournSportRegComp TournData={Tourn} tList={TournList} onAdd={addTourn} handleNext={handleNext}/>;
-        case 1:
-            return <TourSportSelectComp Tourn={Tourn} sportData={sport} onAdd={addSport} handleNext={handleNext} handleBack={handleBack}/>;
-        case 2:
-            return <PlayerReg info={{tourn: Tourn, sport: sport}} data={data} onAdd={onAdd} goBack={handleBack}/>;
-        case 3:
-            return <IndPlayerReg info={{tourn: Tourn, sport: sport}} data={data} onAdd={onAdd} goBack={handleBack}/>;
-        default:
-            break;
-    }
+            case 0:
+                return <TournSportRegComp TournData={Tourn} tList={TournList} onAdd={addTourn} handleNext={handleNext} />;
+            case 1:
+                return <TourSportSelectComp Tourn={Tourn} sportData={sport} onAdd={addSport} handleNext={handleNext} handleBack={handleBack} />;
+            case 2:
+                return <PlayerReg info={{ tourn: Tourn, sport: sport }} data={data} onAdd={onAdd} goBack={handleBack} />;
+            case 3:
+                return <IndPlayerReg info={{ tourn: Tourn, sport: sport }} data={data} onAdd={onAdd} goBack={handleBack} />;
+            default:
+                break;
+        }
     };
 
-    return(
+    return (
         <React.Fragment>
-        <CssBaseline />
-        <main className={classes.layout}>
-        <Paper className={classes.paper}>
-            <Typography component="h1" variant="h4" align="center">
-                Registration
+            <CssBaseline />
+            <main className={classes.layout}>
+                <Paper className={classes.paper}>
+                    <Typography component="h1" variant="h4" align="center">
+                        Registration
             </Typography>
-            <React.Fragment>
-                {getStepContent(activeStep)}
-            </React.Fragment>
-        </Paper>
-        </main>
+                    <React.Fragment>
+                        {getStepContent(activeStep)}
+                    </React.Fragment>
+                </Paper>
+            </main>
         </React.Fragment>
     )
 }

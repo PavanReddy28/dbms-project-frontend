@@ -1,9 +1,9 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import { Stepper, Step, StepLabel, Button } from '@material-ui/core';
-import {Alert} from "@material-ui/lab";
-import {axiosInstance} from "../../axiosInstance";
-import {Link} from "react-router-dom";
+import { Alert } from "@material-ui/lab";
+import { axiosInstance } from "../../axiosInstance";
+import { Link } from "react-router-dom";
 import TeamCapDetails from './TeamCapDetails';
 import TeamDetails from './TeamDetails';
 import PlayerRegReview from './PlayerRegReview';
@@ -41,14 +41,14 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: theme.spacing(1),
     },
 }));
-  
+
 
 const PlayerReg = ({ info, data, onAdd, goBack }) => {
-    
+
     const classes = useStyles();
-    const [Team, setTeam] = React.useState(data.team? data.team : {});
+    const [Team, setTeam] = React.useState(data.team ? data.team : {});
     // const [TeamData, setTeamData] = React.useState({})
-    const [playerData, setplayerData] = React.useState(data.player? data.player : []);
+    const [playerData, setplayerData] = React.useState(data.player ? data.player : []);
     const [activeStep, setActiveStep] = React.useState(0);
 
     const handleSubmit = () => {
@@ -60,33 +60,33 @@ const PlayerReg = ({ info, data, onAdd, goBack }) => {
             "college": Team.college,
             "num_players": Team.num_players,
             "captain": {
-                "fname":Team.cFirstName,
-                "lname":Team.cLastName,
-                "age":Team.cAge
+                "fname": Team.cFirstName,
+                "lname": Team.cLastName,
+                "age": Team.cAge
             },
-            "sportName":info.sport,
-            "contact":Team.contact,
+            "sportName": info.sport,
+            "contact": Team.contact,
         };
         console.log(dataTeam);
 
         axiosInstance.post("/team", dataTeam).then(
-            response=>{
+            response => {
                 console.log(response.data)
                 // setTeamData({team_id : response.data.tID})
                 const dataPlayer = {
                     "tournament_id": info.tourn.tournId[0],
                     "team_id": response.data.team_id,
-                    "players":playerData
-                }; 
+                    "players": playerData
+                };
                 console.log(dataPlayer);
-               
-                axiosInstance.post("/player",dataPlayer).then(response => setActiveStep(activeStep + 1))
-                .catch(err => console.log(err));
+
+                axiosInstance.post("/player", dataPlayer).then(response => setActiveStep(activeStep + 1))
+                    .catch(err => console.log(err));
             }
         ).catch(err => console.log(err));
 
-        
-        
+
+
     };
 
     const handleNext = () => {
@@ -94,40 +94,37 @@ const PlayerReg = ({ info, data, onAdd, goBack }) => {
     }
 
     const handleBack = (num) => {
-        if(num===0)
-        {
+        if (num === 0) {
             setActiveStep(activeStep - 1);
         }
-        else{
-            onAdd({team: Team, player: playerData})
+        else {
+            onAdd({ team: Team, player: playerData })
             goBack()
-        }        
+        }
     };
 
     const steps = ['Team Details', 'Team Members', 'Review'];
 
 
-    function getStepContent(step)
-    {
-            switch (step) {
-                case 0:
-                    return <TeamCapDetails Team={Team} onAdd={addTeam} handleNext={handleNext} handleBack={handleBack}/>;
-                case 1:
-                    return <TeamDetails playerData={playerData} TeamNum={Team} onAdd={addplayerData} handleNext={handleNext} handleBack={handleBack}/>;
-                case 2:
-                    return <PlayerRegReview Team={Team} info={info} playerData={playerData} handleNext={handleSubmit} handleBack={handleBack}/>;
-                default:
-                    // throw new Error('Need to add Dashboard.');
-                    return(
-                        <>
-                            <Alert severity="success">Successfully Registered.</Alert>
-                            <Link to ="/">
-                                <Button variant="contained" color="primary" className={classes.button}>Return to Home</Button>
-                            </Link>
-                        </>
-                           
-                    )
-            }
+    function getStepContent(step) {
+        switch (step) {
+            case 0:
+                return <TeamCapDetails Team={Team} onAdd={addTeam} handleNext={handleNext} handleBack={handleBack} />;
+            case 1:
+                return <TeamDetails playerData={playerData} TeamNum={Team} onAdd={addplayerData} handleNext={handleNext} handleBack={handleBack} />;
+            case 2:
+                return <PlayerRegReview Team={Team} info={info} playerData={playerData} handleNext={handleSubmit} handleBack={handleBack} />;
+            default:
+                return (
+                    <>
+                        <Alert severity="success">Successfully Registered.</Alert>
+                        <Link to="/">
+                            <Button variant="contained" color="primary" className={classes.button}>Return to Home</Button>
+                        </Link>
+                    </>
+
+                )
+        }
     };
 
     const addTeam = (Team) => {
@@ -145,9 +142,9 @@ const PlayerReg = ({ info, data, onAdd, goBack }) => {
         <React.Fragment>
             <Stepper activeStep={activeStep} className={classes.stepper}>
                 {steps.map((label) => (
-                <Step key={label}>
-                    <StepLabel>{label}</StepLabel>
-                </Step>
+                    <Step key={label}>
+                        <StepLabel>{label}</StepLabel>
+                    </Step>
                 ))}
             </Stepper>
             <React.Fragment>

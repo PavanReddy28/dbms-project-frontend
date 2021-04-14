@@ -107,10 +107,10 @@ function Home() {
                     </Grid>
                 </Grid>
             </Container>
-            
+
             <Container maxWidth="lg">
-                <HomeMatchSchedules/>   
-            </Container>        
+                <HomeMatchSchedules />
+            </Container>
 
 
         </>

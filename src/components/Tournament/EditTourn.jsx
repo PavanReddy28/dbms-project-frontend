@@ -188,11 +188,12 @@ function EditTourn(props) {
                             onChange={(e) => {
                                 const onlyNums = e.target.value.replace(/[^0-9]/g, '');
                                 setTourn(previous => {
-                                return {
-                                    ...previous,
-                                    [e.target.name]: onlyNums
-                                }
-                            })}}
+                                    return {
+                                        ...previous,
+                                        [e.target.name]: onlyNums
+                                    }
+                                })
+                            }}
                             value={tourn ? tourn.zip : ""}
                             fullWidth
                         />

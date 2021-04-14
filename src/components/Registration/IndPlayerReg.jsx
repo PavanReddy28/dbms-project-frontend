@@ -1,9 +1,9 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import { Stepper, Step, StepLabel, Button } from '@material-ui/core';
-import {Alert} from "@material-ui/lab";
-import {axiosInstance} from "../../axiosInstance";
-import {Link} from "react-router-dom";
+import { Alert } from "@material-ui/lab";
+import { axiosInstance } from "../../axiosInstance";
+import { Link } from "react-router-dom";
 import IndReview from './IndReview';
 import IndGenDetails from './IndGenDetails';
 
@@ -40,12 +40,12 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: theme.spacing(1),
     },
 }));
-  
+
 
 const IndPlayerReg = ({ info, data, onAdd, goBack }) => {
-    
+
     const classes = useStyles();
-    const [Team, setTeam] = React.useState(data.team? data.team : {});
+    const [Team, setTeam] = React.useState(data.team ? data.team : {});
     //eslint-disable-next-line
     const [playerData, setplayerData] = React.useState([]);
     const [activeStep, setActiveStep] = React.useState(0);
@@ -59,21 +59,21 @@ const IndPlayerReg = ({ info, data, onAdd, goBack }) => {
             "college": Team.college,
             "num_players": 1,
             "captain": {
-                "fname":Team.cFirstName,
-                "lname":Team.cLastName,
-                "age":Team.cAge
+                "fname": Team.cFirstName,
+                "lname": Team.cLastName,
+                "age": Team.cAge
             },
-            "sportName":info.sport,
-            "contact":Team.contact,
+            "sportName": info.sport,
+            "contact": Team.contact,
         };
         console.log(dataTeam);
 
         axiosInstance.post("/team", dataTeam).then(
-            response=>{
+            response => {
                 // console.log(response.data)
                 setActiveStep(activeStep + 1)
             }
-        ).catch(err => console.log(err));       
+        ).catch(err => console.log(err));
     };
 
     const handleNext = () => {
@@ -81,38 +81,36 @@ const IndPlayerReg = ({ info, data, onAdd, goBack }) => {
     }
 
     const handleBack = (num) => {
-        if(num===0)
-        {
+        if (num === 0) {
             setActiveStep(activeStep - 1);
         }
-        else{
-            onAdd({team: Team, player: playerData})
+        else {
+            onAdd({ team: Team, player: playerData })
             goBack()
-        }        
+        }
     };
 
     const steps = ['General Details', 'Review'];
 
 
-    function getStepContent(step)
-    {
-            switch (step) {
-                case 0:
-                    return <IndGenDetails Team={Team} onAdd={addTeam} handleNext={handleNext} handleBack={handleBack}/>;
-                case 1:
-                    return <IndReview Team={Team} info={info} handleNext={handleSubmit} handleBack={handleBack}/>;
-                default:
-                    // throw new Error('Need to add Dashboard.');
-                    return(
-                        <>
-                            <Alert severity="success">Successfully Registered.</Alert>
-                            <Link to ="/">
-                                <Button variant="contained" color="primary" className={classes.button}>Return to Home</Button>
-                            </Link>
-                        </>
-                           
-                    )
-            }
+    function getStepContent(step) {
+        switch (step) {
+            case 0:
+                return <IndGenDetails Team={Team} onAdd={addTeam} handleNext={handleNext} handleBack={handleBack} />;
+            case 1:
+                return <IndReview Team={Team} info={info} handleNext={handleSubmit} handleBack={handleBack} />;
+            default:
+                // throw new Error('Need to add Dashboard.');
+                return (
+                    <>
+                        <Alert severity="success">Successfully Registered.</Alert>
+                        <Link to="/">
+                            <Button variant="contained" color="primary" className={classes.button}>Return to Home</Button>
+                        </Link>
+                    </>
+
+                )
+        }
     };
 
     const addTeam = (Team) => {
@@ -126,9 +124,9 @@ const IndPlayerReg = ({ info, data, onAdd, goBack }) => {
         <React.Fragment>
             <Stepper activeStep={activeStep} className={classes.stepper}>
                 {steps.map((label) => (
-                <Step key={label}>
-                    <StepLabel>{label}</StepLabel>
-                </Step>
+                    <Step key={label}>
+                        <StepLabel>{label}</StepLabel>
+                    </Step>
                 ))}
             </Stepper>
             <React.Fragment>
