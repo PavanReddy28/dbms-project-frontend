@@ -63,10 +63,10 @@ const AddMatchTeams = ({ Teams, mTea, setTime, r, round, handleNext, handleBack 
     const [incomplete1, setIncomplete1] = useState(false);
 
     useEffect(() => {
-        //console.log(Teams.length===0, Teams.length)
+        
         if (Teams.length === 0) {
             setIncomplete1(true)
-            //console.log(incomplete1)
+            
         } else {
             setIncomplete1(false)
         }
@@ -97,7 +97,7 @@ const AddMatchTeams = ({ Teams, mTea, setTime, r, round, handleNext, handleBack 
                 <List className={classes.list}>
                     {
                         Teams.map(team => {
-                            //console.log(team)
+                            
                             return (
                                 <Accordion>
                                     <AccordionSummary
@@ -110,9 +110,9 @@ const AddMatchTeams = ({ Teams, mTea, setTime, r, round, handleNext, handleBack 
                                             aria-label="Acknowledge"
                                             onClick={(event) => {
                                                 setmTeams(previous => {
-                                                    //console.log(mTeams)
+                                                    
                                                     let val = [...previous]
-                                                    //console.log(val, val.length)
+                                                    
                                                     if (val.length >= 2) {
                                                         setIncomplete(true);
                                                     } else {
@@ -124,7 +124,7 @@ const AddMatchTeams = ({ Teams, mTea, setTime, r, round, handleNext, handleBack 
                                                     else {
                                                         val = val.concat(team.team_name)
                                                     }
-                                                    console.log(val, val.length)
+                                                    
                                                     mTea(val)
                                                     return val
                                                 })
@@ -139,9 +139,7 @@ const AddMatchTeams = ({ Teams, mTea, setTime, r, round, handleNext, handleBack 
                                     <AccordionDetails>
                                         <Grid container spacing={2}>
                                             <Grid item xs={12} sm={6}>
-                                                {/* <Typography variant="h6" gutterBottom className={classes.title}>
-                                        {team.team_name}
-                                        </Typography> */}
+                                                
                                                 <Typography gutterBottom>College/Organization : {team.college}</Typography>
                                                 <Typography gutterBottom>No. of Players : {team.num_players}</Typography>
                                             </Grid>
@@ -170,12 +168,12 @@ const AddMatchTeams = ({ Teams, mTea, setTime, r, round, handleNext, handleBack 
                         }}
                         onChange={(ev) => {
                             if (!ev.target['validity'].valid) {
-                                console.log(ev.target)
+                                
                                 return;
                             }
                             let dt = ev.target['value'];
-                            // dt = moment(dt).format()
-                            console.log(dt, moment().format("YYYY-MM-DDThh:mm"))
+                            
+                            
                             setTime(dt);
                         }
                         }
@@ -207,7 +205,7 @@ const AddMatchTeams = ({ Teams, mTea, setTime, r, round, handleNext, handleBack 
                     variant="contained"
                     color="primary"
                     onClick={() => {
-                        console.log(mTeams.length)
+                        
                         if (mTeams.length !== 2) {
                             setIncomplete(true)
                         }

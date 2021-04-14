@@ -60,12 +60,12 @@ const TimeLine = ({ results, openDialog, sportData, sport, status }) => {
 
         if (sport === 'Basketball' || sport === 'Football' || sport === 'Hockey') {
             if (results) {
-                console.log(results)
+                
                 return (
                     results.filter(m => {
                         return match.match_id === m.match_id
                     }).map(result => {
-                        console.log('ENTER result')
+                        
                         return (
                             <React.Fragment>
                                 <Typography  >
@@ -82,7 +82,7 @@ const TimeLine = ({ results, openDialog, sportData, sport, status }) => {
         else if (sport === 'Cricket') {
             if (results) {
 
-                console.log(results)
+               
                 return (
                     results.filter(m => {
                         return match.match_id === m.match_id
@@ -111,11 +111,11 @@ const TimeLine = ({ results, openDialog, sportData, sport, status }) => {
         else if (sport === 'Badminton' || sport === 'Tennis' || sport === 'Table Tennis') {
             if (results) {
 
-                console.log(results)
+                
                 return (results.filter(m => {
                     return match.match_id === m.match_id
                 }).map(result => {
-                    console.log('ENTER', result)
+                    
 
                     return (
                         <React.Fragment>
@@ -144,11 +144,11 @@ const TimeLine = ({ results, openDialog, sportData, sport, status }) => {
         }
     }
 
-    console.log(sportData, 1)
+    
 
     const setPage = (status1) => {
         if (status1) {
-            console.log('S Enter complete')
+            
             return (sportData.complete.map(match => {
                 return (
                     <TimelineItem>
@@ -195,7 +195,7 @@ const TimeLine = ({ results, openDialog, sportData, sport, status }) => {
 
         }
         else {
-            console.log('S Enter pending')
+            
             return (sportData.pending.map(match => {
                 return (
                     <TimelineItem>

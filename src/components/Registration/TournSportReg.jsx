@@ -50,12 +50,12 @@ export const TournSportReg = () => {
     const [sport, setSport] = useState('')
     const [data, setData] = useState({})
     const [activeStep, setActiveStep] = useState(0);
-    // const [sportsList, setSportsList] = useState([])
+    
 
     useEffect(() => {
         axiosInstance.get('/tournamentList').then(
             response => {
-                //console.log(response.data.tournaments)
+                
                 setTournList(response.data.tournaments)
             }
         ).catch(err => console.log(err))
@@ -79,8 +79,7 @@ export const TournSportReg = () => {
             setActiveStep(1);
         }
         else if (activeStep === 1) {
-            console.log(sport)
-            console.log(sport in genSportsList.indivSports, genSportsList.indivSports.indexOf(sport) > -1)
+            
             if (genSportsList.teamSports.indexOf(sport) > -1) {
                 setActiveStep(2);
             }
@@ -100,12 +99,12 @@ export const TournSportReg = () => {
     }
 
     const addTourn = (tourn) => {
-        console.log(tourn)
+        
         setTourn(tourn)
     }
 
     const addSport = (sport1) => {
-        console.log(sport1)
+        
         setSport(sport1)
     }
 

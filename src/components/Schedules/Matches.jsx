@@ -46,7 +46,7 @@ const Matches = ({ type, data, setData, editOpen, sport, onCloseCancel, onClose 
     const [result, setResult] = useState(data.data ? data.data : {})
     const [teamName, setTeamName] = useState(() => {
         if (data.data !== null && data.data) {
-            console.log(data.data.winner_id === data.m.team1.team_id ? data.m.team1.teamName : data.m.team2.teamName)
+            
             return data.data.winner_id === data.m.team1.team_id ? data.m.team1.teamName : data.m.team2.teamName
         }
     })
@@ -59,14 +59,14 @@ const Matches = ({ type, data, setData, editOpen, sport, onCloseCancel, onClose 
 
     useEffect(() => {
         if (data.data !== null && data.data) {
-            console.log(data.data.winner_id === data.m.team1.team_id ? data.m.team1.teamName : data.m.team2.teamName)
+            
             setTeamName(data.data.winner_id === data.m.team1.team_id ? data.m.team1.teamName : data.m.team2.teamName)
             if (sport === 'Cricket') {
                 setResult(data.data)
             }
             else if (sport === 'Tennis' || sport === 'Badminton' || sport === 'Table Tennis') {
                 setResult(data.data)
-                console.log(result)
+                
             }
             else if (sport === 'Football' || sport === 'Basketball' || sport === 'Hockey') {
                 setResult(data.data)
@@ -76,8 +76,7 @@ const Matches = ({ type, data, setData, editOpen, sport, onCloseCancel, onClose 
     }, [data, sport, result])
 
     const chooseDisplay = () => {
-        console.log(data)
-        //console.log('Enter', sport, type)
+        
         if (type === 'edit') {
             if (data.data) {
                 if (data.data.sportName === sport && result) {
@@ -203,9 +202,7 @@ const Matches = ({ type, data, setData, editOpen, sport, onCloseCancel, onClose 
                         )
                     }
                     else if (sport === 'Football' || sport === 'Basketball' || sport === 'Hockey') {
-                        console.log(data.data.winner_id === data.m.team1.team_id ? data.m.team1.teamName : data.m.team2.teamName)
-                        console.log('TEAM', teamName, data)
-                        console.log(result)
+                        
                         //setIncomplete(false)
                         return (
                             <React.Fragment>
@@ -280,7 +277,7 @@ const Matches = ({ type, data, setData, editOpen, sport, onCloseCancel, onClose 
                         )
                     }
                     else if (sport === 'Tennis' || sport === 'Badminton' || sport === 'Table Tennis') {
-                        console.log(data.data.winner_id === data.m.team1.team_id ? data.m.team1.teamName : data.m.team2.teamName)
+                        
                         return (<React.Fragment>
                             <Grid>
                                 <Typography variant="h5" gutterBottom>
@@ -330,7 +327,7 @@ const Matches = ({ type, data, setData, editOpen, sport, onCloseCancel, onClose 
                                     value={result.set1 ? result.set1.team1 : ''}
                                     onChange={(e) => setResult(previous => {
                                         const val = { ...previous }
-                                        console.log(val, 'val')
+                                        
                                         return { ...previous, 'set1': { 'team1': e.target.value, 'team2': val.set1.team2 } }
                                     })}
                                     fullWidth
@@ -345,7 +342,7 @@ const Matches = ({ type, data, setData, editOpen, sport, onCloseCancel, onClose 
                                     value={result.set1 ? result.set1.team2 : ''}
                                     onChange={(e) => setResult(previous => {
                                         const val = { ...previous }
-                                        console.log(val, 'val')
+                                        
                                         return { ...previous, 'set1': { 'team2': e.target.value, 'team1': val.set1.team1 } }
                                     })}
                                     fullWidth
@@ -365,7 +362,7 @@ const Matches = ({ type, data, setData, editOpen, sport, onCloseCancel, onClose 
                                     value={result.set2 ? result.set2.team1 : ''}
                                     onChange={(e) => setResult(previous => {
                                         const val = { ...previous }
-                                        console.log(val, 'val')
+                                        
                                         return { ...previous, 'set2': { 'team1': e.target.value, 'team2': val.set2.team2 } }
                                     })}
                                     fullWidth
@@ -380,7 +377,7 @@ const Matches = ({ type, data, setData, editOpen, sport, onCloseCancel, onClose 
                                     value={result.set2 ? result.set2.team2 : ''}
                                     onChange={(e) => setResult(previous => {
                                         const val = { ...previous }
-                                        console.log(val, 'val')
+                                        
                                         return { ...previous, 'set2': { 'team2': e.target.value, 'team1': val.set2.team1 } }
                                     })}
                                     fullWidth
@@ -399,7 +396,7 @@ const Matches = ({ type, data, setData, editOpen, sport, onCloseCancel, onClose 
                                     value={result.set3 ? result.set3.team1 : ''}
                                     onChange={(e) => setResult(previous => {
                                         const val = { ...previous }
-                                        console.log(val, 'val')
+                                        
                                         return { ...previous, 'set3': { 'team1': e.target.value, 'team2': val.set3.team2 } }
                                     })}
                                     fullWidth
@@ -413,7 +410,7 @@ const Matches = ({ type, data, setData, editOpen, sport, onCloseCancel, onClose 
                                     value={result.set3 ? result.set3.team2 : ''}
                                     onChange={(e) => setResult(previous => {
                                         const val = { ...previous }
-                                        console.log(val, 'val')
+                                        
                                         return { ...previous, 'set3': { 'team2': e.target.value, 'team1': val.set3.team1 } }
                                     })}
                                     fullWidth
@@ -425,7 +422,7 @@ const Matches = ({ type, data, setData, editOpen, sport, onCloseCancel, onClose 
             }
         }
         else {
-            console.log('Enter', sport, type)
+            
             if (sport === 'Cricket') {
                 return (
                     <React.Fragment>
@@ -538,7 +535,7 @@ const Matches = ({ type, data, setData, editOpen, sport, onCloseCancel, onClose 
                 )
             }
             else if (sport === 'Football' || sport === 'Basketball' || sport === 'Hockey') {
-                console.log('TEAM')
+                
                 return (
                     <React.Fragment>
                         <Grid>

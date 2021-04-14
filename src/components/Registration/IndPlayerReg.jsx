@@ -66,11 +66,11 @@ const IndPlayerReg = ({ info, data, onAdd, goBack }) => {
             "sportName": info.sport,
             "contact": Team.contact,
         };
-        console.log(dataTeam);
+        
 
         axiosInstance.post("/team", dataTeam).then(
             response => {
-                // console.log(response.data)
+                
                 setActiveStep(activeStep + 1)
             }
         ).catch(err => console.log(err));
@@ -114,7 +114,7 @@ const IndPlayerReg = ({ info, data, onAdd, goBack }) => {
     };
 
     const addTeam = (Team) => {
-        console.log(Team);
+        
         setTeam(Team);
     };
 

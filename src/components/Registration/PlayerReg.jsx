@@ -67,18 +67,18 @@ const PlayerReg = ({ info, data, onAdd, goBack }) => {
             "sportName": info.sport,
             "contact": Team.contact,
         };
-        console.log(dataTeam);
+        
 
         axiosInstance.post("/team", dataTeam).then(
             response => {
-                console.log(response.data)
+                
                 // setTeamData({team_id : response.data.tID})
                 const dataPlayer = {
                     "tournament_id": info.tourn.tournId[0],
                     "team_id": response.data.team_id,
                     "players": playerData
                 };
-                console.log(dataPlayer);
+               
 
                 axiosInstance.post("/player", dataPlayer).then(response => setActiveStep(activeStep + 1))
                     .catch(err => console.log(err));
@@ -128,12 +128,12 @@ const PlayerReg = ({ info, data, onAdd, goBack }) => {
     };
 
     const addTeam = (Team) => {
-        console.log(Team);
+        
         setTeam(Team);
     };
 
     const addplayerData = (playerData) => {
-        console.log(playerData);
+        
         setplayerData(playerData);
     };
 

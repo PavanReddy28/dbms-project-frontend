@@ -74,12 +74,12 @@ const TimeLine = ({ results, openDialog, sportData, sport, status, delRequest })
 
         if (sport === 'Basketball' || sport === 'Football' || sport === 'Hockey') {
             if (results) {
-                console.log(results)
+                
                 return (
                     results.filter(m => {
                         return match.match_id === m.match_id
                     }).map(result => {
-                        console.log('ENTER result')
+                        
                         return (
                             // <React.Fragment>
                             // <Typography  >
@@ -101,12 +101,12 @@ const TimeLine = ({ results, openDialog, sportData, sport, status, delRequest })
         else if (sport === 'Cricket') {
             if (results) {
 
-                console.log(results)
+                
                 return (
                     results.filter(m => {
                         return match.match_id === m.match_id
                     }).map(result => {
-                        console.log('ENTER', result)
+                        
                         return (
                             // <React.Fragment>
                             // <Typography >
@@ -135,11 +135,11 @@ const TimeLine = ({ results, openDialog, sportData, sport, status, delRequest })
         else if (sport === 'Badminton' || sport === 'Tennis' || sport === 'Table Tennis') {
             if (results) {
 
-                console.log(results)
+                
                 return (results.filter(m => {
                     return match.match_id === m.match_id
                 }).map(result => {
-                    console.log('ENTER', result)
+                    
 
                     return (
                         // <React.Fragment>
@@ -182,8 +182,7 @@ const TimeLine = ({ results, openDialog, sportData, sport, status, delRequest })
             else if (sportData.complete && sportData.complete.length === 0) {
                 return <Alert severity="warning">No matches completed</Alert>
             }
-            console.log('S Enter complete')
-            console.log(sportData)
+            
             return (sportData.complete.map(match => {
                 return (
                     <TimelineItem>

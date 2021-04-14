@@ -85,7 +85,6 @@ export default function HomeMatchSchedules() {
     useEffect(() => {
 
         axiosInstance.get("/tournamentList").then(response => {
-            console.log(response.data.tournaments)
             setTournaments(response.data.tournaments);
         }).catch(err => console.log(err));
 
@@ -110,7 +109,7 @@ export default function HomeMatchSchedules() {
         if (sport === 'Cricket') {
             axiosInstance.get(`/match/cricket/result/${match.match_id}`).then(
                 responses => {
-                    console.log(responses.data)
+                    
                     setEditOpen(true)
                 }
             ).catch(err => console.log(err))
@@ -118,7 +117,7 @@ export default function HomeMatchSchedules() {
         else if (sport === 'Football' || sport === 'Basketbal' || sport === 'Hockey') {
             axiosInstance.get(`/match/team/result/${match.m_id}`).then(
                 responses => {
-                    console.log(responses.data)
+                   
                     setEditOpen(true)
                 }
             ).catch(err => console.log(err))
@@ -126,7 +125,7 @@ export default function HomeMatchSchedules() {
         else if (sport === 'Tennis' || sport === 'Badminton' || sport === 'Table Tennis') {
             axiosInstance.get(`/match/net/result/${match.m_id}`).then(
                 responses => {
-                    console.log(responses.data)
+                    
                     setEditOpen(true)
                 }
             ).catch(err => console.log(err))
@@ -144,28 +143,28 @@ export default function HomeMatchSchedules() {
             }
             axiosInstance.get(`/matches/completed/${TournID}/${info}`).then(
                 response => {
-                    //console.log(response.data)
+                    
                     setSportData(previous => {
                         return { 'complete': response.data.matches }
                     })
                     axiosInstance.get(`/matches/pending/${TournID}/${info}`).then(
                         response => {
-                            console.log(response.data, 'l')
+                            
                             setSportData(previous => {
                                 return { ...previous, 'pending': response.data.matches }
                             })
-                            console.log(sportData, 'li')
+                            
                             setActiveStep(num)
                         }
                     ).catch(err => console.log(err))
 
                     axiosInstance.get(`/results/${TournID}/${info}`).then(
                         response => {
-                            console.log(response.data)
+                            
                             setSportResult(response.data.results)
                         }
                     ).catch(err => console.log(err))
-                    //console.log(sportData)     
+                      
                 }
             ).catch(err => console.log(err))
 
@@ -178,19 +177,18 @@ export default function HomeMatchSchedules() {
             }
             axiosInstance.get(`/${info}/matchList/completed`).then(
                 response => {
-                    //console.log({complete: response.data.matches})
+                    
                     setTournData(previous => {
                         return { 'complete': response.data.matches }
                     })
-                    console.log(tournData)
+                    
                     axiosInstance.get(`/${info}/matchList/pending`).then(
                         response => {
-                            console.log(response.data, 'lii')
-                            console.log(tournData)
+                            
                             setTournData(previous => {
                                 return { ...previous, 'pending': response.data.matches }
                             })
-                            console.log(tournData, 'liii')
+                            
                             setActiveStep(num)
                         }
                     ).catch(err => console.log(err))
@@ -199,9 +197,9 @@ export default function HomeMatchSchedules() {
 
             axiosInstance.get(`/tourn/results/${info}`).then(
                 response => {
-                    console.log(response.data)
+                    
                     setTournResult(response.data)
-                    console.log(info, tournResult[info])
+                    
                 }
             ).catch(err => console.log(err))
 

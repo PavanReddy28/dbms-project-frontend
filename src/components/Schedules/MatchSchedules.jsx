@@ -132,7 +132,7 @@ export default function MatchSchedules() {
             if (sport === 'Cricket') {
                 axiosInstance.get(`/match/cricket/result/${match.match_id}`).then(
                     responses => {
-                        console.log(responses.data)
+                        
                         setDiaData({ data: responses.data, m: match })
                         setDiaSport(sport)
                         setEditOpen(true)
@@ -142,7 +142,7 @@ export default function MatchSchedules() {
             else if (sport === 'Football' || sport === 'Basketball' || sport === 'Hockey') {
                 axiosInstance.get(`/match/team/result/${match.match_id}`).then(
                     responses => {
-                        console.log(responses.data, 'fuck')
+                        
                         setDiaData({ data: responses.data, m: match })
                         setDiaSport(sport)
                         setEditOpen(true)
@@ -152,7 +152,7 @@ export default function MatchSchedules() {
             else if (sport === 'Tennis' || sport === 'Badminton' || sport === 'Table Tennis') {
                 axiosInstance.get(`/match/net/result/${match.match_id}`).then(
                     responses => {
-                        console.log(responses.data)
+                        
                         setDiaData({ data: responses.data, m: match })
                         setDiaSport(sport)
                         setEditOpen(true)
@@ -162,7 +162,7 @@ export default function MatchSchedules() {
             }
         }
         else {
-            console.log('OUT')
+            
             setDiaData({ data: null, m: match })
             setEditOpen(true)
         }
@@ -173,9 +173,9 @@ export default function MatchSchedules() {
     }
 
     const onCloseEdit = (result, sport, f, score) => {
-        console.log(result)
+        
         if (f === 'add') {
-            //console.log('LLL')
+            
             if (sport === 'Cricket') {
                 axiosInstance.post(`/match/cricket/result/${DiaData.m.match_id}`, {
                     'winner_id': result.winner_id,
@@ -186,7 +186,7 @@ export default function MatchSchedules() {
                         "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
                     }
                 }).then(response => {
-                    console.log('Added Match')
+                    
                     if (Num === 0) {
                         handleStep(Num, sport)
                     }
@@ -201,13 +201,13 @@ export default function MatchSchedules() {
                     });
             }
             else if (sport === 'Football' || sport === 'Basketball' || sport === 'Hockey') {
-                //console.log('LLL111')
+                
                 axiosInstance.post(`/match/team/result/${DiaData.m.match_id}`, result, {
                     headers: {
                         "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
                     }
                 }).then(response => {
-                    console.log('Added Match')
+                    
                     if (Num === 0) {
                         handleStep(Num, sport)
                     }
@@ -232,7 +232,7 @@ export default function MatchSchedules() {
                         "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
                     }
                 }).then(response => {
-                    console.log('Added Match')
+                    
                     if (Num === 0) {
                         handleStep(Num, sport)
                     }
@@ -258,7 +258,7 @@ export default function MatchSchedules() {
                         "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
                     }
                 }).then(response => {
-                    console.log('Added Match')
+                    
                     if (Num === 0) {
                         handleStep(Num, sport)
                     }
@@ -273,11 +273,7 @@ export default function MatchSchedules() {
                     });
             }
             else if (sport === 'Football' || sport === 'Basketball' || sport === 'Hockey') {
-                console.log('LLL111', `/match/team/result/${DiaData.m.match_id}`, {
-                    'winner_id': result.winner_id,
-                    't1Score': result.t1score,
-                    't2Score': result.t2score
-                })
+                
                 axiosInstance.put(`/match/team/result/${DiaData.m.match_id}`, {
                     'winner_id': result.winner_id,
                     't1Score': result.t1score,
@@ -287,7 +283,7 @@ export default function MatchSchedules() {
                         "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
                     }
                 }).then(response => {
-                    console.log('Edited Match')
+                    
                     if (Num === 0) {
                         handleStep(Num, sport)
                     }
@@ -312,7 +308,7 @@ export default function MatchSchedules() {
                         "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
                     }
                 }).then(response => {
-                    console.log('Edited Match')
+                   
                     if (Num === 0) {
                         handleStep(Num, sport)
                     }
@@ -340,7 +336,7 @@ export default function MatchSchedules() {
             }
             axiosInstance.get(`/matches/completed/${TournID}/${info}`).then(
                 response => {
-                    //console.log(response.data)
+                    
                     setSportData(previous => {
                         let val = { ...previous }
                         if (!val.pending) {
@@ -352,13 +348,13 @@ export default function MatchSchedules() {
                         //return {'complete': response.data.matches, 'pending':[]}
                     })
 
-                    //console.log(sportData)     
+                         
                 }
             ).catch(err => console.log(err))
 
             axiosInstance.get(`/matches/pending/${TournID}/${info}`).then(
                 response => {
-                    console.log(response.data, 'l')
+                    
                     setSportData(previous => {
                         let val = { ...previous }
                         if (!val.complete) {
@@ -368,14 +364,14 @@ export default function MatchSchedules() {
                             return { ...previous, 'pending': response.data.matches }
                         }
                     })
-                    console.log(sportData, 'li')
+                    
                     setActiveStep(num)
                 }
             ).catch(err => console.log(err))
 
             axiosInstance.get(`/results/${TournID}/${info}`).then(
                 response => {
-                    console.log(response.data)
+                    
                     setSportResult(response.data.results)
                 }
             ).catch(err => console.log(err))
@@ -389,7 +385,7 @@ export default function MatchSchedules() {
             }
             axiosInstance.get(`/${info}/matchList/completed`).then(
                 response => {
-                    //console.log({complete: response.data.matches})
+                    
                     setTournData(previous => {
                         let val = { ...previous }
                         if (!val.pending) {
@@ -399,15 +395,14 @@ export default function MatchSchedules() {
                             return { ...previous, 'complete': response.data.matches }
                         }
                     })
-                    console.log(tournData)
+                    
 
                 }
             ).catch(err => console.log(err))
 
             axiosInstance.get(`/${info}/matchList/pending`).then(
                 response => {
-                    console.log(response.data, 'lii')
-                    console.log(tournData)
+                    
                     setTournData(previous => {
                         let val = { ...previous }
                         if (!val.complete) {
@@ -417,16 +412,16 @@ export default function MatchSchedules() {
                             return { ...previous, 'pending': response.data.matches }
                         }
                     })
-                    console.log(tournData, 'liii')
+                    
                     setActiveStep(num)
                 }
             ).catch(err => console.log(err))
 
             axiosInstance.get(`/tourn/results/${info}`).then(
                 response => {
-                    console.log(response.data)
+                   
                     setTournResult(response.data)
-                    console.log(info, tournResult[info])
+                    
                 }
             ).catch(err => console.log(err))
         }
@@ -442,7 +437,7 @@ export default function MatchSchedules() {
             }
         }).then(response => {
             setDeleteOpen(false)
-            console.log('Deleted Match')
+            
             if (Num === 0) {
                 handleStep(Num, sportName)
             }

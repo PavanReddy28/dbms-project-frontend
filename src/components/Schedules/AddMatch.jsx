@@ -61,12 +61,11 @@ const AddMatch = () => {
     }, [])
 
     const addTeams = (tourn1, sportName) => {
-        // console.log(tourn1)
-        // console.log(sportName)
+        
         settourn(tourn1)
         setsport(sportName)
         axiosInstance.get(`/${tourn1.tournament_id}/${sportName}/teams`).then(response => {
-            console.log(response.data.teams)
+            
             setTeams(response.data.teams.filter(team => {
                 return team.status === 'REGISTERED'
             }));
@@ -80,11 +79,10 @@ const AddMatch = () => {
     };
 
     const onSubmit = () => {
-        console.log(mTeams, Teams.filter(team => team.team_name === mTeams[0]))
+        
         let id1 = Teams.filter(team => team.team_name === mTeams[0])[0].team_id
         let id2 = Teams.filter(team => team.team_name === mTeams[1])[0].team_id
-        console.log(moment(time + ':00').format())
-        console.log(moment().format("YYYY-MM-DDThh:mm"))
+        
         const Match = {
             "tournament_id": tourn.tournament_id,
             "team1_id": id1,
@@ -93,7 +91,7 @@ const AddMatch = () => {
             "date": moment(time + ':00').format() === '2000-01-01T00:00:00+05:30' ? moment().format() : moment(time + ':00').format(),
             "round": round === '' ? 'Finals' : round
         }
-        console.log(Match)
+        
 
         axiosInstance.post('/match', Match, {
             headers: {

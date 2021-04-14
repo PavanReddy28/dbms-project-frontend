@@ -77,15 +77,12 @@ const TimeLine2 = ({ results, openDialog, status, Tourn, delRequest }) => {
     const scores = (match, sport) => {
 
         if (sport === 'Basketball' || sport === 'Football' || sport === 'Hockey') {
-            console.log('ENTER 0', match, sport)
             if (results) {
-                console.log('ENTER 1', results[sport])
                 return (
                     results[sport].filter(m => {
-                        console.log('ENTER 2', m)
                         return match.match_id === m.match_id
                     }).map(result => {
-                        console.log('ENTER 3', result)
+                        
                         return (
                             //     <React.Fragment>
                             // <Typography >
@@ -112,7 +109,7 @@ const TimeLine2 = ({ results, openDialog, status, Tourn, delRequest }) => {
                         return match.match_id === m.match_id
                     }).map(result => {
 
-                        console.log('ENTER')
+                        
                         return (
                             // <React.Fragment>
                             // <Typography variant="body">
@@ -144,7 +141,7 @@ const TimeLine2 = ({ results, openDialog, status, Tourn, delRequest }) => {
                     results[sport].filter(m => {
                         return match.match_id === m.match_id
                     }).map(result => {
-                        console.log('ENTER')
+                        
                         return (
                             // <React.Fragment>
                             //     <Typography >
@@ -180,8 +177,7 @@ const TimeLine2 = ({ results, openDialog, status, Tourn, delRequest }) => {
     }
 
     const setPage = (status) => {
-        console.log(Tourn, 1)
-        console.log("tourn")
+        
         if (status) {
             if (!Tourn || !Tourn.complete) {
                 return
@@ -189,7 +185,7 @@ const TimeLine2 = ({ results, openDialog, status, Tourn, delRequest }) => {
             else if (Tourn.complete && Tourn.complete.length === 0) {
                 return <Alert severity="warning">No matches complete</Alert>
             }
-            console.log('T Enter complete')
+            
             return (Tourn.complete.map(match => {
 
                 return (
@@ -248,7 +244,7 @@ const TimeLine2 = ({ results, openDialog, status, Tourn, delRequest }) => {
 
         }
         else {
-            console.log('T Enter pend')
+            
 
             if (!Tourn || !Tourn.pending) {
                 return

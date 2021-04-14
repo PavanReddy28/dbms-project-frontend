@@ -25,25 +25,18 @@ const useStyles = makeStyles((theme) => ({
 export const TournSportRegComp = ({ TournData, tList, onAdd, handleNext }) => {
     const classes = useStyles()
 
-    //const [TournList, setTournList] = useState([])
+    
     const [Tourn, setTourn] = useState(TournData ? TournData : {})
     const [incomplete, setIncomplete] = useState(false);
 
-    // useEffect(() => {
-    //     axiosInstance.get('/tournamentList').then(
-    //         response => {
-    //             //console.log(response.data.tournaments)
-    //             setTournList(response.data.tournaments)
-    //         }
-    //     ).catch(err => console.log(err))
-    // }, [])
+
 
     const goNext = () => {
         if (Object.keys(Tourn).length === 0) {
             setIncomplete(true);
             return
         }
-        console.log(Tourn)
+        
         onAdd(Tourn)
         handleNext()
     };

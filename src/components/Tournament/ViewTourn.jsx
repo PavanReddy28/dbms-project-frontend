@@ -63,7 +63,7 @@ function ViewTourn({ auth }) {
 
     axiosInstance.get("/tournamentList").then(response => {
 
-      console.log(response.data)
+      
 
       const [tourn] = response.data.tournaments.filter(tournament => {
         return tournament.tournament_id === parseInt(tourn_id)
@@ -72,7 +72,7 @@ function ViewTourn({ auth }) {
       setTournament(tourn ? tourn : false);
 
     }).catch(err => {
-      console.log(err)
+      
     })
 
 
@@ -81,7 +81,7 @@ function ViewTourn({ auth }) {
       response => {
         let Sports = response.data.sports;
 
-        console.log(Sports)
+        
 
 
         //get teams
@@ -101,7 +101,7 @@ function ViewTourn({ auth }) {
             })
           })
 
-          console.log(orgTeams)
+          
 
           setSortedTeams(orgTeams)
 

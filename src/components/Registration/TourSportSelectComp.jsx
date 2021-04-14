@@ -29,7 +29,7 @@ export const TourSportSelectComp = ({ Tourn, sportData, onAdd, handleNext, handl
     const [sportsList, setSportsList] = useState([])
     const [incomplete, setIncomplete] = useState(false);
     const [sport1, setSport1] = useState(sportData ? sportData : '')
-    //console.log(sportData, sport1)
+    
 
     useEffect(() => {
         axiosInstance.get(`/tournament/getSports/${Tourn.tournId[0]}`).then(

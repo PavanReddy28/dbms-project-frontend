@@ -56,15 +56,15 @@ const TimeLine2 = ({ results, openDialog, status, Tourn }) => {
     const scores = (match, sport) => {
 
         if (sport === 'Basketball' || sport === 'Football' || sport === 'Hockey') {
-            console.log('ENTER 0', match, sport)
+            
             if (results) {
-                console.log('ENTER 1', results[sport])
+                
                 return (
                     results[sport].filter(m => {
-                        console.log('ENTER 2', m)
+                        
                         return match.match_id === m.match_id
                     }).map(result => {
-                        console.log('ENTER 3', result)
+                        
                         return (
                             <React.Fragment>
                                 <Typography  >
@@ -86,7 +86,7 @@ const TimeLine2 = ({ results, openDialog, status, Tourn }) => {
                         return match.match_id === m.match_id
                     }).map(result => {
 
-                        console.log('ENTER')
+                        
                         return (
                             <React.Fragment>
                                 <Typography variant="body">
@@ -113,7 +113,7 @@ const TimeLine2 = ({ results, openDialog, status, Tourn }) => {
                     results[sport].filter(m => {
                         return match.match_id === m.match_id
                     }).map(result => {
-                        console.log('ENTER')
+                        
                         return (
                             <React.Fragment>
                                 <Typography >
@@ -143,9 +143,9 @@ const TimeLine2 = ({ results, openDialog, status, Tourn }) => {
     }
 
     const setPage = (status) => {
-        console.log(Tourn, 1)
+        
         if (status) {
-            console.log('T Enter complete')
+            
             return (Tourn.complete.map(match => {
                 return (
                     <TimelineItem>
@@ -192,7 +192,7 @@ const TimeLine2 = ({ results, openDialog, status, Tourn }) => {
 
         }
         else {
-            console.log('T Enter pend')
+            
             return (Tourn.pending.map(match => {
                 return (
                     <TimelineItem>
