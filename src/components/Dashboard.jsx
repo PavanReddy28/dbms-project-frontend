@@ -90,7 +90,11 @@ function Dashboard() {
             }
         }).then(response => {
             setTournaments(response.data.tournaments);
-        }).catch(err => console.log(err));
+        }).catch(err => {
+            if(err.response.status && err.response.status === 401){
+                history.push("/login");
+            }
+        });
 
         axiosInstance.get("/team/PENDING", {
             headers: {
@@ -99,9 +103,13 @@ function Dashboard() {
         }).then(response => {
             setRegistrations(response.data);
             console.log(Object.keys(response.data))
-        });
+        }).catch(err => {
+            if(err.response.status && err.response.status === 401){
+                history.push("/login");
+            }
+        });;
 
-    }, [])
+    }, [history])
 
     //collapsible tournament list
     function handleCollapse(id) {

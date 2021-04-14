@@ -108,8 +108,10 @@ function ViewTourn({ auth }) {
 
 
         }).catch(err => {
-          err.response.status === 401 && history.push("/login");
-        })
+          if(err.response.status && err.response.status === 401){
+              history.push("/login");
+          }
+      });
 
 
 

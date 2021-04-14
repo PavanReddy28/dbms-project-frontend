@@ -29,6 +29,7 @@ const RegistrationStyles = makeStyles((theme) => ({
 function RegistrationList({ data, title, type }) {
 
     const classes = RegistrationStyles()
+    const history = useHistory();
 
     const [open, setOpen] = useState({
         tourn: null,
@@ -65,7 +66,11 @@ function RegistrationList({ data, title, type }) {
             }
         }).then(response => {
             window.location.reload();
-        });
+        }).catch(err => {
+            if(err.response.status && err.response.status === 400){
+                history.push("/login");
+            }
+        });;
     }
 
     return (
@@ -181,6 +186,7 @@ function RegistrationList({ data, title, type }) {
 function Registrations() {
 
     const classes = RegistrationStyles();
+    const history = useHistory();
 
     const [pending, setPending] = useState({});
     const [rejected, setRejected] = useState({});
@@ -193,7 +199,11 @@ function Registrations() {
             }
         }).then(response => {
             setPending(response.data);
-        })
+        }).catch(err => {
+            if(err.response.status && err.response.status === 400){
+                history.push("/login");
+            }
+        });
 
         axiosInstance.get("/team/REJECTED", {
             headers: {
@@ -201,7 +211,11 @@ function Registrations() {
             }
         }).then(response => {
             setRejected(response.data);
-        })
+        }).catch(err => {
+            if(err.response.status && err.response.status === 400){
+                history.push("/login");
+            }
+        });
 
         axiosInstance.get("/team/REGISTERED", {
             headers: {
@@ -209,8 +223,12 @@ function Registrations() {
             }
         }).then(response => {
             setRegistered(response.data);
-        })
-    }, [])
+        }).catch(err => {
+            if(err.response.status && err.response.status === 400){
+                history.push("/login");
+            }
+        });
+    }, [history])
 
 
 

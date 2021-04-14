@@ -202,7 +202,11 @@ export default function MatchSchedules() {
                         handleStep(Num, TournID)
                     }
                 })
-                    .catch(err => console.log(err))
+                .catch(err => {
+                    if(err.response.status && err.response.status === 401){
+                        history.push("/login");
+                    }
+                });
             }
             else if (sport === 'Football' || sport === 'Basketball' || sport === 'Hockey') {
                 //console.log('LLL111')
@@ -219,7 +223,11 @@ export default function MatchSchedules() {
                         handleStep(Num, TournID)
                     }
                 })
-                    .catch(err => console.log(err))
+                .catch(err => {
+                    if(err.response.status && err.response.status === 401){
+                        history.push("/login");
+                    }
+                });
             }
             else if (sport === 'Tennis' || sport === 'Badminton' || sport === 'Table Tennis') {
                 axiosInstance.post(`/match/net/result/${DiaData.m.match_id}`, {
@@ -240,7 +248,11 @@ export default function MatchSchedules() {
                         handleStep(Num, TournID)
                     }
                 })
-                    .catch(err => console.log(err))
+                .catch(err => {
+                    if(err.response.status && err.response.status === 401){
+                        history.push("/login");
+                    }
+                });
             }
         }
         else if (f === 'edit') {
@@ -262,7 +274,11 @@ export default function MatchSchedules() {
                         handleStep(Num, TournID)
                     }
                 })
-                    .catch(err => console.log(err))
+                .catch(err => {
+                    if(err.response.status && err.response.status === 401){
+                        history.push("/login");
+                    }
+                });
             }
             else if (sport === 'Football' || sport === 'Basketball' || sport === 'Hockey') {
                 console.log('LLL111', `/match/team/result/${DiaData.m.match_id}`, {
@@ -287,7 +303,11 @@ export default function MatchSchedules() {
                         handleStep(Num, TournID)
                     }
                 })
-                    .catch(err => console.log(err))
+                .catch(err => {
+                    if(err.response.status && err.response.status === 401){
+                        history.push("/login");
+                    }
+                });
             }
             else if (sport === 'Tennis' || sport === 'Badminton' || sport === 'Table Tennis') {
                 axiosInstance.put(`/match/net/result/${DiaData.m.match_id}`, {
@@ -308,7 +328,11 @@ export default function MatchSchedules() {
                         handleStep(Num, TournID)
                     }
                 })
-                    .catch(err => console.log(err))
+                .catch(err => {
+                    if(err.response.status && err.response.status === 401){
+                        history.push("/login");
+                    }
+                });
             }
         }
         setEditOpen(false)

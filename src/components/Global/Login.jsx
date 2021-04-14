@@ -53,7 +53,7 @@ function Login() {
             }).catch((err) => {
 
                 // error is thrown whenever wrong credentials are put
-                if (err.response.status === 400) {
+                if (err.response.status && err.response.status === 400) {
 
                     setFlag(true);
 
