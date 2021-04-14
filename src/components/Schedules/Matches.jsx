@@ -78,7 +78,7 @@ const Matches = ({ type, data, setData, editOpen, sport, onCloseCancel, onClose 
             }
         }
         
-    }, [data, sport])
+    }, [data, sport,result])
 
     const chooseDisplay = ()=>{
         console.log(data)
@@ -92,7 +92,6 @@ const Matches = ({ type, data, setData, editOpen, sport, onCloseCancel, onClose 
                     //setTeamName(data.data.winner_id===data.m.team1.team_id?data.m.team1.teamName:data.m.team2.teamName)
             if(sport==='Cricket')
             {
-                console.log(data.data.winner_id===data.m.team1.team_id?data.m.team1.teamName:data.m.team2.teamName)
                 return (
                     <React.Fragment>
                         <Grid>

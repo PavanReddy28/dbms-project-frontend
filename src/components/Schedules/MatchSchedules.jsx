@@ -49,8 +49,9 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: theme.spacing(1),
     },
     list: {
-        maxHeight: "300px",
-        overflow: "auto"
+        overflow: "auto",
+        minHeight: 300,
+        maxHeight: 300
     },
     addIcon: {
         display: "block",
@@ -68,8 +69,14 @@ const useStyles = makeStyles((theme) => ({
     paper: {
         // margin: theme.spacing(3),
         padding: theme.spacing(4),
-        // minHeight: 300
     },
+    scheduleContainer: {
+        minHeight: 500,
+        maxHeight: 500
+    },
+    default: {
+        textAlign: "center",
+    }
 }));
 
 export default function MatchSchedules() {
@@ -446,11 +453,17 @@ export default function MatchSchedules() {
                 return <LoadingRelative />
             default:
                 return (
-                    <>
-                        <IconButton>
-                            <SportsIcon style={{ fontSize: 100 }} />
-                        </IconButton>
-                    </>
+                    <Grid container>
+                        <Grid item sm={12}>
+                            <div className={classes.default}>
+                                <SportsIcon style={{fontSize: 100}}/>
+
+                            </div>
+                        </Grid>
+                        
+                    </Grid>
+                        
+                            
                 )
         }
     }
@@ -477,13 +490,16 @@ export default function MatchSchedules() {
                             {Tournaments.map(tournament => {
                                 return (
                                     <>
-                                        <ListItem button fullWidth key={tournament.tournament_id} onClick={() => {
+                                        <ListItem fullWidth key={tournament.tournament_id}>
+                                            <ListItemText primary={tournament.t_name} />
+                                            <IconButton onClick={() => {
                                             handleCollapse(tournament.tournament_id)
                                             setTournID(tournament.tournament_id)
                                             handleStep(1, tournament.tournament_id)
                                         }}>
-                                            <ListItemText primary={tournament.t_name} />
-                                            {open.main === tournament.tournament_id ? <ExpandLess /> : <ExpandMore />}
+                                                {open.main === tournament.tournament_id ? <ExpandLess /> : <ExpandMore />}
+                                            </IconButton>
+                                            
                                         </ListItem>
                                         <Divider />
                                         <Collapse in={open.main === tournament.tournament_id} timeout="auto">
@@ -512,23 +528,28 @@ export default function MatchSchedules() {
                     <Delete deleteOpen={deleteOpen} setDeleteOpen={setDeleteOpen} handleDelete={handleDelete} />
                     <Matches type={DiaType} data={DiaData} setData={setDiaData} editOpen={editOpen} sport={diaSport} onCloseCancel={onCloseCancel} onClose={onCloseEdit} />
                     <Grid item lg={12} sm={12}>
-                        <div className={classes.buttons}>
-                            <Button
+                        <div className={classes.scheduleContainer}>
+                            <div className={classes.buttons}>
+                                <Button
                                 color="primary"
+                                variant={status === true ? "contained": "outlined"}
                                 onClick={() => setStatus(true)}
                                 className={classes.button}>
                                 Completed
-                        </Button>
+                            </Button>
                             <Button
                                 color="primary"
+                                variant={status === false ? "contained": "outlined"}
                                 onClick={() => setStatus(false)}
                                 className={classes.button}>
                                 Scheduled
-                        </Button>
-                        </div>
-                        <Timeline align="alternate">
+                            </Button>
+                            </div>
+                            <Timeline align="alternate">
                             {timeLineSet(activeStep)}
-                        </Timeline>
+                            </Timeline>
+                        </div>
+                        
                     </Grid>
                 </Grid>
             </Paper>

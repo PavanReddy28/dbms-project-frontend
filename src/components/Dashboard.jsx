@@ -191,7 +191,7 @@ function Dashboard() {
 
     return (
         <Container maxWidth="xl">
-            <Grid container spacing={3} className={classes.container}>
+            <Grid container spacing={6} className={classes.container}>
                 <Grid item lg={6} sm={12}>
                     <Paper className={classes.paper} elevation={1}>
                         <Grid container>

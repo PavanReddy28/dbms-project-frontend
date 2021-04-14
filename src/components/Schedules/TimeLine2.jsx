@@ -5,6 +5,7 @@ import {
     makeStyles,
     Paper,
     IconButton,
+    List,
     ListItem,
     ListItemText,
     Divider,
@@ -35,6 +36,9 @@ const useStyles = makeStyles((theme) => ({
     },
     secondaryTail: {
         backgroundColor: theme.palette.secondary.main,
+    },
+    nested: {
+        paddingLeft: theme.spacing(4)
     },
 }));
 
@@ -80,14 +84,19 @@ const TimeLine2 = ({ results, openDialog, status, Tourn, delRequest }) => {
                     }).map(result=>{
                         console.log('ENTER 3', result)
                         return (
-                            <React.Fragment>
-                        <Typography >
-                        Scores
-                        </Typography>
-                        <Typography gutterBottom>
-                            {result.t1score} - {result.t2score}
-                        </Typography>
-                        </React.Fragment>
+                        //     <React.Fragment>
+                        // <Typography >
+                        // Scores
+                        // </Typography>
+                        // <Typography gutterBottom>
+                        //     {result.t1score} - {result.t2score}
+                        // </Typography>
+                        // </React.Fragment>
+                        <List component="div">
+                            <ListItemText primary = {match.team1.team_id === result.winner_id? match.team1.teamName : match.team2.teamName} secondary={"Winner"} className={classes.nested}/>
+                            <ListItemText primary = {result.t1score} secondary={match.team1.teamName} className={classes.nested}/>
+                            <ListItemText primary = {result.t2score} secondary={match.team2.teamName} className={classes.nested}/>
+                        </List>
                         )
                     })
                 )
@@ -160,6 +169,7 @@ const TimeLine2 = ({ results, openDialog, status, Tourn, delRequest }) => {
 
     const setPage = (status) => {
         console.log(Tourn, 1)
+        console.log("tourn")
         if(status)
         {
             console.log('T Enter complete')
@@ -182,11 +192,13 @@ const TimeLine2 = ({ results, openDialog, status, Tourn, delRequest }) => {
                         <Card elevation={3} className={classes.paper}>
                             <CardContent>
                                 <Typography variant="h6" component="h1">
-                                {match.team1.teamName} {match.match_id} VS {match.team2.teamName}
+                                {match.team1.teamName} VS {match.team2.teamName}
                                 </Typography>
-                                <Typography>{match.sportName}</Typography>
-                                <Typography gutterBottom>{match.round}</Typography>
-                                <ListItem button fullWidth onClick={() => {
+                                <Typography color="textSecondary">Sport: {match.sportName}</Typography>
+                                <Typography gutterBottom color="textSecondary">Round: {match.round}</Typography>
+                                <ListItem fullWidth>
+                                    <ListItemText primary={'Result'} />
+                                    <IconButton onClick={() => {
                                     if(open===match.match_id)
                                     {
                                         setOpen(null)
@@ -196,8 +208,9 @@ const TimeLine2 = ({ results, openDialog, status, Tourn, delRequest }) => {
                                         setOpen(match.match_id)
                                     }
                                 }}>
-                                    <ListItemText primary={'Result'} />
-                                    {open === match.match_id ? <ExpandLess /> : <ExpandMore />}
+                                        {open === match.match_id ? <ExpandLess /> : <ExpandMore />}
+                                    </IconButton>
+                                    
                                 </ListItem>
                                 <Divider />
                                 <Collapse in={open===match.match_id} timeout="auto">

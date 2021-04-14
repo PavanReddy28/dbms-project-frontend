@@ -186,7 +186,9 @@ const TimeLine = ({ results, openDialog, sportData, sport, status, delRequest })
                                 </Typography>
                                 <Typography>{sport}</Typography>
                                 <Typography>{match.round}</Typography>
-                                <ListItem button fullWidth onClick={() => {
+                                <ListItem fullWidth>
+                                    <ListItemText primary={'Result'} />
+                                    <IconButton onClick={() => {
                                     if(open===true)
                                     {
                                         setOpen(false)
@@ -196,8 +198,9 @@ const TimeLine = ({ results, openDialog, sportData, sport, status, delRequest })
                                         setOpen(true)
                                     }
                                 }}>
-                                    <ListItemText primary={'Result'} />
-                                    {open === true ? <ExpandLess /> : <ExpandMore />}
+                                        {open === true ? <ExpandLess /> : <ExpandMore />}
+                                    </IconButton>
+                                    
                                 </ListItem>
                                 <Divider />
                                 <Collapse in={open===true} timeout="auto">
