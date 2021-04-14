@@ -164,6 +164,7 @@ const TimeLine = ({ results, openDialog, sportData, sport, status, delRequest })
                 return
             }
             console.log('S Enter complete')
+            console.log(sportData)
             return(sportData.complete.map( match => {
                 return (
                     <TimelineItem>
@@ -184,8 +185,8 @@ const TimeLine = ({ results, openDialog, sportData, sport, status, delRequest })
                                 <Typography variant="h6" component="h1">
                                 {match.team1.teamName} VS {match.team2.teamName}
                                 </Typography>
-                                <Typography>{sport}</Typography>
-                                <Typography>{match.round}</Typography>
+                                <Typography color="textSecondary">Sport: {sport}</Typography>
+                                <Typography gutterBottom color="textSecondary">Round: {match.round}</Typography>
                                 <ListItem fullWidth>
                                     <ListItemText primary={'Result'} />
                                     <IconButton onClick={() => {
@@ -227,9 +228,9 @@ const TimeLine = ({ results, openDialog, sportData, sport, status, delRequest })
             {
                 return
             }
-            console.log('S Enter pending')
                return( sportData.pending.map( match => {
                     return (
+                        <>
                         <TimelineItem>
                             <TimelineOppositeContent>
                             <Typography variant="body2" color="textSecondary">
@@ -248,8 +249,8 @@ const TimeLine = ({ results, openDialog, sportData, sport, status, delRequest })
                                     <Typography variant="h6" component="h1">
                                     {match.team1.teamName} VS {match.team2.teamName}
                                     </Typography>
-                                    <Typography>{sport}</Typography>
-                                    <Typography gutterBottom>{match.round}</Typography>
+                                    <Typography color="textSecondary">Sport: {sport}</Typography>
+                                    <Typography gutterBottom color="textSecondary">Round: {match.round}</Typography>
                                 </CardContent>
                                 <CardActions>
                                 <Button size="small" color="primary" onClick={() => openDialog(match, sport, 'add')}>
@@ -262,6 +263,7 @@ const TimeLine = ({ results, openDialog, sportData, sport, status, delRequest })
                             </Card>
                             </TimelineContent>
                         </TimelineItem>
+                        </>
                     )
                 }))
         }

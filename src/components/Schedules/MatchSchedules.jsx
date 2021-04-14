@@ -71,8 +71,8 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(4),
     },
     scheduleContainer: {
-        minHeight: 500,
-        maxHeight: 500
+        minHeight: 1000,
+        maxHeight: 1000
     },
     default: {
         textAlign: "center",
@@ -528,7 +528,7 @@ export default function MatchSchedules() {
                     <Delete deleteOpen={deleteOpen} setDeleteOpen={setDeleteOpen} handleDelete={handleDelete} />
                     <Matches type={DiaType} data={DiaData} setData={setDiaData} editOpen={editOpen} sport={diaSport} onCloseCancel={onCloseCancel} onClose={onCloseEdit} />
                     <Grid item lg={12} sm={12}>
-                        <div className={classes.scheduleContainer}>
+                        {open.main && <div className={classes.scheduleContainer}>
                             <div className={classes.buttons}>
                                 <Button
                                 color="primary"
@@ -548,7 +548,7 @@ export default function MatchSchedules() {
                             <Timeline align="alternate">
                             {timeLineSet(activeStep)}
                             </Timeline>
-                        </div>
+                        </div>}
                         
                     </Grid>
                 </Grid>

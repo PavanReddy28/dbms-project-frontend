@@ -38,8 +38,13 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.palette.secondary.main,
     },
     nested: {
-        paddingLeft: theme.spacing(4)
+        paddingLeft: theme.spacing(4),
+        paddingRight: theme.spacing(4)
     },
+    timeline: {
+        maxHeight: 900,
+        overflow: "auto"
+    }
 }));
 
 const TimeLine2 = ({ results, openDialog, status, Tourn, delRequest }) => {
@@ -112,20 +117,25 @@ const TimeLine2 = ({ results, openDialog, status, Tourn, delRequest }) => {
 
                     console.log('ENTER')
                     return (                        
-                        <React.Fragment>
-                        <Typography variant="body">
-                            {match.team1.teamName}
-                        </Typography>
-                        <Typography gutterBottom>
-                            {result.t1Innings.runs}/{result.t1Innings.wickets}
-                        </Typography>
-                        <Typography variant="body">
-                            {match.team1.teamName}
-                        </Typography>
-                        <Typography gutterBottom>
-                            {result.t2Innings.runs}/{result.t2Innings.wickets}
-                        </Typography>
-                        </React.Fragment>
+                        // <React.Fragment>
+                        // <Typography variant="body">
+                        //     {match.team1.teamName}
+                        // </Typography>
+                        // <Typography gutterBottom>
+                        //     {result.t1Innings.runs}/{result.t1Innings.wickets}
+                        // </Typography>
+                        // <Typography variant="body">
+                        //     {match.team1.teamName}
+                        // </Typography>
+                        // <Typography gutterBottom>
+                        //     {result.t2Innings.runs}/{result.t2Innings.wickets}
+                        // </Typography>
+                        // </React.Fragment>
+                        <List component="div">
+                            <ListItemText primary = {match.team1.team_id === result.winner_id? match.team1.teamName : match.team2.teamName} secondary={"Winner"} className={classes.nested}/>
+                            <ListItemText primary = {`${result.t1Innings.runs} runs for ${result.t1Innings.wickets} wickets`} secondary={match.team1.teamName} className={classes.nested}/>
+                            <ListItemText primary = {`${result.t2Innings.runs} runs for ${result.t2Innings.wickets} wickets`} secondary={match.team2.teamName} className={classes.nested}/>
+                        </List>
                     )
                 }) 
                 )
@@ -140,26 +150,32 @@ const TimeLine2 = ({ results, openDialog, status, Tourn, delRequest }) => {
                 }).map(result=>{
                     console.log('ENTER')
                     return (
-                        <React.Fragment>
-                            <Typography >
-                            Set 1
-                        </Typography>
-                            <Typography gutterBottom>
-                                {result.set1.team1} - {result.set1.team2}
-                            </Typography>
-                            <Typography >
-                                Set 2
-                            </Typography>
-                            <Typography gutterBottom>
-                                {result.set2.team1} - {result.set2.team2}
-                            </Typography>
-                            <Typography >
-                                Set 3
-                            </Typography>
-                            <Typography gutterBottom>
-                                {result.set3.team1!==null || result.set3.team2!==null? `${result.set3.team1} - ${result.set3.team2}` : 'NA'}
-                            </Typography>
-                        </React.Fragment>
+                        // <React.Fragment>
+                        //     <Typography >
+                        //     Set 1
+                        // </Typography>
+                        //     <Typography gutterBottom>
+                        //         {result.set1.team1} - {result.set1.team2}
+                        //     </Typography>
+                        //     <Typography >
+                        //         Set 2
+                        //     </Typography>
+                        //     <Typography gutterBottom>
+                        //         {result.set2.team1} - {result.set2.team2}
+                        //     </Typography>
+                        //     <Typography >
+                        //         Set 3
+                        //     </Typography>
+                        //     <Typography gutterBottom>
+                        //         {result.set3.team1!==null || result.set3.team2!==null? `${result.set3.team1} - ${result.set3.team2}` : 'NA'}
+                        //     </Typography>
+                        // </React.Fragment>
+                        <List component="div">
+                            <ListItemText primary = {match.team1.team_id === result.winner_id? match.team1.teamName : match.team2.teamName} secondary={"Winner"} className={classes.nested}/>
+                            <ListItemText primary = {`${result.set1.team1} - ${result.set1.team2}`} secondary={"Set 1"} className={classes.nested}/>
+                            <ListItemText primary = {`${result.set2.team1} - ${result.set2.team2}`} secondary={"Set 2"} className={classes.nested}/>
+                            <ListItemText primary = {`${result.set3.team1} - ${result.set3.team2}`} secondary={"Set 3"} className={classes.nested}/>
+                        </List>
                     )
                 })
                 )
@@ -236,6 +252,7 @@ const TimeLine2 = ({ results, openDialog, status, Tourn, delRequest }) => {
             console.log('T Enter pend')
             return(Tourn.pending.map( match => {
                 return (
+                    <>
                     <TimelineItem>
                         <TimelineOppositeContent>
                         <Typography variant="body2" color="textSecondary">
@@ -254,8 +271,8 @@ const TimeLine2 = ({ results, openDialog, status, Tourn, delRequest }) => {
                                 <Typography variant="h6" component="h1">
                                 {match.team1.teamName} VS {match.team2.teamName}
                                 </Typography>
-                                <Typography>{match.sportName}</Typography>
-                                <Typography>{match.round}</Typography>
+                                <Typography color="textSecondary">Sport: {match.sportName}</Typography>
+                                <Typography gutterBottom color="textSecondary">Round: {match.round}</Typography>
                             </CardContent>
                             <CardActions>
                                 <Button size="small" color="primary" onClick={() => openDialog(match, match.sportName, 'add')}>
@@ -268,15 +285,16 @@ const TimeLine2 = ({ results, openDialog, status, Tourn, delRequest }) => {
                         </Card>
                         </TimelineContent>
                     </TimelineItem>
+                    </>
                 )
             }))
         }
     }
 
     return (
-        <React.Fragment>
+        <div className={classes.timeline}>
             {setPage(status)}
-        </React.Fragment>
+        </div>
     )
 }
 
