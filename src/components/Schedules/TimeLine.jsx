@@ -5,6 +5,7 @@ import {
     makeStyles,
     Paper,
     IconButton,
+    List,
     ListItem,
     ListItemText,
     Divider,
@@ -28,14 +29,28 @@ import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { Alert } from '@material-ui/lab';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
         padding: '6px 16px',
+        backgroundColor: theme.palette.grey[900],
     },
     secondaryTail: {
         backgroundColor: theme.palette.secondary.main,
     },
+    nested: {
+        paddingLeft: theme.spacing(4),
+        paddingRight: theme.spacing(4)
+    },
+    timeline: {
+        maxHeight: 900,
+        minHeight: 900,
+        overflow: "auto",
+        backgroundColor: theme.palette.grey[800],
+        borderRadius: 10,
+        padding: theme.spacing(4)
+    }
 }));
 
 const TimeLine = ({ results, openDialog, sportData, sport, status, delRequest }) => {
@@ -78,14 +93,19 @@ const TimeLine = ({ results, openDialog, sportData, sport, status, delRequest })
                 }).map(result=>{
                     console.log('ENTER result')
                     return (
-                        <React.Fragment>
-                        <Typography  >
-                        Scores
-                        </Typography>
-                        <Typography gutterBottom>
-                            {result.t1score} - {result.t2score}
-                        </Typography>
-                        </React.Fragment>
+                        // <React.Fragment>
+                        // <Typography  >
+                        // Scores
+                        // </Typography>
+                        // <Typography gutterBottom>
+                        //     {result.t1score} - {result.t2score}
+                        // </Typography>
+                        // </React.Fragment>
+                        <List component="div">
+                            <ListItemText primary = {match.team1.team_id === result.winner_id? match.team1.teamName : match.team2.teamName} secondary={"Winner"} className={classes.nested}/>
+                            <ListItemText primary = {result.t1score} secondary={match.team1.teamName} className={classes.nested}/>
+                            <ListItemText primary = {result.t2score} secondary={match.team2.teamName} className={classes.nested}/>
+                        </List>
                     )
                 }))
             }
@@ -101,20 +121,25 @@ const TimeLine = ({ results, openDialog, sportData, sport, status, delRequest })
                 }).map(result=>{
                     console.log('ENTER',result)
                     return (
-                        <React.Fragment>
-                        <Typography >
-                            {match.team1.teamName}
-                        </Typography>
-                        <Typography gutterBottom>
-                            {result.t1Innings.runs}/{result.t1Innings.wickets}
-                        </Typography>
-                        <Typography >
-                            {match.team1.teamName}
-                        </Typography>
-                        <Typography gutterBottom>
-                            {result.t2Innings.runs}/{result.t2Innings.wickets}
-                        </Typography>
-                        </React.Fragment>
+                        // <React.Fragment>
+                        // <Typography >
+                        //     {match.team1.teamName}
+                        // </Typography>
+                        // <Typography gutterBottom>
+                        //     {result.t1Innings.runs}/{result.t1Innings.wickets}
+                        // </Typography>
+                        // <Typography >
+                        //     {match.team1.teamName}
+                        // </Typography>
+                        // <Typography gutterBottom>
+                        //     {result.t2Innings.runs}/{result.t2Innings.wickets}
+                        // </Typography>
+                        // </React.Fragment>
+                        <List component="div">
+                            <ListItemText primary = {match.team1.team_id === result.winner_id? match.team1.teamName : match.team2.teamName} secondary={"Winner"} className={classes.nested}/>
+                            <ListItemText primary = {`${result.t1Innings.runs} runs for ${result.t1Innings.wickets} wickets`} secondary={match.team1.teamName} className={classes.nested}/>
+                            <ListItemText primary = {`${result.t2Innings.runs} runs for ${result.t2Innings.wickets} wickets`} secondary={match.team2.teamName} className={classes.nested}/>
+                        </List>
                     )
                 })
                 )
@@ -131,26 +156,32 @@ const TimeLine = ({ results, openDialog, sportData, sport, status, delRequest })
                     console.log('ENTER',result)
                     
                     return (
-                        <React.Fragment>
-                            <Typography  >
-                            Set 1
-                        </Typography>
-                            <Typography gutterBottom>
-                                {result.set1.team1} - {result.set1.team2}
-                            </Typography>
-                            <Typography >
-                                Set 2
-                            </Typography>
-                            <Typography gutterBottom>
-                                {result.set2.team1} - {result.set2.team2}
-                            </Typography>
-                            <Typography >
-                                Set 3
-                            </Typography>
-                            <Typography gutterBottom>
-                                {result.set3.team1!==null || result.set3.team2!==null? `${result.set3.team1} - ${result.set3.team2}` : 'NA'}
-                            </Typography>
-                        </React.Fragment>
+                        // <React.Fragment>
+                        //     <Typography  >
+                        //     Set 1
+                        // </Typography>
+                        //     <Typography gutterBottom>
+                        //         {result.set1.team1} - {result.set1.team2}
+                        //     </Typography>
+                        //     <Typography >
+                        //         Set 2
+                        //     </Typography>
+                        //     <Typography gutterBottom>
+                        //         {result.set2.team1} - {result.set2.team2}
+                        //     </Typography>
+                        //     <Typography >
+                        //         Set 3
+                        //     </Typography>
+                        //     <Typography gutterBottom>
+                        //         {result.set3.team1!==null || result.set3.team2!==null? `${result.set3.team1} - ${result.set3.team2}` : 'NA'}
+                        //     </Typography>
+                        // </React.Fragment>
+                        <List component="div">
+                            <ListItemText primary = {match.team1.team_id === result.winner_id? match.team1.teamName : match.team2.teamName} secondary={"Winner"} className={classes.nested}/>
+                            <ListItemText primary = {`${result.set1.team1} - ${result.set1.team2}`} secondary={"Set 1"} className={classes.nested}/>
+                            <ListItemText primary = {`${result.set2.team1} - ${result.set2.team2}`} secondary={"Set 2"} className={classes.nested}/>
+                            <ListItemText primary = {`${result.set3.team1} - ${result.set3.team2}`} secondary={"Set 3"} className={classes.nested}/>
+                        </List>
                     )
                 })) }
         }
@@ -158,10 +189,13 @@ const TimeLine = ({ results, openDialog, sportData, sport, status, delRequest })
 
     const setPage = (status1) => {
         if(status1)
-        {
-            if(!sportData.complete)
-            {
+        {   
+            if(!sportData || !sportData.complete){
                 return
+            }
+            else if(sportData.complete && sportData.complete.length === 0)
+            {
+                return <Alert severity="warning">No matches completed</Alert>
             }
             console.log('S Enter complete')
             console.log(sportData)
@@ -224,9 +258,12 @@ const TimeLine = ({ results, openDialog, sportData, sport, status, delRequest })
 
         }
         else{
-            if(!sportData.pending)
-            {
+            if(!sportData || !sportData.pending){
                 return
+            }
+            else if(sportData.pending && sportData.pending.length === 0)
+            {
+                return <Alert severity="warning">No matches scheduled</Alert>
             }
                return( sportData.pending.map( match => {
                     return (
@@ -270,9 +307,9 @@ const TimeLine = ({ results, openDialog, sportData, sport, status, delRequest })
     }
 
     return (
-        <React.Fragment>
+        <div className = {classes.timeline}>
             {setPage(status)}
-        </React.Fragment>
+        </div>
     )
 }
 

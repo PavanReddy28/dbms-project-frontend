@@ -35,7 +35,7 @@ import Delete from "./Delete"
 
 const useStyles = makeStyles((theme) => ({
     // paper: {
-    //     padding: '6px 16px',
+    //     minHeight: 9000
     // },
     // secondaryTail: {
     //     backgroundColor: theme.palette.secondary.main,
@@ -67,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
         color: "#ff3d00"
     },
     paper: {
-        // margin: theme.spacing(3),
+        minHeight: 900,
         padding: theme.spacing(4),
     },
     scheduleContainer: {

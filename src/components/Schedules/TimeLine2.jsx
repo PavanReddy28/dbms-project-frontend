@@ -24,6 +24,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
+import { Alert } from '@material-ui/lab';
 import { axiosInstance } from '../../axiosInstance';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
@@ -33,6 +34,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 const useStyles = makeStyles((theme) => ({
     paper: {
         padding: '6px 16px',
+        backgroundColor: theme.palette.grey[900],
     },
     secondaryTail: {
         backgroundColor: theme.palette.secondary.main,
@@ -43,8 +45,16 @@ const useStyles = makeStyles((theme) => ({
     },
     timeline: {
         maxHeight: 900,
-        overflow: "auto"
+        minHeight: 900,
+        overflow: "auto",
+        backgroundColor: theme.palette.grey[800],
+        borderRadius: 10,
+        padding: theme.spacing(4)
+    },
+    timelineItem: {
+        backgroundColor: theme.palette.grey[800],
     }
+
 }));
 
 const TimeLine2 = ({ results, openDialog, status, Tourn, delRequest }) => {
@@ -187,7 +197,13 @@ const TimeLine2 = ({ results, openDialog, status, Tourn, delRequest }) => {
         console.log(Tourn, 1)
         console.log("tourn")
         if(status)
-        {
+        {   
+            if(!Tourn || !Tourn.complete){
+                return
+            }
+            else if(Tourn.complete && Tourn.complete.length === 0){
+                return <Alert severity="warning">No matches complete</Alert>
+            }
             console.log('T Enter complete')
             return(Tourn.complete.map( match => {
 
@@ -204,7 +220,7 @@ const TimeLine2 = ({ results, openDialog, status, Tourn, delRequest }) => {
                         </TimelineDot>
                         <TimelineConnector />
                         </TimelineSeparator>
-                        <TimelineContent>
+                        <TimelineContent className={classes.timelineItem}>
                         <Card elevation={3} className={classes.paper}>
                             <CardContent>
                                 <Typography variant="h6" component="h1">
@@ -250,6 +266,15 @@ const TimeLine2 = ({ results, openDialog, status, Tourn, delRequest }) => {
         }
         else{
             console.log('T Enter pend')
+
+            if( !Tourn || !Tourn.pending){
+                return
+            }
+            
+            else if(Tourn.pending && Tourn.pending.length === 0){
+                return <Alert severity="warning">No matches scheduled</Alert>
+            }
+
             return(Tourn.pending.map( match => {
                 return (
                     <>
