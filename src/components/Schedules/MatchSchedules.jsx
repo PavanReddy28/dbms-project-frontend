@@ -66,13 +66,13 @@ const useStyles = makeStyles((theme) => ({
         color: "#ff3d00"
     },
     paper: {
-        margin: theme.spacing(3),
-        padding: theme.spacing(2),
-        minHeight: 300
+        // margin: theme.spacing(3),
+        padding: theme.spacing(4),
+        // minHeight: 300
     },
 }));
 
-export default function MacthSchedules() {
+export default function MatchSchedules() {
 
     const classes = useStyles();
     const history = useHistory();
@@ -80,7 +80,7 @@ export default function MacthSchedules() {
     const [TournID, setTournID] = useState()
     const [sportName, setsportName] = useState(null)
     const [sportData, setSportData] = useState({})
-    const [tournData,  setTournData] = useState({})
+    const [tournData, setTournData] = useState({})
     const [open, setOpen] = useState({
         main: null,
         sportList: null
@@ -97,7 +97,7 @@ export default function MacthSchedules() {
     const [sportResult, setSportResult] = useState([])
     const [tournResult, setTournResult] = useState({})
 
-    useEffect(() => { 
+    useEffect(() => {
 
         axiosInstance.get("/tournament", {
             headers: {
@@ -128,48 +128,43 @@ export default function MacthSchedules() {
         setDiaType(type)
         setDiaSport(sport)
         console.log(match)
-        if(type==='edit')
-        {
+        if (type === 'edit') {
             setDiaSport(sport)
-            if(sport==='Cricket')
-            {
+            if (sport === 'Cricket') {
                 axiosInstance.get(`/match/cricket/result/${match.match_id}`).then(
                     responses => {
                         console.log(responses.data)
-                        setDiaData({data: responses.data, m:match})
+                        setDiaData({ data: responses.data, m: match })
                         setDiaSport(sport)
                         setEditOpen(true)
                     }
-                ).catch(err=>console.log(err))
+                ).catch(err => console.log(err))
             }
-            else if(sport === 'Football' || sport==='Basketball' || sport==='Hockey')
-            {
+            else if (sport === 'Football' || sport === 'Basketball' || sport === 'Hockey') {
                 axiosInstance.get(`/match/team/result/${match.match_id}`).then(
                     responses => {
                         console.log(responses.data, 'fuck')
-                        setDiaData({data: responses.data, m:match})
+                        setDiaData({ data: responses.data, m: match })
                         setDiaSport(sport)
                         setEditOpen(true)
                     }
-                ).catch(err=>console.log(err))
+                ).catch(err => console.log(err))
             }
-            else if(sport === 'Tennis' || sport==='Badminton' || sport==='Table Tennis')
-            {
+            else if (sport === 'Tennis' || sport === 'Badminton' || sport === 'Table Tennis') {
                 axiosInstance.get(`/match/net/result/${match.match_id}`).then(
                     responses => {
                         console.log(responses.data)
-                        setDiaData({data: responses.data, m:match})
+                        setDiaData({ data: responses.data, m: match })
                         setDiaSport(sport)
                         setEditOpen(true)
                     }
-                ).catch(err=>console.log(err))
-                
+                ).catch(err => console.log(err))
+
             }
         }
-        else
-        {
+        else {
             console.log('OUT')
-            setDiaData({data: null, m: match})
+            setDiaData({ data: null, m: match })
             setEditOpen(true)
         }
     }
@@ -180,141 +175,133 @@ export default function MacthSchedules() {
 
     const onCloseEdit = (result, sport, f, score) => {
         console.log(result)
-        if(f==='add')
-        {
+        if (f === 'add') {
             //console.log('LLL')
-            if(sport==='Cricket')
-            {
+            if (sport === 'Cricket') {
                 axiosInstance.post(`/match/cricket/result/${DiaData.m.match_id}`, {
-                    'winner_id':result.winner_id,
-                    't1Innings' : score.t1Innings,
+                    'winner_id': result.winner_id,
+                    't1Innings': score.t1Innings,
                     't2Innings': score.t2Innings
-                },{
-                headers: {
-                    "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
-                }}).then(response=>{
+                }, {
+                    headers: {
+                        "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
+                    }
+                }).then(response => {
                     console.log('Added Match')
-                    if(Num===0)
-                    {
+                    if (Num === 0) {
                         handleStep(Num, sport)
                     }
-                    else{
+                    else {
                         handleStep(Num, TournID)
                     }
                 })
-                .catch(err=>console.log(err))
+                    .catch(err => console.log(err))
             }
-            else if(sport === 'Football' || sport==='Basketball' || sport==='Hockey')
-            {
+            else if (sport === 'Football' || sport === 'Basketball' || sport === 'Hockey') {
                 //console.log('LLL111')
-                axiosInstance.post(`/match/team/result/${DiaData.m.match_id}`, result,{
+                axiosInstance.post(`/match/team/result/${DiaData.m.match_id}`, result, {
                     headers: {
                         "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
-                    }}).then(response=>{
-                        console.log('Added Match')
-                        if(Num===0)
-                        {
-                            handleStep(Num, sport)
-                        }
-                        else{
-                            handleStep(Num, TournID)
-                        }
-                    })
-                    .catch(err=>console.log(err))
+                    }
+                }).then(response => {
+                    console.log('Added Match')
+                    if (Num === 0) {
+                        handleStep(Num, sport)
+                    }
+                    else {
+                        handleStep(Num, TournID)
+                    }
+                })
+                    .catch(err => console.log(err))
             }
-            else if(sport === 'Tennis' || sport==='Badminton' || sport==='Table Tennis')
-            {
+            else if (sport === 'Tennis' || sport === 'Badminton' || sport === 'Table Tennis') {
                 axiosInstance.post(`/match/net/result/${DiaData.m.match_id}`, {
                     'winner_id': result.winner_id,
                     'set1': score.set1,
                     'set2': score.set2,
                     'set3': score.set3
-                    },{
+                }, {
                     headers: {
                         "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
-                    }}).then(response=>{
-                        console.log('Added Match')
-                        if(Num===0)
-                        {
-                            handleStep(Num, sport)
-                        }
-                        else{
-                            handleStep(Num, TournID)
-                        }
-                    })
-                    .catch(err=>console.log(err))
-            }
-        }
-        else if(f==='edit')
-        {
-            if(sport==='Cricket')
-            {
-                axiosInstance.put(`/match/cricket/result/${DiaData.m.match_id}`, {
-                    'winner_id':result.winner_id,
-                    't1Innings' : result.t1Innings,
-                    't2Innings': result.t2Innings
-                },{
-                headers: {
-                    "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
-                }}).then(response=>{
+                    }
+                }).then(response => {
                     console.log('Added Match')
-                    if(Num===0)
-                    {
+                    if (Num === 0) {
                         handleStep(Num, sport)
                     }
-                    else{
+                    else {
                         handleStep(Num, TournID)
                     }
                 })
-                .catch(err=>console.log(err))
+                    .catch(err => console.log(err))
             }
-            else if(sport === 'Football' || sport==='Basketball' || sport==='Hockey')
-            {
-                console.log('LLL111', `/match/team/result/${DiaData.m.match_id}`,{
+        }
+        else if (f === 'edit') {
+            if (sport === 'Cricket') {
+                axiosInstance.put(`/match/cricket/result/${DiaData.m.match_id}`, {
                     'winner_id': result.winner_id,
-                    't1Score': result.t1score,
-                    't2Score':result.t2score
-                })
-                axiosInstance.put(`/match/team/result/${DiaData.m.match_id}`, {
-                        'winner_id': result.winner_id,
-                        't1Score': result.t1score,
-                        't2Score':result.t2score
-                    },{
+                    't1Innings': result.t1Innings,
+                    't2Innings': result.t2Innings
+                }, {
                     headers: {
                         "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
-                    }}).then(response=>{
-                        console.log('Edited Match')
-                        if(Num===0)
-                        {
-                            handleStep(Num, sport)
-                        }
-                        else{
-                            handleStep(Num, TournID)
-                        }
-                    })
-                    .catch(err=>console.log(err))
+                    }
+                }).then(response => {
+                    console.log('Added Match')
+                    if (Num === 0) {
+                        handleStep(Num, sport)
+                    }
+                    else {
+                        handleStep(Num, TournID)
+                    }
+                })
+                    .catch(err => console.log(err))
             }
-            else if(sport === 'Tennis' || sport==='Badminton' || sport==='Table Tennis')
-            {
+            else if (sport === 'Football' || sport === 'Basketball' || sport === 'Hockey') {
+                console.log('LLL111', `/match/team/result/${DiaData.m.match_id}`, {
+                    'winner_id': result.winner_id,
+                    't1Score': result.t1score,
+                    't2Score': result.t2score
+                })
+                axiosInstance.put(`/match/team/result/${DiaData.m.match_id}`, {
+                    'winner_id': result.winner_id,
+                    't1Score': result.t1score,
+                    't2Score': result.t2score
+                }, {
+                    headers: {
+                        "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
+                    }
+                }).then(response => {
+                    console.log('Edited Match')
+                    if (Num === 0) {
+                        handleStep(Num, sport)
+                    }
+                    else {
+                        handleStep(Num, TournID)
+                    }
+                })
+                    .catch(err => console.log(err))
+            }
+            else if (sport === 'Tennis' || sport === 'Badminton' || sport === 'Table Tennis') {
                 axiosInstance.put(`/match/net/result/${DiaData.m.match_id}`, {
                     'winner_id': result.winner_id,
                     'set1': result.set1,
                     'set2': result.set2,
                     'set3': result.set3
-                    },{
+                }, {
                     headers: {
                         "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
-                    }}).then(response=>{
-                        console.log('Edited Match')
-                        if(Num===0)
-                        {
-                            handleStep(Num, sport)
-                        }
-                        else{
-                            handleStep(Num, TournID)
-                        }
-                    })
-                    .catch(err=>console.log(err))
+                    }
+                }).then(response => {
+                    console.log('Edited Match')
+                    if (Num === 0) {
+                        handleStep(Num, sport)
+                    }
+                    else {
+                        handleStep(Num, TournID)
+                    }
+                })
+                    .catch(err => console.log(err))
             }
         }
         setEditOpen(false)
@@ -322,28 +309,26 @@ export default function MacthSchedules() {
 
     const handleStep = (num, info) => {
         setNum(num)
-        if(num===0)
-        {
+        if (num === 0) {
             setsportName(info)
             setSportData({})
-            if(sportData)
-            {
+            if (sportData) {
                 setActiveStep(2)
             }
             axiosInstance.get(`/matches/completed/${TournID}/${info}`).then(
                 response => {
                     //console.log(response.data)
                     setSportData(previous => {
-                        let val={...previous}
-                        if(!val.pending)
-                        {
-                            return {'pending':[], 'complete': response.data.matches}
+                        let val = { ...previous }
+                        if (!val.pending) {
+                            return { 'pending': [], 'complete': response.data.matches }
                         }
-                        else{
-                        return {...previous, 'complete': response.data.matches}}
+                        else {
+                            return { ...previous, 'complete': response.data.matches }
+                        }
                         //return {'complete': response.data.matches, 'pending':[]}
-                    })  
-                    
+                    })
+
                     //console.log(sportData)     
                 }
             ).catch(err => console.log(err))
@@ -352,16 +337,16 @@ export default function MacthSchedules() {
                 response => {
                     console.log(response.data, 'l')
                     setSportData(previous => {
-                        let val={...previous}
-                        if(!val.complete)
-                        {
-                            return {'complete':[], 'pending': response.data.matches}
+                        let val = { ...previous }
+                        if (!val.complete) {
+                            return { 'complete': [], 'pending': response.data.matches }
                         }
-                        else{
-                        return {...previous, 'pending': response.data.matches}}
-                    }) 
-                    console.log(sportData, 'li')  
-                    setActiveStep(num)     
+                        else {
+                            return { ...previous, 'pending': response.data.matches }
+                        }
+                    })
+                    console.log(sportData, 'li')
+                    setActiveStep(num)
                 }
             ).catch(err => console.log(err))
 
@@ -370,30 +355,29 @@ export default function MacthSchedules() {
                     console.log(response.data)
                     setSportResult(response.data.results)
                 }
-            ).catch(err=>console.log(err))        
-                       
+            ).catch(err => console.log(err))
+
         }
-        else if(num===1)
-        {
+        else if (num === 1) {
             setTournID(info)
-            if(tournData)
-            {
+            if (tournData) {
                 setActiveStep(2)
                 setTournData({})
             }
             axiosInstance.get(`/${info}/matchList/completed`).then(
                 response => {
                     //console.log({complete: response.data.matches})
-                    setTournData(previous => {let val={...previous}
-                        if(!val.pending)
-                        {
-                            return {'pending':[], 'complete': response.data.matches}
+                    setTournData(previous => {
+                        let val = { ...previous }
+                        if (!val.pending) {
+                            return { 'pending': [], 'complete': response.data.matches }
                         }
-                        else{
-                        return {...previous, 'complete': response.data.matches}}
-                    }) 
+                        else {
+                            return { ...previous, 'complete': response.data.matches }
+                        }
+                    })
                     console.log(tournData)
-                    
+
                 }
             ).catch(err => console.log(err))
 
@@ -402,16 +386,16 @@ export default function MacthSchedules() {
                     console.log(response.data, 'lii')
                     console.log(tournData)
                     setTournData(previous => {
-                        let val={...previous}
-                        if(!val.complete)
-                        {
-                            return {'complete':[], 'pending': response.data.matches}
+                        let val = { ...previous }
+                        if (!val.complete) {
+                            return { 'complete': [], 'pending': response.data.matches }
                         }
-                        else{
-                        return {...previous, 'pending': response.data.matches}}
-                    })  
+                        else {
+                            return { ...previous, 'pending': response.data.matches }
+                        }
+                    })
                     console.log(tournData, 'liii')
-                    setActiveStep(num)        
+                    setActiveStep(num)
                 }
             ).catch(err => console.log(err))
 
@@ -421,7 +405,7 @@ export default function MacthSchedules() {
                     setTournResult(response.data)
                     console.log(info, tournResult[info])
                 }
-            ).catch(err=>console.log(err))                
+            ).catch(err => console.log(err))
         }
     }
 
@@ -436,15 +420,14 @@ export default function MacthSchedules() {
         }).then(response => {
             setDeleteOpen(false)
             console.log('Deleted Match')
-            if(Num===0)
-            {
+            if (Num === 0) {
                 handleStep(Num, sportName)
             }
-            else{
+            else {
                 handleStep(Num, TournID)
             }
         })
-        .catch(err=>console.log(err));
+            .catch(err => console.log(err));
     }
 
     const delRequest = (match_id) => {
@@ -456,94 +439,98 @@ export default function MacthSchedules() {
 
         switch (step) {
             case 0:
-                return <TimeLine results={sportResult} delRequest={delRequest} openDialog={activateDialog} status={status} sportData={sportData} sport={sportName}/>
+                return <TimeLine results={sportResult} delRequest={delRequest} openDialog={activateDialog} status={status} sportData={sportData} sport={sportName} />
             case 1:
                 return <TimeLine2 results={tournResult} delRequest={delRequest} openDialog={activateDialog} status={status} Tourn={tournData} />
             case 2:
                 return <LoadingRelative />
             default:
-                return(
+                return (
                     <>
                         <IconButton>
-                            <SportsIcon style={{ fontSize: 100 }}/>
+                            <SportsIcon style={{ fontSize: 100 }} />
                         </IconButton>
                     </>
                 )
-    }}
+        }
+    }
 
     return (
         <React.Fragment>
             <Paper className={classes.paper}>
-            <Grid container spacing={10} className={classes.container}>
-                <Grid item lg={6} sm={12}>
-                    <Grid container>
-                        <Grid item sm={6} lg={6}>
-                            <Typography variant="h5" color="primary">Schedules</Typography>
-                        </Grid>
-                        <Grid item sm={6} lg={6}>
-                            <IconButton onClick={() => history.push("/addMatch")} className={classes.addIcon}>
-                                <AddIcon />
-                            </IconButton>
+                <Grid container spacing={3} className={classes.container}>
+                    <Grid sm={12}>
+                        <Grid container>
+                            <Grid item sm={6} lg={6}>
+                                <Typography variant="h5" color="primary">Schedules</Typography>
+                            </Grid>
+                            <Grid item sm={6} lg={6}>
+                                <IconButton onClick={() => history.push("/addMatch")} className={classes.addIcon}>
+                                    <AddIcon />
+                                </IconButton>
+                            </Grid>
                         </Grid>
                     </Grid>
 
-                    <List className={classes.list}>
-                        {Tournaments.map(tournament => {
-                            return (
-                                <>
-                                    <ListItem button fullWidth key={tournament.tournament_id} onClick={() => {
-                                        handleCollapse(tournament.tournament_id)
-                                        setTournID(tournament.tournament_id)
-                                        handleStep(1, tournament.tournament_id)
-                                    }}>
-                                        <ListItemText primary={tournament.t_name} />
-                                        {open.main === tournament.tournament_id ? <ExpandLess /> : <ExpandMore />}
-                                    </ListItem>
-                                    <Divider />
-                                    <Collapse in={open.main === tournament.tournament_id} timeout="auto">
-                                        <List component="div" disablePadding>
-                                            {tournament.sports.map(sport => {
-                                                return (
-                                                    <>
-                                                        <ListItem button key={sport} onClick={() => {
-                                                            //setsportName(sport)
-                                                            setTournID(tournament.tournament_id)
-                                                            handleStep(0, sport)
-                                                        }}>
-                                                            <ListItemText primary={sport} className={classes.sportNested}/>
-                                                        </ListItem>
-                                                    </>
-                                                )
-                                            })}
-                                        </List>
-                                    </Collapse>
-                                </>
-                            )
-                        })}
-                    </List>
-                </Grid>
-                <Delete deleteOpen={deleteOpen} setDeleteOpen={setDeleteOpen} handleDelete={handleDelete} />
-                <Matches type={DiaType} data={DiaData} setData={setDiaData} editOpen={editOpen} sport={diaSport} onCloseCancel={onCloseCancel} onClose={onCloseEdit}/>
-                <Grid item lg={6} sm={12}>
-                <div className={classes.buttons}>
-                    <Button 
-                            color="primary"
-                            onClick={()=>setStatus(true)} 
-                            className={classes.button}>
-                            Completed
+                    <Grid item sm={12}>
+                        <List className={classes.list}>
+                            {Tournaments.map(tournament => {
+                                return (
+                                    <>
+                                        <ListItem button fullWidth key={tournament.tournament_id} onClick={() => {
+                                            handleCollapse(tournament.tournament_id)
+                                            setTournID(tournament.tournament_id)
+                                            handleStep(1, tournament.tournament_id)
+                                        }}>
+                                            <ListItemText primary={tournament.t_name} />
+                                            {open.main === tournament.tournament_id ? <ExpandLess /> : <ExpandMore />}
+                                        </ListItem>
+                                        <Divider />
+                                        <Collapse in={open.main === tournament.tournament_id} timeout="auto">
+                                            <List component="div" disablePadding>
+                                                {tournament.sports.map(sport => {
+                                                    return (
+                                                        <>
+                                                            <ListItem button key={sport} onClick={() => {
+                                                                //setsportName(sport)
+                                                                setTournID(tournament.tournament_id)
+                                                                handleStep(0, sport)
+                                                            }}>
+                                                                <ListItemText primary={sport} className={classes.sportNested} />
+                                                            </ListItem>
+                                                        </>
+                                                    )
+                                                })}
+                                            </List>
+                                        </Collapse>
+                                    </>
+                                )
+                            })}
+                        </List>
+                    </Grid>
+
+                    <Delete deleteOpen={deleteOpen} setDeleteOpen={setDeleteOpen} handleDelete={handleDelete} />
+                    <Matches type={DiaType} data={DiaData} setData={setDiaData} editOpen={editOpen} sport={diaSport} onCloseCancel={onCloseCancel} onClose={onCloseEdit} />
+                    <Grid item lg={12} sm={12}>
+                        <div className={classes.buttons}>
+                            <Button
+                                color="primary"
+                                onClick={() => setStatus(true)}
+                                className={classes.button}>
+                                Completed
                         </Button>
-                        <Button
-                            color="primary"
-                            onClick={()=>setStatus(false)}
-                            className={classes.button}>
-                            Scheduled
+                            <Button
+                                color="primary"
+                                onClick={() => setStatus(false)}
+                                className={classes.button}>
+                                Scheduled
                         </Button>
-                    </div>
-                    <Timeline align="alternate">
-                        {timeLineSet(activeStep)}
-                    </Timeline>
+                        </div>
+                        <Timeline align="alternate">
+                            {timeLineSet(activeStep)}
+                        </Timeline>
+                    </Grid>
                 </Grid>
-            </Grid>
             </Paper>
         </React.Fragment>
     );
