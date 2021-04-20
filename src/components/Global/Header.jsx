@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { AppBar, Toolbar, Box, Hidden, Button, makeStyles, IconButton, List, ListItem, ListItemText, Drawer, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { Menu } from "@material-ui/icons";
-import Brightness4Icon from '@material-ui/icons/Brightness4';
-import Brightness7Icon from '@material-ui/icons/Brightness7';
 
 const useStyles = makeStyles((theme) => ({
     '@global': {
