@@ -33,6 +33,9 @@ const useStyles = makeStyles((theme) => ({
     },
     tournList: {
         marginBottom: "10%"
+    },
+    schedules: {
+        marginBottom: 100
     }
 }))
 
@@ -108,7 +111,7 @@ function Home() {
                 </Grid>
             </Container>
 
-            <Container maxWidth="lg">
+            <Container maxWidth="md" className={classes.schedules}>
                 <HomeMatchSchedules />
             </Container>
 
