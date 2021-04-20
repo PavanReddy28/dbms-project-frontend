@@ -59,6 +59,9 @@ const useStyles = makeStyles((theme) => ({
     },
     deleteButton: {
         color: "#ff3d00"
+    },
+    logout: {
+        marginTop: theme.spacing(6)
     }
 }))
 
@@ -91,7 +94,7 @@ function Dashboard() {
         }).then(response => {
             setTournaments(response.data.tournaments);
         }).catch(err => {
-            if (err.response.status && err.response.status === 401) {
+            if ((err.response !== 'undefined') && err.response.status === 401) {
                 history.push("/login");
             }
         });
@@ -104,10 +107,10 @@ function Dashboard() {
             setRegistrations(response.data);
             console.log(Object.keys(response.data))
         }).catch(err => {
-            if (err.response.status && err.response.status === 401) {
+            if ((err.response !== 'undefined') && err.response.status === 401) {
                 history.push("/login");
             }
-        });;
+        });
 
     }, [history])
 
@@ -140,6 +143,19 @@ function Dashboard() {
         });
     }
 
+    function Logout() {
+        axiosInstance.post("/logout", {
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
+            }
+        }).then(response => {
+            localStorage.removeItem("accessToken");
+            history.push("/");
+        }).catch(err => {
+            history.push("/");
+        })
+    }
+
 
     //edit and delete dialogues
     function activateDialog(tournament, type) {
@@ -164,7 +180,11 @@ function Dashboard() {
             headers: {
                 "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
             }
-        })
+        }).catch(err => {
+            if ((err.response !== 'undefined') && err.response.status === 401) {
+                history.push("/login");
+            }
+        });
         setTournaments(previous => {
             return previous.filter(tournament => {
                 return tournament.tournament_id !== dialogTourn.tournament_id
@@ -186,7 +206,11 @@ function Dashboard() {
             headers: {
                 "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
             }
-        })
+        }).catch(err => {
+            if ((err.response !== 'undefined') && err.response.status === 401) {
+                history.push("/login");
+            }
+        });
         let tempTourn = tournaments.slice();
         tempTourn.forEach((tournament, index) => {
             if (tournament.tournament_id === tourn.tournament_id) {
@@ -199,6 +223,9 @@ function Dashboard() {
 
     return (
         <Container maxWidth="xl">
+        <Grid container justify="center">
+            <Button color="primary" variant="contained" className={classes.logout} onClick={Logout}>LOG OUT</Button>
+        </Grid>
             <Grid container spacing={6} className={classes.container}>
                 <Grid item lg={6} sm={12}>
                     <Paper className={classes.paper} elevation={1}>

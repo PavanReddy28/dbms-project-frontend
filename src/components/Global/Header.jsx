@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { AppBar, Toolbar, Box, Hidden, Button, makeStyles, IconButton, List, ListItem, ListItemText, Drawer, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { Menu } from "@material-ui/icons";
-import { useHistory } from "react-router-dom";
-import { axiosInstance } from "../../axiosInstance";
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import Brightness7Icon from '@material-ui/icons/Brightness7';
 
@@ -69,7 +67,6 @@ const useStyles = makeStyles((theme) => ({
 
 function Header(props) {
 
-    const history = useHistory();
     const classes = useStyles();
     const [isOpen, setIsOpen] = useState(false);
 
@@ -93,18 +90,6 @@ function Header(props) {
 
     ]
 
-    function Logout() {
-        axiosInstance.post("/logout", {
-            headers: {
-                "Authorization": `Bearer ${localStorage.getItem("accessToken")}`
-            }
-        }).then(response => {
-            localStorage.removeItem("accessToken");
-            history.push("/");
-        }).catch(err => {
-            history.push("/");
-        })
-    }
 
     return (
         <div className={classes.root}>
@@ -128,7 +113,6 @@ function Header(props) {
                                     </Link>
                                 )
                             })}
-                            <Button variant="outlined" className={classes.logout} onClick={Logout}>Log Out</Button>
                         </Box>
                     </Hidden>
                     <Hidden only={["md", "lg", "xl"]}>
@@ -155,10 +139,6 @@ function Header(props) {
 
                         )
                     })}
-                    {/* need to fix style */}
-                    <ListItem button>
-                        <ListItemText primary={"Logout"} className={classes.listItem} />
-                    </ListItem>
                 </List>
             </Drawer>
         </div>
