@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Typography, Paper, makeStyles, List, ListItem, ListItemText, Divider, Button, Grid, IconButton, Collapse, Dialog, DialogContent, DialogContentText, DialogActions, DialogTitle } from "@material-ui/core";
+import { Container, Typography, Paper, makeStyles, List, ListItem, ListItemText, Divider, Button, Grid, IconButton, Collapse, Dialog, DialogContent, DialogContentText, DialogActions, DialogTitle } from "@material-ui/core";
 import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
 import ExpandLess from '@material-ui/icons/ExpandLess';
@@ -10,10 +10,13 @@ import { axiosInstance } from "../../axiosInstance";
 
 const RegistrationStyles = makeStyles((theme) => ({
     container: {
-        margin: "10px 0"
+        marginTop: theme.spacing(4)
     },
     paper: {
-        padding: theme.spacing(4)
+        padding: theme.spacing(4),
+        minHeight: 500,
+        maxHeight: 500,
+        overflow: "auto"
     },
     checkIcon: {
         color: "#00e676"
@@ -74,6 +77,7 @@ function RegistrationList({ data, title, type }) {
     }
 
     return (
+
         <>
             <Dialog open={registerDialog} onClose={() => setRegisterDialog(false)}>
                 <DialogTitle>Register the team?</DialogTitle>
@@ -126,9 +130,11 @@ function RegistrationList({ data, title, type }) {
                                         {data[tournament].map(reg => {
                                             return (
                                                 <>
-                                                    <ListItem key={reg.team_id} button onClick={() => handleCollapse(reg.team_id, "reg")}>
+                                                    <ListItem key={reg.team_id}>
                                                         <ListItemText primary={reg.team_name} secondary={tournament} className={classes.nested} />
-                                                        {open.reg === reg.team_id ? <ExpandLess /> : <ExpandMore />}
+                                                        <IconButton onClick={() => handleCollapse(reg.team_id, "reg")}>
+                                                            {open.reg === reg.team_id ? <ExpandLess /> : <ExpandMore />}
+                                                        </IconButton>
                                                         {(type === "pending" || type === "rejected") && (
                                                             <IconButton size="small" className={classes.checkIcon} onClick={() => {
                                                                 setDialogReg(reg);
@@ -180,6 +186,7 @@ function RegistrationList({ data, title, type }) {
                 </List>
             </Paper>
         </>
+
     )
 }
 
@@ -233,22 +240,25 @@ function Registrations() {
 
 
     return (
-        <Grid container spacing={1} className={classes.container}>
+        <Container maxWidth="xl">
+            <Grid container spacing={1} className={classes.container}>
 
-            <Grid item sm={12}>
-                <RegistrationList data={pending} title="Pending Registrations" type="pending" />
+                <Grid item sm={12}>
+                    <RegistrationList data={pending} title="Pending Registrations" type="pending" />
+                </Grid>
+
+                <Grid item sm={12}>
+                    <RegistrationList data={registered} title="Registered Teams" type="registered" />
+                </Grid>
+
+                <Grid item sm={12}>
+                    <RegistrationList data={rejected} title="Rejected Teams" type="rejected" />
+                </Grid>
+
+
             </Grid>
+        </Container>
 
-            <Grid item sm={12}>
-                <RegistrationList data={registered} title="Registered Teams" type="registered" />
-            </Grid>
-
-            <Grid item sm={12}>
-                <RegistrationList data={rejected} title="Rejected Teams" type="rejected" />
-            </Grid>
-
-
-        </Grid>
     )
 }
 

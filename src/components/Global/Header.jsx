@@ -96,7 +96,7 @@ function Header(props) {
             <AppBar position="sticky">
                 <Toolbar>
                     <Typography variant="h6">
-                        App name
+                        TournManage
                     </Typography>
                     <Hidden only={["xs", "sm"]}>
                         <Box className={classes.nav}>
