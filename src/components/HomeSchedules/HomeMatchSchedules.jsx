@@ -38,8 +38,9 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: theme.spacing(1),
     },
     list: {
-        maxHeight: "300px",
-        overflow: "auto"
+        overflow: "auto",
+        minHeight: 300,
+        maxHeight: 300
     },
     addIcon: {
         display: "block",
@@ -55,10 +56,18 @@ const useStyles = makeStyles((theme) => ({
         color: "#ff3d00"
     },
     paper: {
-        margin: theme.spacing(3),
-        padding: theme.spacing(2),
-        minHeight: 300
+        minHeight : 900,
+        maxHeight : 900,
+        overflow: 'auto',
+        padding: theme.spacing(4),
     },
+    scheduleContainer: {
+        minHeight: 1000,
+        maxHeight: 1000
+    },
+    default: {
+        textAlign: "center",
+    }
 }));
 
 export default function HomeMatchSchedules() {
@@ -229,70 +238,74 @@ export default function HomeMatchSchedules() {
     return (
         <React.Fragment>
             <Paper className={classes.paper}>
-                <Grid container spacing={10} className={classes.container}>
-                    <Grid item lg={6} sm={12}>
-                        <Grid container>
-                            <Grid item sm={6} lg={6}>
-                                <Typography variant="h5" color="primary">Schedules</Typography>
-                            </Grid>
-                        </Grid>
-
-                        <List className={classes.list}>
-                            {Tournaments.map(tournament => {
-                                return (
-                                    <>
-                                        <ListItem button fullwidth key={tournament.tournament_id} onClick={() => {
-                                            handleCollapse(tournament.tournament_id)
-                                            setTournID(tournament.tournament_id)
-                                            handleStep(1, tournament.tournament_id)
-                                        }}>
-                                            <ListItemText primary={tournament.t_name} />
-                                            {open.main === tournament.tournament_id ? <ExpandLess /> : <ExpandMore />}
-                                        </ListItem>
-                                        <Divider />
-                                        <Collapse in={open.main === tournament.tournament_id} timeout="auto">
-                                            <List component="div" disablePadding>
-                                                {tournament.sports.map(sport => {
-                                                    return (
-                                                        <>
-                                                            <ListItem button key={sport} onClick={() => {
-                                                                //setsportName(sport)
-                                                                setTournID(tournament.tournament_id)
-                                                                handleStep(0, sport)
-                                                            }}>
-                                                                <ListItemText primary={sport} className={classes.sportNested} />
-                                                            </ListItem>
-                                                        </>
-                                                    )
-                                                })}
-                                            </List>
-                                        </Collapse>
-                                    </>
-                                )
-                            })}
-                        </List>
-                    </Grid>
-                    {/* <Scores editOpen={editOpen} onClose={setEditOpen}/> */}
-                    <Grid item lg={6} sm={12}>
-                        <div className={classes.buttons}>
-                            <Button
-                                color="primary"
-                                onClick={() => setStatus(true)}
-                                className={classes.button}>
-                                Completed
-                        </Button>
-                            <Button
-                                color="primary"
-                                onClick={() => setStatus(false)}
-                                className={classes.button}>
-                                Scheduled
-                        </Button>
-                        </div>
-                        <Timeline align="alternate">
-                            {timeLineSet(activeStep)}
-                        </Timeline>
+            <Grid container spacing={3} className={classes.container}>
+                <Grid sm={12}>
+                    <Grid container>
+                        <Typography variant="h5" color="primary">Schedules</Typography>
                     </Grid>
                 </Grid>
+                
+
+                <Grid item sm={12}>
+                    <List className={classes.list}>
+                        {Tournaments.map(tournament => {
+                            return (
+                                <>
+                                    <ListItem button fullwidth key={tournament.tournament_id} onClick={() => {
+                                        handleCollapse(tournament.tournament_id)
+                                        setTournID(tournament.tournament_id)
+                                        handleStep(1, tournament.tournament_id)
+                                    }}>
+                                        <ListItemText primary={tournament.t_name} />
+                                        {open.main === tournament.tournament_id ? <ExpandLess /> : <ExpandMore />}
+                                    </ListItem>
+                                    <Divider />
+                                    <Collapse in={open.main === tournament.tournament_id} timeout="auto">
+                                        <List component="div" disablePadding>
+                                            {tournament.sports.map(sport => {
+                                                return (
+                                                    <>
+                                                        <ListItem button key={sport} onClick={() => {
+                                                            //setsportName(sport)
+                                                            setTournID(tournament.tournament_id)
+                                                            handleStep(0, sport)
+                                                        }}>
+                                                            <ListItemText primary={sport} className={classes.sportNested}/>
+                                                        </ListItem>
+                                                    </>
+                                                )
+                                            })}
+                                        </List>
+                                    </Collapse>
+                                </>
+                            )
+                        })}
+                    </List>
+                </Grid>
+                <Grid item lg={12} sm={12} xs={12}>
+                {open.main && <div className={classes.scheduleContainer}>
+                    <div className={classes.buttons}>
+                    <Button 
+                            color="primary"
+                            variant={status === true ? "contained": "outlined"}
+                            onClick={()=>setStatus(true)} 
+                            className={classes.button}>
+                            Completed
+                        </Button>
+                        <Button
+                            color="primary"
+                            variant={status === false ? "contained": "outlined"}
+                            onClick={()=>setStatus(false)}
+                            className={classes.button}>
+                            Scheduled
+                        </Button>
+                    </div>
+                    <Timeline align="alternate">
+                        {timeLineSet(activeStep)}
+                    </Timeline>
+                </div>}
+                </Grid>
+            </Grid>
             </Paper>
         </React.Fragment>
     );
