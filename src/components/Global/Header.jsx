@@ -95,16 +95,12 @@ function Header(props) {
         <div className={classes.root}>
             <AppBar position="sticky">
                 <Toolbar>
-                    <Typography variant="h6">
+                    <Typography variant="h6" color="textPrimary">
                         TournManage
                     </Typography>
                     <Hidden only={["xs", "sm"]}>
                         <Box className={classes.nav}>
 
-                            <IconButton onClick={props.toggle} style={{ color: "white" }}>
-                                {props.mode === "dark" ? <Brightness7Icon /> : <Brightness4Icon />}
-
-                            </IconButton>
 
                             {links.map(link => {
                                 return (
