@@ -67,10 +67,10 @@ function RegistrationList({ data, title, type }) {
         }).then(response => {
             window.location.reload();
         }).catch(err => {
-            if (err.response.status && err.response.status === 400) {
+            if ((err.response !== 'undefined') && err.response.status === 401) {
                 history.push("/login");
             }
-        });;
+        });
     }
 
     return (
