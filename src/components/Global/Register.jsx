@@ -37,6 +37,7 @@ function Register() {
     const [confirmPassWord, setConfirmPassWord] = useState("");
     const [validate, setValidate] = useState(true);
     const [open, setOpen] = useState(false);
+    const [err, setErr] = useState(false)
 
     function authenticate(event) {
         if (confirmPassWord === passWord) {
@@ -47,8 +48,13 @@ function Register() {
                 "password": passWord
             }).then(response => {
 
-                setOpen(true)
-                setTimeout(() => { history.push("/login") }, 1000)
+                if(response.data.message !== "user already exists"){
+                    setOpen(true)
+                    setTimeout(() => { history.push("/login") }, 1000)
+                } else {
+                    setErr(true)
+                }
+                
 
             })
                 .catch((err) => console.log(err))
@@ -124,6 +130,11 @@ function Register() {
             <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
                 <Alert onClose={handleClose} severity="success">
                     Successfully Registered. Redirecting...
+                </Alert>
+            </Snackbar>
+            <Snackbar open={err} autoHideDuration={6000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="error">
+                    User already exists. Please try with different username...
                 </Alert>
             </Snackbar>
         </>
