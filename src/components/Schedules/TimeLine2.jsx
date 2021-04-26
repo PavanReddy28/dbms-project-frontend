@@ -167,7 +167,7 @@ const TimeLine2 = ({ results, openDialog, status, Tourn, delRequest }) => {
                                 <ListItemText primary={match.team1.team_id === result.winner_id ? match.team1.teamName : match.team2.teamName} secondary={"Winner"} className={classes.nested} />
                                 <ListItemText primary={`${result.set1.team1} - ${result.set1.team2}`} secondary={"Set 1"} className={classes.nested} />
                                 <ListItemText primary={`${result.set2.team1} - ${result.set2.team2}`} secondary={"Set 2"} className={classes.nested} />
-                                <ListItemText primary={`${result.set3.team1} - ${result.set3.team2}`} secondary={"Set 3"} className={classes.nested} />
+                                <ListItemText primary={result.set3.team1 && result.set3.team2? `${result.set3.team1} - ${result.set3.team2}` : ''} secondary={result.set3.team1 && result.set3.team2? "Set 3" : ''} className={classes.nested} />
                             </List>
                         )
                     })

@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import {
     Typography,
     makeStyles,
+    List,
     ListItem,
     ListItemText,
     Divider,
@@ -33,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 const TimeLine2 = ({ results, openDialog, status, Tourn }) => {
 
     const classes = useStyles()
-    const [open, setOpen] = useState(false)
+    const [open, setOpen] = useState(null)
 
     const icons = (sport) => {
         if (sport === 'Basketball') {
@@ -56,24 +57,26 @@ const TimeLine2 = ({ results, openDialog, status, Tourn }) => {
     const scores = (match, sport) => {
 
         if (sport === 'Basketball' || sport === 'Football' || sport === 'Hockey') {
-            
             if (results) {
-                
                 return (
                     results[sport].filter(m => {
-                        
                         return match.match_id === m.match_id
                     }).map(result => {
                         
                         return (
-                            <React.Fragment>
-                                <Typography  >
-                                    Scores
-                        </Typography>
-                                <Typography gutterBottom>
-                                    {result.t1score} - {result.t2score}
-                                </Typography>
-                            </React.Fragment>
+                            //     <React.Fragment>
+                            // <Typography >
+                            // Scores
+                            // </Typography>
+                            // <Typography gutterBottom>
+                            //     {result.t1score} - {result.t2score}
+                            // </Typography>
+                            // </React.Fragment>
+                            <List component="div">
+                                <ListItemText primary={match.team1.team_id === result.winner_id ? match.team1.teamName : match.team2.teamName} secondary={"Winner"} className={classes.nested} />
+                                <ListItemText primary={result.t1score} secondary={match.team1.teamName} className={classes.nested} />
+                                <ListItemText primary={result.t2score} secondary={match.team2.teamName} className={classes.nested} />
+                            </List>
                         )
                     })
                 )
@@ -88,53 +91,64 @@ const TimeLine2 = ({ results, openDialog, status, Tourn }) => {
 
                         
                         return (
-                            <React.Fragment>
-                                <Typography variant="body">
-                                    {match.team1.teamName}
-                                </Typography>
-                                <Typography gutterBottom>
-                                    {result.t1Innings.runs}/{result.t1Innings.wickets}
-                                </Typography>
-                                <Typography variant="body">
-                                    {match.team1.teamName}
-                                </Typography>
-                                <Typography gutterBottom>
-                                    {result.t2Innings.runs}/{result.t2Innings.wickets}
-                                </Typography>
-                            </React.Fragment>
+                            // <React.Fragment>
+                            // <Typography variant="body">
+                            //     {match.team1.teamName}
+                            // </Typography>
+                            // <Typography gutterBottom>
+                            //     {result.t1Innings.runs}/{result.t1Innings.wickets}
+                            // </Typography>
+                            // <Typography variant="body">
+                            //     {match.team1.teamName}
+                            // </Typography>
+                            // <Typography gutterBottom>
+                            //     {result.t2Innings.runs}/{result.t2Innings.wickets}
+                            // </Typography>
+                            // </React.Fragment>
+                            <List component="div">
+                                <ListItemText primary={match.team1.team_id === result.winner_id ? match.team1.teamName : match.team2.teamName} secondary={"Winner"} className={classes.nested} />
+                                <ListItemText primary={`${result.t1Innings.runs} runs for ${result.t1Innings.wickets} wickets`} secondary={match.team1.teamName} className={classes.nested} />
+                                <ListItemText primary={`${result.t2Innings.runs} runs for ${result.t2Innings.wickets} wickets`} secondary={match.team2.teamName} className={classes.nested} />
+                            </List>
                         )
                     })
                 )
             }
         }
         else if (sport === 'Badminton' || sport === 'Tennis' || sport === 'Table Tennis') {
-            if (results) {
+            if (results[sport]) {
                 return (
                     results[sport].filter(m => {
                         return match.match_id === m.match_id
                     }).map(result => {
                         
                         return (
-                            <React.Fragment>
-                                <Typography >
-                                    Set 1
-                        </Typography>
-                                <Typography gutterBottom>
-                                    {result.set1.team1} - {result.set1.team2}
-                                </Typography>
-                                <Typography >
-                                    Set 2
-                            </Typography>
-                                <Typography gutterBottom>
-                                    {result.set2.team1} - {result.set2.team2}
-                                </Typography>
-                                <Typography >
-                                    Set 3
-                            </Typography>
-                                <Typography gutterBottom>
-                                    {result.set3.team1 !== null || result.set3.team2 !== null ? `${result.set3.team1} - ${result.set3.team2}` : 'NA'}
-                                </Typography>
-                            </React.Fragment>
+                            // <React.Fragment>
+                            //     <Typography >
+                            //     Set 1
+                            // </Typography>
+                            //     <Typography gutterBottom>
+                            //         {result.set1.team1} - {result.set1.team2}
+                            //     </Typography>
+                            //     <Typography >
+                            //         Set 2
+                            //     </Typography>
+                            //     <Typography gutterBottom>
+                            //         {result.set2.team1} - {result.set2.team2}
+                            //     </Typography>
+                            //     <Typography >
+                            //         Set 3
+                            //     </Typography>
+                            //     <Typography gutterBottom>
+                            //         {result.set3.team1!==null || result.set3.team2!==null? `${result.set3.team1} - ${result.set3.team2}` : 'NA'}
+                            //     </Typography>
+                            // </React.Fragment>
+                            <List component="div">
+                                <ListItemText primary={match.team1.team_id === result.winner_id ? match.team1.teamName : match.team2.teamName} secondary={"Winner"} className={classes.nested} />
+                                <ListItemText primary={`${result.set1.team1} - ${result.set1.team2}`} secondary={"Set 1"} className={classes.nested} />
+                                <ListItemText primary={`${result.set2.team1} - ${result.set2.team2}`} secondary={"Set 2"} className={classes.nested} />
+                                <ListItemText primary={result.set3.team1 && result.set3.team2? `${result.set3.team1} - ${result.set3.team2}` : ''} secondary={result.set3.team1 && result.set3.team2? "Set 3" : ''} className={classes.nested} />
+                            </List>
                         )
                     })
                 )
@@ -169,18 +183,18 @@ const TimeLine2 = ({ results, openDialog, status, Tourn }) => {
                                     <Typography>{match.sportName}</Typography>
                                     <Typography gutterBottom>{match.round}</Typography>
                                     <ListItem button fullWidth onClick={() => {
-                                        if (open === true) {
-                                            setOpen(false)
+                                        if (open === match.match_id) {
+                                            setOpen(null)
                                         }
                                         else {
-                                            setOpen(true)
+                                            setOpen(match.match_id)
                                         }
                                     }}>
                                         <ListItemText primary={'Result'} />
-                                        {open === true ? <ExpandLess /> : <ExpandMore />}
+                                        {open === match.match_id ? <ExpandLess /> : <ExpandMore />}
                                     </ListItem>
                                     <Divider />
-                                    <Collapse in={open === true} timeout="auto">
+                                    <Collapse in={open === match.match_id} timeout="auto">
                                         {scores(match, match.sportName)}
                                     </Collapse>
                                 </CardContent>

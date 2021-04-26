@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
 const TimeLine = ({ results, openDialog, sportData, sport, status, delRequest }) => {
 
     const classes = useStyles()
-    const [open, setOpen] = useState(false)
+    const [open, setOpen] = useState(null)
 
     const icons = (sport) => {
         if (sport === 'Basketball') {
@@ -166,7 +166,7 @@ const TimeLine = ({ results, openDialog, sportData, sport, status, delRequest })
                             <ListItemText primary={match.team1.team_id === result.winner_id ? match.team1.teamName : match.team2.teamName} secondary={"Winner"} className={classes.nested} />
                             <ListItemText primary={`${result.set1.team1} - ${result.set1.team2}`} secondary={"Set 1"} className={classes.nested} />
                             <ListItemText primary={`${result.set2.team1} - ${result.set2.team2}`} secondary={"Set 2"} className={classes.nested} />
-                            <ListItemText primary={`${result.set3.team1} - ${result.set3.team2}`} secondary={"Set 3"} className={classes.nested} />
+                            <ListItemText primary={result.set3.team1 && result.set3.team2? `${result.set3.team1} - ${result.set3.team2}` : ''} secondary={result.set3.team1 && result.set3.team2? "Set 3" : ''} className={classes.nested} />
                         </List>
                     )
                 }))
@@ -208,19 +208,19 @@ const TimeLine = ({ results, openDialog, sportData, sport, status, delRequest })
                                     <ListItem fullWidth>
                                         <ListItemText primary={'Result'} />
                                         <IconButton onClick={() => {
-                                            if (open === true) {
-                                                setOpen(false)
+                                            if (open === match.match_id) {
+                                                setOpen(null)
                                             }
                                             else {
-                                                setOpen(true)
+                                                setOpen(match.match_id)
                                             }
                                         }}>
-                                            {open === true ? <ExpandLess /> : <ExpandMore />}
+                                            {open === match.match_id ? <ExpandLess /> : <ExpandMore />}
                                         </IconButton>
 
                                     </ListItem>
                                     <Divider />
-                                    <Collapse in={open === true} timeout="auto">
+                                    <Collapse in={open === match.match_id} timeout="auto">
                                         {scores(match, sport)}
                                     </Collapse>
                                 </CardContent>
