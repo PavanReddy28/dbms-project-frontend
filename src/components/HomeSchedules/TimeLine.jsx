@@ -19,19 +19,32 @@ import TimelineOppositeContent from '@material-ui/lab/TimelineOppositeContent';
 import TimelineDot from '@material-ui/lab/TimelineDot';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import { Alert } from '@material-ui/lab';
 
 
 const useStyles = makeStyles((theme) => ({
     paper: {
         padding: '6px 16px',
+        backgroundColor: theme.palette.grey[900],
     },
     secondaryTail: {
         backgroundColor: theme.palette.secondary.main,
     },
-    heading: {
-        fontSize: theme.typography.pxToRem(15),
-        fontWeight: theme.typography.fontWeightRegular,
+    nested: {
+        paddingLeft: theme.spacing(4),
+        paddingRight: theme.spacing(4)
     },
+    timeline: {
+        maxHeight: 900,
+        minHeight: 900,
+        overflow: "auto",
+        backgroundColor: theme.palette.grey[800],
+        borderRadius: 10,
+        padding: theme.spacing(4)
+    },
+    timelineItem: {
+        backgroundColor: theme.palette.grey[800],
+    }
 }));
 
 const TimeLine = ({ results, openDialog, sportData, sport, status }) => {
@@ -165,6 +178,12 @@ const TimeLine = ({ results, openDialog, sportData, sport, status }) => {
 
     const setPage = (status1) => {
         if (status1) {
+            if (!sportData || !sportData.complete) {
+                return
+            }
+            else if (sportData.complete && sportData.complete.length === 0) {
+                return <Alert severity="warning">No matches completed</Alert>
+            }
             
             return (sportData.complete.map(match => {
                 return (
@@ -212,6 +231,12 @@ const TimeLine = ({ results, openDialog, sportData, sport, status }) => {
 
         }
         else {
+            if (!sportData || !sportData.pending) {
+                return
+            }
+            else if (sportData.pending && sportData.pending.length === 0) {
+                return <Alert severity="warning">No matches scheduled</Alert>
+            }
             
             return (sportData.pending.map(match => {
                 return (
@@ -245,9 +270,9 @@ const TimeLine = ({ results, openDialog, sportData, sport, status }) => {
 
 
     return (
-        <React.Fragment>
+        <div className={classes.timeline}>
             {setPage(status)}
-        </React.Fragment>
+        </div>
     )
 }
 

@@ -111,7 +111,7 @@ function Home() {
                 </Grid>
             </Container>
 
-            <Container maxWidth="md" className={classes.schedules}>
+            <Container lg={12} className={classes.schedules}>
                 <HomeMatchSchedules />
             </Container>
 

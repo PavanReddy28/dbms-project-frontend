@@ -19,16 +19,32 @@ import TimelineOppositeContent from '@material-ui/lab/TimelineOppositeContent';
 import TimelineDot from '@material-ui/lab/TimelineDot';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-
+import { Alert } from '@material-ui/lab';
 
 
 const useStyles = makeStyles((theme) => ({
     paper: {
         padding: '6px 16px',
+        backgroundColor: theme.palette.grey[900],
     },
     secondaryTail: {
         backgroundColor: theme.palette.secondary.main,
     },
+    nested: {
+        paddingLeft: theme.spacing(4),
+        paddingRight: theme.spacing(4)
+    },
+    timeline: {
+        maxHeight: 900,
+        minHeight: 900,
+        overflow: "auto",
+        backgroundColor: theme.palette.grey[800],
+        borderRadius: 10,
+        padding: theme.spacing(4)
+    },
+    timelineItem: {
+        backgroundColor: theme.palette.grey[800],
+    }
 }));
 
 const TimeLine2 = ({ results, openDialog, status, Tourn }) => {
@@ -159,6 +175,12 @@ const TimeLine2 = ({ results, openDialog, status, Tourn }) => {
     const setPage = (status) => {
         
         if (status) {
+            if (!Tourn || !Tourn.complete) {
+                return
+            }
+            else if (Tourn.complete && Tourn.complete.length === 0) {
+                return <Alert severity="warning">No matches completed</Alert>
+            }
             
             return (Tourn.complete.map(match => {
                 return (
@@ -206,6 +228,13 @@ const TimeLine2 = ({ results, openDialog, status, Tourn }) => {
 
         }
         else {
+            if (!Tourn || !Tourn.pending) {
+                return
+            }
+
+            else if (Tourn.pending && Tourn.pending.length === 0) {
+                return <Alert severity="warning">No matches scheduled</Alert>
+            }
             
             return (Tourn.pending.map(match => {
                 return (
@@ -238,9 +267,9 @@ const TimeLine2 = ({ results, openDialog, status, Tourn }) => {
     }
 
     return (
-        <React.Fragment>
+        <div className={classes.timeline}>
             {setPage(status)}
-        </React.Fragment>
+        </div>
     )
 }
 
