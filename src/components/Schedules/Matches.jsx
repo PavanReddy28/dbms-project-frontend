@@ -37,6 +37,10 @@ const useStyles = makeStyles((theme) => ({
     alert: {
         width: "100%",
         margin: "15px 0px"
+    },
+    dialog:
+    {
+        padding: theme.spacing(4)
     }
 }));
 
@@ -737,8 +741,11 @@ const Matches = ({ type, data, setData, editOpen, sport, onCloseCancel, onClose 
         <Dialog
             open={editOpen}
             onClose={() => onClose()}
+            fullWidth={true}
+            maxWidth={'sm'}
             aria-labelledby="alert-dialog-title"
-            aria-describedby="alert-dialog-description">
+            aria-describedby="alert-dialog-description"
+            className={classes.dialog}>
             <DialogTitle id="alert-dialog-title">{`${type === 'add' ? 'Add' : 'Edit'} Match`}</DialogTitle>
             <Divider />
             <Grid item xs={12} lg={12}>
